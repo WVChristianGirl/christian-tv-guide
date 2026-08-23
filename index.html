@@ -16,12 +16,19 @@
   --line:#d5dce6;
   --red:#d52331;
   --green:#17864b;
+  --channel-width:230px;
+  --hour-width:65px;
+  --timeline-width:1950px;
 }
 
 *{box-sizing:border-box}
 
-body{
+html,body{
   margin:0;
+  padding:0;
+}
+
+body{
   background:var(--bg);
   font-family:Arial,Helvetica,sans-serif;
   color:#172033;
@@ -29,37 +36,40 @@ body{
 
 .app{
   max-width:1600px;
-  margin:18px auto;
+  margin:18px auto 0;
   background:#fff;
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 8px 35px #0002;
 }
 
+/* HEADER */
+
 .header{
   background:linear-gradient(135deg,#09162b,#22518d);
   color:#fff;
-  padding:17px 20px 13px;
+  padding:15px 20px 12px;
 }
 
 .brand{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
 }
 
 .cross{
-  width:48px;
-  height:48px;
+  width:46px;
+  height:46px;
+  flex:0 0 46px;
   border-radius:10px;
   background:#ffffff18;
   display:grid;
   place-items:center;
-  font-size:28px;
+  font-size:27px;
 }
 
 .title{
-  font-size:25px;
+  font-size:24px;
   font-weight:800;
 }
 
@@ -69,24 +79,24 @@ body{
   margin-top:4px;
 }
 
-/* CATEGORY COLOR LEGEND */
+/* COLOR LEGEND */
 
 .category-legend{
   display:flex;
   flex-wrap:wrap;
   gap:5px;
-  margin-top:12px;
+  margin-top:10px;
   position:relative;
 }
 
 .legend-item{
   position:relative;
-  padding:5px 8px;
+  padding:5px 9px;
   border-radius:6px;
   font-size:9px;
   font-weight:800;
   cursor:pointer;
-  border:1px solid #ffffff44;
+  border:1px solid #ffffff55;
   color:#172033;
   transition:.15s ease;
   user-select:none;
@@ -95,7 +105,7 @@ body{
 .legend-item:hover,
 .legend-item.legend-active{
   transform:scale(1.08);
-  z-index:15;
+  z-index:30;
 }
 
 .legend-item .legend-pop{
@@ -104,13 +114,14 @@ body{
   bottom:calc(100% + 8px);
   transform:translateX(-50%);
   background:#111827;
-  color:white;
+  color:#fff;
   padding:8px 11px;
   border-radius:7px;
   white-space:nowrap;
   font-size:13px;
   font-weight:800;
   opacity:0;
+  visibility:hidden;
   pointer-events:none;
   transition:.15s;
   box-shadow:0 5px 16px #0004;
@@ -119,6 +130,7 @@ body{
 .legend-item:hover .legend-pop,
 .legend-item.legend-active .legend-pop{
   opacity:1;
+  visibility:visible;
 }
 
 .legend-church{background:#dcecff}
@@ -129,10 +141,10 @@ body{
 .legend-children{background:#c9f4f0}
 .legend-holiday{background:#f3d5ec}
 
-/* VIEWER CONTROLS */
+/* SEARCH / FILTER CONTROLS */
 
 .controls{
-  padding:11px;
+  padding:9px 11px;
   display:flex;
   gap:8px;
   flex-wrap:wrap;
@@ -144,7 +156,7 @@ body{
 .controls button{
   border:1px solid #c8d1de;
   border-radius:8px;
-  padding:10px;
+  padding:9px 10px;
   background:#fff;
 }
 
@@ -165,31 +177,66 @@ body{
   border-color:#17864b!important;
 }
 
-.now{
-  padding:9px 13px;
+/* NOW PLAYING BAR */
+
+.now-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
   background:#edf8f1;
+  border-bottom:1px solid #cde6d7;
+}
+
+.now{
+  flex:1;
+  padding:8px 13px;
   color:var(--green);
   font-weight:800;
-  font-size:13px;
-  border-bottom:1px solid #cde6d7;
+  font-size:12px;
+}
+
+.viewer-note{
+  padding:8px 14px;
+  font-size:11px;
+  color:#536173;
+  font-weight:700;
+  white-space:nowrap;
 }
 
 /* GUIDE */
 
 .guide-scroll{
-  overflow:auto;
+  overflow-x:scroll;
+  overflow-y:hidden;
   scroll-behavior:smooth;
+  scrollbar-gutter:stable;
+  background:#fff;
+}
+
+.guide-scroll::-webkit-scrollbar{
+  height:14px;
+}
+
+.guide-scroll::-webkit-scrollbar-track{
+  background:#e8edf4;
+}
+
+.guide-scroll::-webkit-scrollbar-thumb{
+  background:#7f8da1;
+  border-radius:8px;
+  border:3px solid #e8edf4;
 }
 
 .guide{
-  min-width:1790px;
+  min-width:2180px;
   position:relative;
 }
 
 .time-head{
   display:grid;
-  grid-template-columns:230px 1560px;
-  height:44px;
+  grid-template-columns:var(--channel-width) var(--timeline-width);
+  height:40px;
   background:#f7f9fc;
   border-bottom:1px solid var(--line);
   position:sticky;
@@ -198,7 +245,7 @@ body{
 }
 
 .channel-head{
-  padding:13px 10px;
+  padding:12px 10px;
   font-size:11px;
   font-weight:800;
   color:#657286;
@@ -211,17 +258,22 @@ body{
 
 .time-label{
   position:absolute;
-  top:13px;
+  top:12px;
   transform:translateX(-50%);
-  font-size:11px;
+  font-size:10px;
   font-weight:800;
   color:#657286;
+  white-space:nowrap;
+}
+
+.next-day-label{
+  color:#8b5a16;
 }
 
 .row{
-  height:104px;
+  height:84px;
   display:grid;
-  grid-template-columns:230px 1560px;
+  grid-template-columns:var(--channel-width) var(--timeline-width);
   border-bottom:1px solid var(--line);
 }
 
@@ -233,45 +285,47 @@ body{
   border-right:1px solid var(--line);
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:10px;
+  gap:9px;
+  padding:8px 10px;
 }
 
 .logo{
-  width:52px;
-  height:52px;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
   object-fit:contain;
-  border-radius:8px;
+  border-radius:7px;
   background:#e9eef5;
-  padding:4px;
+  padding:3px;
 }
 
 .placeholder{
-  width:52px;
-  height:52px;
-  border-radius:8px;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:7px;
   background:#e8eef7;
   color:#245087;
   display:grid;
   place-items:center;
   font-weight:800;
-  font-size:22px;
+  font-size:20px;
 }
 
 .channel-name{
   font-weight:800;
-  font-size:13px;
+  font-size:12px;
 }
 
 .small{
-  font-size:10px;
+  font-size:9px;
   color:#778397;
-  margin-top:4px;
+  margin-top:3px;
 }
 
 .track{
   position:relative;
-  height:104px;
+  height:84px;
   background:
     repeating-linear-gradient(
       90deg,
@@ -283,10 +337,10 @@ body{
 
 .program{
   position:absolute;
-  top:11px;
-  height:82px;
-  border-radius:8px;
-  padding:8px;
+  top:8px;
+  height:68px;
+  border-radius:7px;
+  padding:6px 7px;
   overflow:hidden;
   cursor:pointer;
   border:1px solid #0002;
@@ -337,37 +391,39 @@ body{
 
 .ptitle{
   font-weight:800;
-  font-size:12px;
+  font-size:11px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 
 .ptime{
-  font-size:10px;
+  font-size:9px;
   color:#536173;
-  margin-top:4px;
+  margin-top:3px;
+  white-space:nowrap;
 }
 
 .ptag{
-  font-size:9px;
+  font-size:8px;
   display:inline-block;
   background:#ffffffaa;
   border-radius:10px;
-  padding:3px 6px;
-  margin-top:5px;
+  padding:2px 5px;
+  margin-top:4px;
+  white-space:nowrap;
 }
 
 .livebadge{
-  display:block;
+  position:absolute;
+  right:4px;
+  bottom:4px;
   background:var(--red);
   color:#fff;
   border-radius:9px;
-  padding:3px 6px;
-  width:max-content;
-  font-size:8px;
+  padding:2px 5px;
+  font-size:7px;
   font-weight:800;
-  margin-top:4px;
 }
 
 .current-line{
@@ -459,7 +515,7 @@ body{
   color:#4e5a6b;
 }
 
-/* BOTTOM ADMIN DROPDOWN */
+/* ADMINISTRATION */
 
 .admin-dock{
   border-top:1px solid #dfe5ed;
@@ -543,9 +599,7 @@ body{
   margin-top:8px;
 }
 
-.ok{
-  color:#17864b;
-}
+.ok{color:#17864b}
 
 .admin-top{
   display:flex;
@@ -670,7 +724,6 @@ body{
   border-radius:9px;
   padding:12px;
   margin-top:9px;
-  position:relative;
 }
 
 .schedule-grid{
@@ -704,8 +757,8 @@ body{
 }
 
 .channel-preview{
-  width:60px;
-  height:60px;
+  width:54px;
+  height:54px;
   object-fit:contain;
   border-radius:8px;
   background:#edf1f6;
@@ -719,6 +772,19 @@ body{
 
   .remove-time{
     width:100%;
+  }
+}
+
+@media(max-width:700px){
+  .now-bar{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:0;
+  }
+
+  .viewer-note{
+    padding:0 13px 8px;
+    white-space:normal;
   }
 }
 
@@ -736,7 +802,6 @@ body{
 <div class="app" id="app">
 
 <header class="header">
-
   <div class="brand">
     <div class="cross">✝</div>
 
@@ -787,7 +852,6 @@ body{
       </div>
     </div>
   </div>
-
 </header>
 
 <div class="controls">
@@ -821,8 +885,16 @@ body{
 
 </div>
 
-<div class="now" id="now">
-  ● Checking Now Playing...
+<div class="now-bar">
+
+  <div class="now" id="now">
+    ● Checking Now Playing...
+  </div>
+
+  <div class="viewer-note">
+    Click program for more Information.
+  </div>
+
 </div>
 
 <div class="guide-scroll" id="guideScroll">
@@ -830,7 +902,6 @@ body{
 </div>
 
 <div class="popup" id="popup">
-
   <div class="popup-box">
 
     <button class="close" id="popupClose">
@@ -840,9 +911,7 @@ body{
     <div id="popupContent"></div>
 
   </div>
-
 </div>
-
 <div class="admin-dock">
 
   <button class="admin-toggle" id="adminToggle">
@@ -896,10 +965,7 @@ body{
           Forgot password?
         </button>
 
-        <div
-          class="message"
-          id="loginMessage">
-        </div>
+        <div class="message" id="loginMessage"></div>
 
       </div>
 
@@ -962,10 +1028,7 @@ body{
 
           </div>
 
-          <div
-            class="message"
-            id="inviteMessage">
-          </div>
+          <div class="message" id="inviteMessage"></div>
 
         </div>
 
@@ -1001,16 +1064,14 @@ body{
 
             <button
               class="save"
-              id="saveNewPassword">
+              id="saveNewPassword"
+            >
               Save New Password
             </button>
 
           </div>
 
-          <div
-            class="message"
-            id="resetMessage">
-          </div>
+          <div class="message" id="resetMessage"></div>
 
         </div>
 
@@ -1022,17 +1083,12 @@ body{
 
           <h3>Add / Edit Program</h3>
 
-          <input
-            id="programId"
-            type="hidden"
-          >
+          <input id="programId" type="hidden">
 
           <label>Channel</label>
-
           <select id="programChannel"></select>
 
           <label>Program Name</label>
-
           <input id="programTitle">
 
           <label>Program Category</label>
@@ -1051,15 +1107,16 @@ body{
 
           <textarea
             id="programDescription"
-            rows="4">
-          </textarea>
+            rows="4"
+          ></textarea>
 
           <div class="editor-actions">
 
             <button
               class="secondary"
               id="toggleTitleCard"
-              type="button">
+              type="button"
+            >
               + Add Title Card
             </button>
 
@@ -1091,7 +1148,8 @@ body{
 
           <div
             class="mini-note"
-            style="margin-bottom:8px">
+            style="margin-bottom:8px"
+          >
             Add as many weekly airings as needed before saving the program.
           </div>
 
@@ -1102,7 +1160,8 @@ body{
             <button
               class="secondary"
               id="addSchedule"
-              type="button">
+              type="button"
+            >
               + Add New Day & Time
             </button>
 
@@ -1122,13 +1181,15 @@ body{
 
             <button
               class="save"
-              id="saveProgram">
+              id="saveProgram"
+            >
               Save Program
             </button>
 
             <button
               class="cancel"
-              id="cancelProgram">
+              id="cancelProgram"
+            >
               Cancel
             </button>
 
@@ -1144,13 +1205,9 @@ body{
 
           <h3>Add / Edit Channel</h3>
 
-          <input
-            id="channelId"
-            type="hidden"
-          >
+          <input id="channelId" type="hidden">
 
           <label>Channel Name</label>
-
           <input id="channelName">
 
           <label>Channel Logo URL</label>
@@ -1169,13 +1226,15 @@ body{
 
             <button
               class="save"
-              id="saveChannel">
+              id="saveChannel"
+            >
               Save Channel
             </button>
 
             <button
               class="cancel"
-              id="cancelChannel">
+              id="cancelChannel"
+            >
               Cancel
             </button>
 
@@ -1236,6 +1295,7 @@ body{
 </div>
 
 </div>
+
 <script>
 (() => {
 
@@ -1258,6 +1318,10 @@ const DAYS=[
   "Friday",
   "Saturday"
 ];
+
+const HOUR_WIDTH=65;
+const CHANNEL_WIDTH=230;
+const EXTENDED_HOURS=30;
 
 const CHANNEL_LOGOS={
 
@@ -1282,6 +1346,48 @@ let channels=[];
 let programs=[];
 let user=null;
 let selectedDate=null;
+
+/* WEBADOR AUTOMATIC HEIGHT */
+
+let heightTimer=null;
+let lastReportedHeight=0;
+
+function reportGuideHeight(){
+
+  clearTimeout(heightTimer);
+
+  heightTimer=setTimeout(()=>{
+
+    const app=$("app");
+
+    if(!app)return;
+
+    const height=Math.ceil(
+      app.getBoundingClientRect().bottom + 4
+    );
+
+    if(
+      height>0 &&
+      Math.abs(
+        height-lastReportedHeight
+      )>1
+    ){
+
+      lastReportedHeight=height;
+
+      window.parent.postMessage(
+        {
+          type:"christian-tv-guide-height",
+          height:height
+        },
+        "*"
+      );
+
+    }
+
+  },80);
+
+}
 
 function esc(v){
 
@@ -1324,7 +1430,7 @@ function fmt(n){
   n=((n%1440)+1440)%1440;
 
   let h=Math.floor(n/60);
-  let m=n%60;
+  let m=Math.floor(n%60);
 
   let s=h<12?"AM":"PM";
 
@@ -1337,26 +1443,18 @@ function fmt(n){
 function catClass(t){
 
   return {
-
     "Church Services":"church",
-
     "Bible Study":"bible",
-
     "Variety Christian program":"variety",
-
     "Music":"music",
-
     "News":"news",
-
     "Children Programs":"children",
-
     "Holiday Programs":"holiday"
-
   }[t] || "variety";
 
 }
 
-/* LOCAL TIME FUNCTIONS */
+/* TIME ZONE FUNCTIONS */
 
 const VIEWER_TZ=
   Intl.DateTimeFormat()
@@ -1420,9 +1518,7 @@ function localMinutes(){
 }
 
 function localDate(){
-
   return zoneDate(new Date());
-
 }
 
 function zonedTimeToInstant(
@@ -1457,7 +1553,9 @@ function zonedTimeToInstant(
     const diff=
       wanted-shown;
 
-    if(Math.abs(diff)<1000)break;
+    if(Math.abs(diff)<1000){
+      break;
+    }
 
     guess=
       new Date(
@@ -1507,19 +1605,12 @@ function easternOccurrenceForProgram(
   const s=mins(p.start_time);
 
   return zonedTimeToInstant(
-
     eDate.getFullYear(),
-
     eDate.getMonth()+1,
-
     eDate.getDate(),
-
     Math.floor(s/60),
-
     s%60,
-
     "America/New_York"
-
   );
 
 }
@@ -1545,7 +1636,9 @@ function occurrenceForLocalDate(
     if(
       ed.getDay() !==
       Number(p.day_of_week)
-    ) continue;
+    ){
+      continue;
+    }
 
     const start=
       easternOccurrenceForProgram(
@@ -1564,21 +1657,26 @@ function occurrenceForLocalDate(
     const sp=
       zoneParts(start);
 
-    if(
+    const occurrenceDate=
       `${sp.year}-${String(
         sp.month
       ).padStart(2,"0")}-${String(
         sp.day
-      ).padStart(2,"0")}`
-      ===target
-    ){
+      ).padStart(2,"0")}`;
+
+    if(occurrenceDate===target){
 
       return {
         p,
         start,
         end,
         startParts:sp,
-        endParts:zoneParts(end)
+        endParts:zoneParts(end),
+        localDate:new Date(
+          sp.year,
+          sp.month-1,
+          sp.day
+        )
       };
 
     }
@@ -1588,6 +1686,8 @@ function occurrenceForLocalDate(
   return null;
 
 }
+
+/* SELECTED DAY + FIRST 6 HOURS OF FOLLOWING DAY */
 
 function displayOccurrences(){
 
@@ -1601,7 +1701,53 @@ function displayOccurrences(){
         selectedDate
       );
 
-    if(o)out.push(o);
+    if(o){
+
+      o.displayStartMinutes=
+        o.startParts.hour*60+
+        o.startParts.minute+
+        o.startParts.second/60;
+
+      o.isNextDay=false;
+
+      out.push(o);
+
+    }
+
+  }
+
+  const nextDate=
+    addDays(
+      selectedDate,
+      1
+    );
+
+  for(const p of programs){
+
+    const o=
+      occurrenceForLocalDate(
+        p,
+        nextDate
+      );
+
+    if(!o)continue;
+
+    const nextMinutes=
+      o.startParts.hour*60+
+      o.startParts.minute+
+      o.startParts.second/60;
+
+    if(nextMinutes<360){
+
+      o.displayStartMinutes=
+        1440+
+        nextMinutes;
+
+      o.isNextDay=true;
+
+      out.push(o);
+
+    }
 
   }
 
@@ -1612,10 +1758,7 @@ function displayOccurrences(){
 function currentOccurrences(){
 
   const now=new Date();
-
-  const localD=
-    localDate();
-
+  const localD=localDate();
   const out=[];
 
   for(const p of programs){
@@ -1631,9 +1774,7 @@ function currentOccurrences(){
       now>=o.start &&
       now<o.end
     ){
-
       out.push(o);
-
     }
 
   }
@@ -1643,13 +1784,8 @@ function currentOccurrences(){
 }
 
 selectedDate=localDate();
-
-$("date").value=
-  dateStr(selectedDate);
-
-/* FILTERS */
-
-function filtered(){
+$("date").value=dateStr(selectedDate);
+  function filtered(){
 
   let q=
     $("search")
@@ -1695,40 +1831,49 @@ function isToday(){
 
 }
 
+/* NOW IS POSITIONED ABOUT 25% FROM LEFT WHEN SPACE ALLOWS */
+
 function autoScrollToNow(
   smooth=true
 ){
 
   if(!isToday())return;
 
-  const sc=
-    $("guideScroll");
+  const sc=$("guideScroll");
 
   const minutes=
     localMinutes();
 
   const timelineX=
-    230+
-    (minutes/60*65);
+    CHANNEL_WIDTH+
+    (
+      minutes/60*
+      HOUR_WIDTH
+    );
 
   const target=
     Math.max(
       0,
       timelineX-
-      sc.clientWidth/2
+      (
+        sc.clientWidth*
+        0.25
+      )
     );
 
   sc.scrollTo({
     left:target,
     behavior:
-      smooth?
-      "smooth":
+      smooth
+      ?
+      "smooth"
+      :
       "auto"
   });
 
 }
 
-/* GUIDE RENDERING */
+/* GUIDE */
 
 function render(){
 
@@ -1750,7 +1895,9 @@ function render(){
 
   g.appendChild(head);
 
-  for(let h=0;h<24;h++){
+  /* 24 HOURS + SIX HOURS INTO NEXT MORNING */
+
+  for(let h=0;h<=EXTENDED_HOURS;h++){
 
     let x=
       document.createElement(
@@ -1761,10 +1908,26 @@ function render(){
       "time-label";
 
     x.style.left=
-      (h*65)+"px";
+      (h*HOUR_WIDTH)+"px";
 
-    x.textContent=
-      fmt(h*60);
+    if(h<24){
+
+      x.textContent=
+        fmt(h*60);
+
+    }else{
+
+      x.textContent=
+        fmt(
+          (h-24)*60
+        )+
+        " +1";
+
+      x.classList.add(
+        "next-day-label"
+      );
+
+    }
 
     $("timeTrack")
       .appendChild(x);
@@ -1802,16 +1965,11 @@ function render(){
         );
 
       im.className="logo";
-
       im.src=logo;
-
       im.alt=c.name;
 
       im.onerror=()=>{
-
-        im.style.display=
-          "none";
-
+        im.style.display="none";
       };
 
       ci.appendChild(im);
@@ -1832,15 +1990,23 @@ function render(){
 
     }
 
-    ci.innerHTML+=
-      `<div>
-        <div class="channel-name">
-          ${esc(c.name)}
-        </div>
-        <div class="small">
-          Weekly programming
-        </div>
+    const channelText=
+      document.createElement(
+        "div"
+      );
+
+    channelText.innerHTML=
+      `<div class="channel-name">
+        ${esc(c.name)}
+      </div>
+
+      <div class="small">
+        Weekly programming
       </div>`;
+
+    ci.appendChild(
+      channelText
+    );
 
     row.appendChild(ci);
 
@@ -1863,7 +2029,8 @@ function render(){
 
       line.style.left=
         (
-          localMinutes()/60*65
+          localMinutes()/60*
+          HOUR_WIDTH
         )+"px";
 
       tr.appendChild(line);
@@ -1879,33 +2046,19 @@ function render(){
 
         let p=o.p;
 
-        let sp=o.startParts;
-
-        let ep=o.endParts;
-
         let startMin=
-          sp.hour*60+
-          sp.minute+
-          sp.second/60;
+          Number(
+            o.displayStartMinutes
+          );
 
-        let endMin=
-          ep.hour*60+
-          ep.minute+
-          ep.second/60;
-
-        let dur=
+        let duration=
           Number(
             p.duration_minutes
           );
 
-        let displayDur=
-          Math.max(
-            1,
-            endMin-startMin
-          );
-
-        if(displayDur<1)
-          displayDur=dur;
+        let endDisplayMin=
+          startMin+
+          duration;
 
         let b=
           document.createElement(
@@ -1919,17 +2072,21 @@ function render(){
 
         b.style.left=
           (
-            startMin/60*65
+            startMin/60*
+            HOUR_WIDTH
           )+"px";
 
         b.style.width=
           Math.max(
-            76,
-            displayDur/60*65
+            70,
+            duration/60*
+            HOUR_WIDTH
           )+"px";
 
         const nowPlaying=
           isToday()
+          &&
+          !o.isNextDay
           &&
           new Date()>=o.start
           &&
@@ -1943,7 +2100,7 @@ function render(){
           <div class="ptime">
             ${fmt(startMin)}
             –
-            ${fmt(endMin)}
+            ${fmt(endDisplayMin)}
           </div>
 
           <span class="ptag">
@@ -1953,7 +2110,7 @@ function render(){
           ${
             nowPlaying
             ?
-            '<span class="livebadge">● NOW PLAYING</span>'
+            '<span class="livebadge">● NOW</span>'
             :
             ''
           }`;
@@ -1976,6 +2133,8 @@ function render(){
   });
 
   updateNow();
+
+  reportGuideHeight();
 
 }
 
@@ -2015,7 +2174,7 @@ function updateNow(){
 
 }
 
-/* PROGRAM POPUP WITH OPTIONAL TITLE CARD */
+/* PROGRAM INFORMATION POPUP */
 
 function openPopup(
   p,
@@ -2023,33 +2182,8 @@ function openPopup(
   o
 ){
 
-  const sp=
-    o?.startParts ||
-    zoneParts(
-      easternOccurrenceForProgram(
-        p,
-        easternDateFromLocalDate(
-          selectedDate
-        )
-      )
-    );
-
-  const ep=
-    o?.endParts ||
-    zoneParts(
-      new Date(
-        easternOccurrenceForProgram(
-          p,
-          easternDateFromLocalDate(
-            selectedDate
-          )
-        ).getTime()
-        +
-        Number(
-          p.duration_minutes
-        )*60000
-      )
-    );
+  const sp=o.startParts;
+  const ep=o.endParts;
 
   const titleCard=
     p.title_card_url
@@ -2060,6 +2194,18 @@ function openPopup(
       alt="${esc(p.title)} title card"
       onerror="this.style.display='none'"
     >`
+    :
+    "";
+
+  const actualDay=
+    DAYS[
+      o.localDate.getDay()
+    ];
+
+  const nextDayNotice=
+    o.isNextDay
+    ?
+    " <span style=\"color:#8b5a16;font-weight:800;\">(following morning)</span>"
     :
     "";
 
@@ -2076,9 +2222,8 @@ function openPopup(
     </div>
 
     <p>
-      <b>
-        ${DAYS[selectedDate.getDay()]}
-      </b>
+      <b>${actualDay}</b>
+      ${nextDayNotice}
       •
       ${fmt(
         sp.hour*60+
@@ -2190,8 +2335,10 @@ async function load(){
 
   setTimeout(
     ()=>autoScrollToNow(false),
-    150
+    180
   );
+
+  reportGuideHeight();
 
 }
 
@@ -2234,11 +2381,6 @@ $("date").onchange=()=>{
     );
 
   render();
-
-  setTimeout(
-    ()=>autoScrollToNow(false),
-    100
-  );
 
 };
 
@@ -2300,11 +2442,16 @@ document
           )
           .forEach(
             i=>{
-              if(i!==item)
+
+              if(i!==item){
+
                 i.classList
                   .remove(
                     "legend-active"
                   );
+
+              }
+
             }
           );
 
@@ -2321,6 +2468,7 @@ document
 document.addEventListener(
   "click",
   ()=>{
+
     document
       .querySelectorAll(
         ".legend-item"
@@ -2332,10 +2480,11 @@ document.addEventListener(
             "legend-active"
           )
       );
+
   }
 );
 
-/* ADMIN DROPDOWN */
+/* ADMINISTRATION DROPDOWN */
 
 function openAdmin(){
 
@@ -2346,6 +2495,8 @@ function openAdmin(){
   $("adminToggle")
     .classList
     .add("open");
+
+  reportGuideHeight();
 
 }
 
@@ -2359,6 +2510,8 @@ function closeAdmin(){
     .classList
     .remove("open");
 
+  reportGuideHeight();
+
 }
 
 $("adminToggle").onclick=()=>{
@@ -2369,13 +2522,9 @@ $("adminToggle").onclick=()=>{
       .contains("open");
 
   if(open){
-
     closeAdmin();
-
   }else{
-
     openAdmin();
-
   }
 
 };
@@ -2396,6 +2545,8 @@ async function checkAdmin(){
     $("adminArea")
       .style.display=
       "none";
+
+    reportGuideHeight();
 
     return;
 
@@ -2428,6 +2579,8 @@ async function checkAdmin(){
       .textContent=
       "This account is not authorized as a TV Guide administrator.";
 
+    reportGuideHeight();
+
     return;
 
   }
@@ -2441,6 +2594,8 @@ async function checkAdmin(){
     "block";
 
   await load();
+
+  reportGuideHeight();
 
 }
 
@@ -2534,60 +2689,59 @@ $("forgot").onclick=
 
   };
 
-sb.auth
-  .onAuthStateChange(
-    (event,s)=>{
+sb.auth.onAuthStateChange(
+  (event,s)=>{
 
-      user=
-        s?.user||null;
+    user=
+      s?.user||null;
 
-      if(
-        event===
-        "PASSWORD_RECOVERY"
-      ){
+    if(
+      event===
+      "PASSWORD_RECOVERY"
+    ){
 
-        openAdmin();
+      openAdmin();
 
-        $("loginBox")
-          .style.display=
-          "none";
+      $("loginBox")
+        .style.display=
+        "none";
 
-        $("adminArea")
-          .style.display=
-          "block";
+      $("adminArea")
+        .style.display=
+        "block";
 
-        $("resetEditor")
-          .style.display=
-          "block";
+      $("resetEditor")
+        .style.display=
+        "block";
 
-        $("resetMessage")
-          .textContent="";
+      $("resetMessage")
+        .textContent="";
 
-      }
-
-      if(
-        event!==
-        "PASSWORD_RECOVERY"
-      ){
-
-        checkAdmin();
-
-      }
+      reportGuideHeight();
 
     }
-  );
+
+    if(
+      event!==
+      "PASSWORD_RECOVERY"
+    ){
+
+      checkAdmin();
+
+    }
+
+  }
+);
 
 $("saveNewPassword")
   .onclick=
   async()=>{
 
     const a=
-      $("newPassword")
-        .value;
+      $("newPassword").value;
 
     const b=
-      $("newPassword2")
-        .value;
+      $("newPassword2").value;
 
     if(a.length<8){
 
@@ -2637,21 +2791,25 @@ $("saveNewPassword")
     if(!r.error){
 
       $("newPassword").value="";
-
       $("newPassword2").value="";
 
       setTimeout(
-        ()=>
-        $("resetEditor")
-          .style.display=
-          "none",
+        ()=>{
+
+          $("resetEditor")
+            .style.display=
+            "none";
+
+          reportGuideHeight();
+
+        },
         1200
       );
 
     }
 
   };
- /* PROGRAM SCHEDULE ENTRY BUILDER */
+  /* PROGRAM SCHEDULE ENTRY BUILDER */
 
 function scheduleEntryHTML(
   day=0,
@@ -2843,6 +3001,8 @@ function bindScheduleRemoveButtons(){
           )
           .remove();
 
+        reportGuideHeight();
+
       };
 
     });
@@ -2852,13 +3012,9 @@ function bindScheduleRemoveButtons(){
 function resetProgramEditor(){
 
   $("programId").value="";
-
   $("programTitle").value="";
-
   $("programDescription").value="";
-
   $("programTitleCard").value="";
-
   $("programActive").checked=true;
 
   $("programTag").value=
@@ -2901,6 +3057,8 @@ $("addProgram").onclick=()=>{
 
   resetProgramEditor();
 
+  reportGuideHeight();
+
   $("programEditor")
     .scrollIntoView({
       behavior:"smooth",
@@ -2909,11 +3067,15 @@ $("addProgram").onclick=()=>{
 
 };
 
-$("cancelProgram").onclick=
-  ()=>
+$("cancelProgram").onclick=()=>{
+
   $("programEditor")
     .style.display=
     "none";
+
+  reportGuideHeight();
+
+};
 
 $("toggleTitleCard").onclick=()=>{
 
@@ -2929,6 +3091,8 @@ $("toggleTitleCard").onclick=()=>{
     "− Hide Title Card"
     :
     "+ Add Title Card";
+
+  reportGuideHeight();
 
 };
 
@@ -2947,17 +3111,11 @@ $("addSchedule").onclick=()=>{
 
   bindScheduleRemoveButtons();
 
+  reportGuideHeight();
+
 };
 
-/* SAVE PROGRAM
-   NEW PROGRAM:
-   creates one tv_programs row for each day/time.
-
-   EDIT EXISTING:
-   updates the existing row.
-   If extra day/time rows are added while editing,
-   those extra rows become new program airings.
-*/
+/* SAVE PROGRAM */
 
 $("saveProgram").onclick=
   async()=>{
@@ -2986,12 +3144,11 @@ $("saveProgram").onclick=
 
     }
 
-    const entries=
-      [
-        ...document.querySelectorAll(
-          ".schedule-entry"
-        )
-      ];
+    const entries=[
+      ...document.querySelectorAll(
+        ".schedule-entry"
+      )
+    ];
 
     if(!entries.length){
 
@@ -3069,13 +3226,10 @@ $("saveProgram").onclick=
 
     if(id){
 
-      const first=
-        rows[0];
-
       let updateResult=
         await sb
           .from("tv_programs")
-          .update(first)
+          .update(rows[0])
           .eq("id",id);
 
       if(updateResult.error){
@@ -3090,14 +3244,11 @@ $("saveProgram").onclick=
 
       if(rows.length>1){
 
-        const extraRows=
-          rows.slice(1);
-
         let insertResult=
           await sb
             .from("tv_programs")
             .insert(
-              extraRows
+              rows.slice(1)
             );
 
         if(insertResult.error){
@@ -3136,11 +3287,13 @@ $("saveProgram").onclick=
       .style.display=
       "none";
 
-    load();
+    await load();
+
+    reportGuideHeight();
 
   };
 
-/* EDIT EXISTING PROGRAM */
+/* EDIT PROGRAM */
 
 window.editProgram=id=>{
 
@@ -3221,6 +3374,8 @@ window.editProgram=id=>{
 
   bindScheduleRemoveButtons();
 
+  reportGuideHeight();
+
   $("programEditor")
     .scrollIntoView({
       behavior:"smooth",
@@ -3252,7 +3407,7 @@ window.deleteProgram=
 
       }else{
 
-        load();
+        await load();
 
       }
 
@@ -3277,10 +3432,10 @@ $("addChannel").onclick=()=>{
     "none";
 
   $("channelId").value="";
-
   $("channelName").value="";
-
   $("channelLogo").value="";
+
+  reportGuideHeight();
 
   $("channelEditor")
     .scrollIntoView({
@@ -3290,11 +3445,15 @@ $("addChannel").onclick=()=>{
 
 };
 
-$("cancelChannel").onclick=
-  ()=>
+$("cancelChannel").onclick=()=>{
+
   $("channelEditor")
     .style.display=
     "none";
+
+  reportGuideHeight();
+
+};
 
 $("saveChannel").onclick=
   async()=>{
@@ -3366,7 +3525,7 @@ $("saveChannel").onclick=
       .style.display=
       "none";
 
-    load();
+    await load();
 
   };
 
@@ -3399,6 +3558,8 @@ window.editChannel=id=>{
 
   $("channelLogo").value=
     c.logo_url||"";
+
+  reportGuideHeight();
 
   $("channelEditor")
     .scrollIntoView({
@@ -3449,7 +3610,8 @@ function renderChannelTable(){
 
       <td>
         <button
-          onclick="editChannel('${c.id}')">
+          onclick="editChannel('${c.id}')"
+        >
           Edit
         </button>
       </td>`;
@@ -3460,7 +3622,7 @@ function renderChannelTable(){
 
 }
 
-/* ADMIN INVITE */
+/* ADMIN INVITATION */
 
 $("addAdmin").onclick=()=>{
 
@@ -3479,13 +3641,19 @@ $("addAdmin").onclick=()=>{
   $("inviteMessage")
     .textContent="";
 
+  reportGuideHeight();
+
 };
 
-$("cancelInvite").onclick=
-  ()=>
+$("cancelInvite").onclick=()=>{
+
   $("adminInvite")
     .style.display=
     "none";
+
+  reportGuideHeight();
+
+};
 
 $("sendInvite").onclick=
   async()=>{
@@ -3547,7 +3715,7 @@ $("sendInvite").onclick=
 
   };
 
-/* LOGOUT */
+/* SIGN OUT */
 
 $("logout").onclick=
   async()=>{
@@ -3571,12 +3739,14 @@ $("logout").onclick=
       .textContent=
       "Signed out.";
 
+    reportGuideHeight();
+
   };
 
 $("refresh").onclick=
   load;
 
-/* PROGRAM TABLE */
+/* ADMIN WEEKLY SCHEDULE TABLE */
 
 function renderTable(){
 
@@ -3641,12 +3811,14 @@ function renderTable(){
         <td>
 
           <button
-            onclick="editProgram('${p.id}')">
+            onclick="editProgram('${p.id}')"
+          >
             Edit
           </button>
 
           <button
-            onclick="deleteProgram('${p.id}')">
+            onclick="deleteProgram('${p.id}')"
+          >
             Delete
           </button>
 
@@ -3658,7 +3830,7 @@ function renderTable(){
 
 }
 
-/* LIVE DATABASE UPDATES */
+/* REALTIME DATABASE UPDATES */
 
 sb.channel(
   "christian-tv-guide-live"
@@ -3686,24 +3858,51 @@ sb.channel(
 
 .subscribe();
 
-/* AUTO UPDATE */
+/* KEEP NOW LINE CURRENT */
 
 setInterval(
   ()=>render(),
   30000
 );
 
-setInterval(
-  ()=>{
-    if(isToday())
-      render();
-  },
-  60000
+/* WEBADOR HEIGHT WATCHER */
+
+if("ResizeObserver" in window){
+
+  const observer=
+    new ResizeObserver(
+      ()=>reportGuideHeight()
+    );
+
+  observer.observe(
+    $("app")
+  );
+
+}
+
+window.addEventListener(
+  "load",
+  reportGuideHeight
 );
 
-/* INITIAL LOAD */
+window.addEventListener(
+  "resize",
+  reportGuideHeight
+);
+
+/* INITIAL START */
 
 load();
+
+setTimeout(
+  reportGuideHeight,
+  500
+);
+
+setTimeout(
+  reportGuideHeight,
+  1200
+);
 
 })();
 </script>

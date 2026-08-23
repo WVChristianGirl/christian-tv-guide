@@ -16,11 +16,10 @@
   --line:#d5dce6;
   --red:#d52331;
   --green:#17864b;
-
   --channel-width:230px;
   --hour-width:65px;
   --timeline-width:1950px;
-  --row-height:82px;
+  --row-height:86px;
 }
 
 *{box-sizing:border-box}
@@ -227,18 +226,14 @@ button,input,select,textarea{
 }
 
 .guide{
-  min-width:calc(
-    var(--channel-width) + var(--timeline-width)
-  );
+  min-width:2180px;
   position:relative;
 }
 
 .time-head{
   display:grid;
-  grid-template-columns:
-    var(--channel-width)
-    var(--timeline-width);
-  height:38px;
+  grid-template-columns:var(--channel-width) var(--timeline-width);
+  height:40px;
   background:#f7f9fc;
   border-bottom:1px solid var(--line);
   position:sticky;
@@ -247,7 +242,7 @@ button,input,select,textarea{
 }
 
 .channel-head{
-  padding:11px 10px;
+  padding:12px 10px;
   font-size:11px;
   font-weight:800;
   color:#657286;
@@ -264,7 +259,7 @@ button,input,select,textarea{
 
 .time-label{
   position:absolute;
-  top:11px;
+  top:12px;
   transform:translateX(-50%);
   font-size:10px;
   font-weight:800;
@@ -279,9 +274,7 @@ button,input,select,textarea{
 .row{
   height:var(--row-height);
   display:grid;
-  grid-template-columns:
-    var(--channel-width)
-    var(--timeline-width);
+  grid-template-columns:var(--channel-width) var(--timeline-width);
   border-bottom:1px solid var(--line);
 }
 
@@ -293,8 +286,8 @@ button,input,select,textarea{
   border-right:1px solid var(--line);
   display:flex;
   align-items:center;
-  gap:8px;
-  padding:7px 9px;
+  gap:9px;
+  padding:8px 10px;
 }
 
 .logo{
@@ -345,7 +338,7 @@ button,input,select,textarea{
 
 .program{
   position:absolute;
-  top:7px;
+  top:8px;
   height:68px;
   border-radius:7px;
   padding:6px 7px;
@@ -438,9 +431,9 @@ button,input,select,textarea{
   position:absolute;
   top:0;
   bottom:0;
-  width:3px;
+  width:2px;
   background:var(--red);
-  z-index:5;
+  z-index:4;
   pointer-events:none;
 }
 
@@ -449,8 +442,8 @@ button,input,select,textarea{
   position:absolute;
   top:0;
   left:-5px;
-  width:13px;
-  height:13px;
+  width:12px;
+  height:12px;
   border-radius:50%;
   background:var(--red);
 }
@@ -712,7 +705,7 @@ button,input,select,textarea{
   color:#fff;
 }
 
-/* ROLE INFORMATION */
+/* ROLE HELP */
 
 .role-label-line{
   display:flex;
@@ -772,7 +765,7 @@ button,input,select,textarea{
   margin-top:8px;
 }
 
-/* COLLAPSIBLE ADMIN SECTIONS */
+/* ADMIN SECTIONS */
 
 .admin-section{
   margin-top:14px;
@@ -930,10 +923,7 @@ button,input,select,textarea{
   padding:4px;
 }
 
-/* TABLET */
-
 @media(max-width:750px){
-
   .schedule-grid{
     grid-template-columns:1fr;
   }
@@ -941,138 +931,13 @@ button,input,select,textarea{
   .remove-time{
     width:100%;
   }
-
 }
 
-/* PHONE */
-
 @media(max-width:650px){
-
-  :root{
-    --channel-width:170px;
-    --row-height:72px;
-  }
-
-  .app{
-    margin:8px auto 0;
-    border-radius:14px;
-  }
-
-  .header{
-    padding:12px 12px 11px;
-  }
-
-  .brand{
-    gap:9px;
-  }
-
-  .cross{
-    width:42px;
-    height:42px;
-    flex-basis:42px;
-    font-size:24px;
-  }
-
-  .title{
-    font-size:20px;
-  }
-
-  .subtitle{
-    display:none;
-  }
-
-  .category-legend{
-    gap:4px;
-    margin-top:9px;
-  }
-
-  .legend-item{
-    font-size:8px;
-    padding:4px 7px;
-  }
-
-  .guide-note{
-    font-size:10px;
-    margin-top:7px;
-  }
-
-  .controls{
-    padding:8px;
-  }
-
-  .controls input,
-  .controls select,
-  .controls button{
-    padding:8px;
-  }
-
-  .search{
-    flex-basis:100%;
-    min-width:100%;
-  }
-
-  .time-head{
-    height:36px;
-  }
-
-  .channel-head{
-    padding:10px 7px;
-    font-size:9px;
-  }
-
-  .time-label{
-    top:10px;
-    font-size:9px;
-  }
-
-  .channel{
-    padding:5px 6px;
-    gap:6px;
-  }
-
-  .logo{
-    width:36px;
-    height:36px;
-    flex-basis:36px;
-  }
-
-  .placeholder{
-    width:36px;
-    height:36px;
-    flex-basis:36px;
-    font-size:17px;
-  }
-
-  .channel-name{
-    font-size:10px;
-    line-height:1.15;
-  }
-
-  .small{
-    font-size:8px;
-    line-height:1.1;
-    margin-top:2px;
-  }
-
-  .program{
-    top:6px;
-    height:60px;
-    padding:5px;
-  }
-
-  .ptitle{
-    font-size:10px;
-  }
-
-  .ptime{
-    font-size:8px;
-  }
-
-  .ptag{
-    font-size:7px;
-    padding:2px 4px;
-  }
-
+  .title{font-size:19px}
+  .subtitle{display:none}
+  .header{padding:12px}
+  .legend-item{font-size:8px}
 }
 </style>
 </head>
@@ -1186,7 +1051,6 @@ button,input,select,textarea{
 </div>
 
 <div class="popup" id="popup">
-
   <div class="popup-box">
 
     <button class="close" id="popupClose">
@@ -1196,469 +1060,151 @@ button,input,select,textarea{
     <div id="popupContent"></div>
 
   </div>
-
 </div>
 <div class="admin-dock">
 
-  <button
-    class="admin-toggle"
-    id="adminToggle"
-    type="button"
-  >
+  <button class="admin-toggle" id="adminToggle">
     Administration
     <span class="arrow">▼</span>
   </button>
 
-  <div class="admin-panel" id="adminPanel">
+  <section class="admin-panel" id="adminPanel">
 
     <div class="admin">
 
-      <div id="loginArea">
+      <div class="admin-top">
 
-        <div class="login">
+        <div>
+          <h2 style="margin:0">
+            Christian TV Guide Administration
+          </h2>
 
-          <h2>Administration Login</h2>
-
-          <p class="mini-note">
-            Authorized administrators only.
+          <p style="color:#6b7788">
+            Manage channels, programs, schedules and administrators.
           </p>
-
-          <input
-            id="adminEmail"
-            type="email"
-            placeholder="Email address"
-            autocomplete="email"
-          >
-
-          <input
-            id="adminPassword"
-            type="password"
-            placeholder="Password"
-            autocomplete="current-password"
-          >
-
-          <button id="loginBtn" type="button">
-            Sign In
-          </button>
-
-          <button
-            id="forgotPasswordBtn"
-            class="linkbtn"
-            type="button"
-          >
-            Forgot Password?
-          </button>
-
-          <div
-            id="loginMessage"
-            class="message"
-          ></div>
-
         </div>
+
+        <button id="adminClose">
+          Close
+        </button>
 
       </div>
 
+      <div class="signed-in-card" id="signedInCard">
+        Signed in as
+        <strong id="signedInEmail"></strong>
+        <span class="role-badge" id="signedInRole"></span>
+      </div>
 
-      <div
-        id="adminArea"
-        style="display:none;"
-      >
+      <div class="login" id="loginBox">
 
-        <div class="admin-top">
+        <h3>Administrator Login</h3>
 
-          <div>
-            <h2 style="margin:0;">
-              TV Guide Administration
-            </h2>
+        <input
+          id="email"
+          type="email"
+          placeholder="Administrator email"
+        >
 
-            <div class="mini-note">
-              Manage programs, schedules,
-              channels and administrators.
-            </div>
-          </div>
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+        >
 
-          <button
-            id="logoutBtn"
-            type="button"
-          >
+        <button id="login">
+          Sign In
+        </button>
+
+        <button class="linkbtn" id="forgot">
+          Forgot password?
+        </button>
+
+        <div class="message" id="loginMessage"></div>
+
+      </div>
+
+      <div id="adminArea" style="display:none">
+
+        <div class="actions">
+
+          <button id="addProgram">
+            + Add Program
+          </button>
+
+          <button id="addChannel">
+            + Add Channel
+          </button>
+
+          <button id="addAdmin">
+            + Add New Administrator
+          </button>
+
+          <button id="refresh">
+            Refresh
+          </button>
+
+          <button class="danger" id="logout">
             Sign Out
           </button>
 
         </div>
 
-
-        <div
-          class="signed-in-card"
-          id="signedInCard"
-        >
-          Signed in as
-          <strong id="signedInEmail"></strong>
-
-          <span
-            class="role-badge"
-            id="signedInRole"
-          ></span>
-        </div>
-
-
-        <div class="actions">
-
-          <button
-            id="newProgramBtn"
-            type="button"
-          >
-            + Add Program
-          </button>
-
-          <button
-            id="newChannelBtn"
-            type="button"
-          >
-            + Add Channel
-          </button>
-
-          <button
-            id="inviteAdminBtn"
-            type="button"
-          >
-            + Invite Administrator
-          </button>
-
-        </div>
-
-
-        <!-- PROGRAM EDITOR -->
+        <!-- INVITE ADMINISTRATOR -->
 
         <div
           class="editor"
-          id="programEditor"
-          style="display:none;"
+          id="adminInvite"
+          style="display:none"
         >
 
-          <h3 id="programEditorTitle">
-            Add Program
-          </h3>
-
-          <input
-            type="hidden"
-            id="programId"
-          >
+          <h3>Invite New Administrator</h3>
 
           <label>
-            Program Name
+            Administrator Email
           </label>
 
           <input
-            id="programTitle"
-            placeholder="Program name"
-          >
-
-
-          <label>
-            Description
-          </label>
-
-          <textarea
-            id="programDescription"
-            rows="4"
-            placeholder="Program description"
-          ></textarea>
-
-
-          <label>
-            Category
-          </label>
-
-          <select id="programCategory">
-
-            <option value="Church Services">
-              Church Services
-            </option>
-
-            <option value="Bible Study">
-              Bible Study
-            </option>
-
-            <option value="Variety Christian program">
-              Variety Christian program
-            </option>
-
-            <option value="Music">
-              Music
-            </option>
-
-            <option value="News">
-              News
-            </option>
-
-            <option value="Children Programs">
-              Children Programs
-            </option>
-
-            <option value="Holiday Programs">
-              Holiday Programs
-            </option>
-
-          </select>
-
-
-          <label>
-            Program Length
-          </label>
-
-          <select id="programDuration">
-
-            <option value="15">
-              15 Minutes
-            </option>
-
-            <option value="30" selected>
-              30 Minutes
-            </option>
-
-            <option value="60">
-              60 Minutes
-            </option>
-
-          </select>
-
-
-          <label>
-            Program Title Card / Image URL
-          </label>
-
-          <input
-            id="programImage"
-            placeholder="https://..."
-          >
-
-
-          <label>
-            Website / More Information URL
-          </label>
-
-          <input
-            id="programUrl"
-            placeholder="https://..."
-          >
-
-
-          <label>
-            Active
-          </label>
-
-          <select id="programActive">
-
-            <option value="true">
-              Yes
-            </option>
-
-            <option value="false">
-              No
-            </option>
-
-          </select>
-
-
-          <div class="editor-actions">
-
-            <button
-              class="save"
-              id="saveProgramBtn"
-              type="button"
-            >
-              Save Program
-            </button>
-
-            <button
-              class="cancel"
-              id="cancelProgramBtn"
-              type="button"
-            >
-              Cancel
-            </button>
-
-          </div>
-
-          <div
-            id="programMessage"
-            class="message"
-          ></div>
-
-        </div>
-
-
-        <!-- CHANNEL EDITOR -->
-
-        <div
-          class="editor"
-          id="channelEditor"
-          style="display:none;"
-        >
-
-          <h3 id="channelEditorTitle">
-            Add / Edit Channel
-          </h3>
-
-          <input
-            type="hidden"
-            id="channelId"
-          >
-
-
-          <label>
-            Channel Name
-          </label>
-
-          <input
-            id="channelName"
-            placeholder="Channel name"
-          >
-
-
-          <label>
-            Channel Logo URL
-          </label>
-
-          <input
-            id="channelLogo"
-            placeholder="https://..."
-          >
-
-
-          <label>
-            Display Order
-          </label>
-
-          <input
-            id="channelOrder"
-            type="number"
-            min="0"
-            value="0"
-          >
-
-
-          <label>
-            Active
-          </label>
-
-          <select id="channelActive">
-
-            <option value="true">
-              Yes
-            </option>
-
-            <option value="false">
-              No
-            </option>
-
-          </select>
-
-
-          <div class="editor-actions">
-
-            <button
-              class="save"
-              id="saveChannelBtn"
-              type="button"
-            >
-              Save Channel
-            </button>
-
-            <button
-              class="danger"
-              id="deleteChannelBtn"
-              type="button"
-              style="display:none;"
-            >
-              Delete Channel
-            </button>
-
-            <button
-              class="cancel"
-              id="cancelChannelBtn"
-              type="button"
-            >
-              Cancel
-            </button>
-
-          </div>
-
-          <div
-            id="channelMessage"
-            class="message"
-          ></div>
-
-        </div>
-
-
-        <!-- ADMINISTRATOR EDITOR -->
-
-        <div
-          class="editor"
-          id="adminEditor"
-          style="display:none;"
-        >
-
-          <h3>
-            Invite Administrator
-          </h3>
-
-          <label>
-            Email Address
-          </label>
-
-          <input
-            id="inviteEmail"
+            id="newAdminEmail"
             type="email"
-            placeholder="administrator@example.com"
+            placeholder="name@example.com"
           >
-
 
           <div class="role-label-line">
 
             <label>
-              Administrator Role
+              Role
             </label>
 
-            <div
-              class="info-wrap"
-              id="roleInfoWrap"
-            >
+            <div class="info-wrap" id="roleHelpWrap">
 
               <button
                 class="info-btn"
-                id="roleInfoBtn"
+                id="roleHelpButton"
                 type="button"
-                title="Role information"
+                aria-label="Role information"
               >
-                ?
+                i
               </button>
 
               <div class="role-help">
 
                 <div>
                   <strong>Owner</strong><br>
-                  Full TV Guide control. Owners can
-                  manage programs, channels and
-                  administrators, including assigning
-                  another Owner.
+                  Full control of the TV Guide, including programs,
+                  schedules, channels, administrators and role assignments.
                 </div>
 
                 <div>
-                  <strong>
-                    Administration Manager
-                  </strong><br>
-                  Can manage programs, channels and
-                  administrators, but cannot give
-                  someone Owner authority.
+                  <strong>Administration Manager</strong><br>
+                  Can manage programs, schedules, channels and regular
+                  Administration accounts. Cannot control Owner accounts.
                 </div>
 
                 <div>
                   <strong>Administration</strong><br>
-                  Can manage TV programming and
-                  schedules, but does not have full
-                  administrator-management authority.
+                  Can manage normal TV programming and weekly schedules.
+                  Cannot manage administrator accounts or Owner permissions.
                 </div>
 
               </div>
@@ -1667,259 +1213,252 @@ button,input,select,textarea{
 
           </div>
 
+          <select id="newAdminRole"></select>
 
-          <select id="inviteRole">
+          <div class="mini-note" id="roleInviteNote"></div>
 
-            <option value="administration">
-              Administration
-            </option>
+          <div class="editor-actions">
 
-            <option value="administration_manager">
-              Administration Manager
-            </option>
+            <button class="save" id="sendInvite">
+              Send Invitation
+            </button>
 
-            <option value="owner">
-              Owner
-            </option>
+            <button class="cancel" id="cancelInvite">
+              Cancel
+            </button>
 
-          </select>
+          </div>
 
+          <div class="message" id="inviteMessage"></div>
+
+        </div>
+
+        <!-- PASSWORD RESET -->
+
+        <div
+          class="editor"
+          id="resetEditor"
+          style="display:none"
+        >
+
+          <h3>Set New Password</h3>
+
+          <label>New Password</label>
+
+          <input
+            id="newPassword"
+            type="password"
+            minlength="8"
+          >
+
+          <label>Confirm New Password</label>
+
+          <input
+            id="newPassword2"
+            type="password"
+            minlength="8"
+          >
 
           <div class="editor-actions">
 
             <button
               class="save"
-              id="sendInviteBtn"
+              id="saveNewPassword"
+            >
+              Save New Password
+            </button>
+
+          </div>
+
+          <div class="message" id="resetMessage"></div>
+
+        </div>
+
+        <!-- PROGRAM EDITOR -->
+
+        <div
+          class="editor"
+          id="programEditor"
+          style="display:none"
+        >
+
+          <h3>Add / Edit Program</h3>
+
+          <input id="programId" type="hidden">
+          <input id="programEditMode" type="hidden" value="new">
+
+          <label>Channel</label>
+          <select id="programChannel"></select>
+
+          <label>Program Name</label>
+          <input id="programTitle">
+
+          <label>Program Category</label>
+
+          <select id="programTag">
+            <option>Church Services</option>
+            <option>Bible Study</option>
+            <option>Variety Christian program</option>
+            <option>Music</option>
+            <option>News</option>
+            <option>Children Programs</option>
+            <option>Holiday Programs</option>
+          </select>
+
+          <label>Description</label>
+
+          <textarea
+            id="programDescription"
+            rows="4"
+          ></textarea>
+
+          <div class="editor-actions">
+
+            <button
+              class="secondary"
+              id="toggleTitleCard"
               type="button"
             >
-              Send Invitation
+              + Add Title Card
+            </button>
+
+          </div>
+
+          <div
+            class="title-card-area"
+            id="titleCardArea"
+          >
+
+            <label>
+              Title Card Image URL
+            </label>
+
+            <input
+              id="programTitleCard"
+              type="url"
+              placeholder="https://..."
+            >
+
+            <div class="mini-note">
+              Recommended: 1280 × 720 px (16:9), JPG or PNG.
+              The title card appears only inside the program information popup.
+            </div>
+
+          </div>
+
+          <h4 style="margin-bottom:4px">
+            Day & Time
+          </h4>
+
+          <div class="mini-note">
+            Add as many weekly airings as needed before saving.
+          </div>
+
+          <div id="scheduleEntries"></div>
+
+          <div class="editor-actions">
+
+            <button
+              class="secondary"
+              id="addSchedule"
+              type="button"
+            >
+              + Add New Day & Time
+            </button>
+
+          </div>
+
+          <label>
+            <input
+              id="programActive"
+              type="checkbox"
+              checked
+              style="width:auto"
+            >
+            Active program
+          </label>
+
+          <div class="editor-actions">
+
+            <button
+              class="save"
+              id="saveProgram"
+            >
+              Save Program
             </button>
 
             <button
               class="cancel"
-              id="cancelInviteBtn"
-              type="button"
+              id="cancelProgram"
             >
               Cancel
             </button>
 
           </div>
 
-          <div
-            id="inviteMessage"
-            class="message"
-          ></div>
-
         </div>
 
+        <!-- CHANNEL EDITOR -->
 
-        <!-- CHANNEL MANAGEMENT -->
+        <div
+          class="editor"
+          id="channelEditor"
+          style="display:none"
+        >
 
-        <div class="admin-section">
+          <h3>Add / Edit Channel</h3>
 
-          <button
-            class="section-toggle"
-            type="button"
-            data-section="channelManagementBody"
+          <input id="channelId" type="hidden">
+
+          <label>Channel Name</label>
+          <input id="channelName">
+
+          <label>Channel Logo URL</label>
+
+          <input
+            id="channelLogo"
+            type="url"
+            placeholder="https://..."
           >
-            <span>
-              Channel Management
-            </span>
 
-            <span class="section-arrow">
-              ▼
-            </span>
-          </button>
+          <div class="editor-actions">
 
-          <div
-            class="section-body"
-            id="channelManagementBody"
-          >
+            <button
+              class="save"
+              id="saveChannel"
+            >
+              Save Channel
+            </button>
 
-            <div class="table-wrap">
+            <button
+              class="cancel"
+              id="cancelChannel"
+            >
+              Cancel
+            </button>
 
-              <table class="table">
-
-                <thead>
-
-                  <tr>
-                    <th>Channel</th>
-                    <th>Active</th>
-                    <th>Actions</th>
-                  </tr>
-
-                </thead>
-
-                <tbody id="channelTableBody">
-                </tbody>
-
-              </table>
-
-            </div>
+            <button
+              class="danger"
+              id="deleteChannel"
+              style="display:none"
+            >
+              Delete Channel
+            </button>
 
           </div>
 
         </div>
-
-
-        <!-- WEEKLY SCHEDULE -->
-
-        <div class="admin-section">
-
-          <button
-            class="section-toggle"
-            type="button"
-            data-section="weeklyScheduleBody"
-          >
-            <span>
-              Weekly Schedule
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-          </button>
-
-          <div
-            class="section-body"
-            id="weeklyScheduleBody"
-          >
-
-            <div class="section-toolbar">
-
-              <label for="scheduleSort">
-                Sort by:
-              </label>
-
-              <select id="scheduleSort">
-
-                <option value="channel">
-                  Channel
-                </option>
-
-                <option value="day">
-                  Day
-                </option>
-
-                <option value="time">
-                  Time
-                </option>
-
-                <option value="program">
-                  Program
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div class="table-wrap">
-
-              <table class="table">
-
-                <thead>
-
-                  <tr>
-                    <th>Channel</th>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Program</th>
-                    <th>Actions</th>
-                  </tr>
-
-                </thead>
-
-                <tbody id="scheduleTableBody">
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- PROGRAM LIST -->
-
-        <div class="admin-section">
-
-          <button
-            class="section-toggle"
-            type="button"
-            data-section="programListBody"
-          >
-
-            <span>
-              Program List
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-
-          </button>
-
-          <div
-            class="section-body"
-            id="programListBody"
-          >
-
-            <div class="mini-note">
-              Programs are listed alphabetically.
-            </div>
-
-            <div class="table-wrap">
-
-              <table class="table">
-
-                <thead>
-
-                  <tr>
-                    <th>Program</th>
-                    <th>Category</th>
-                    <th>Length</th>
-                    <th>Actions</th>
-                  </tr>
-
-                </thead>
-
-                <tbody id="programTableBody">
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-        </div>
-
 
         <!-- ADMINISTRATOR MANAGEMENT -->
 
-        <div
-          class="admin-section"
-          id="administratorManagementSection"
-          style="display:none;"
-        >
+        <div class="admin-section" id="administratorManagementSection">
 
           <button
             class="section-toggle"
-            type="button"
-            data-section="administratorManagementBody"
+            data-target="administratorManagementBody"
           >
-
-            <span>
-              Administrator Management
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-
+            <span>Administrator Management</span>
+            <span class="section-arrow">▼</span>
           </button>
 
           <div
@@ -1932,18 +1471,153 @@ button,input,select,textarea{
               <table class="table">
 
                 <thead>
-
                   <tr>
-                    <th>Email</th>
+                    <th>User</th>
                     <th>Role</th>
                     <th>Approved</th>
                     <th>Actions</th>
                   </tr>
-
                 </thead>
 
-                <tbody id="administratorTableBody">
-                </tbody>
+                <tbody id="administratorTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CHANNEL MANAGEMENT -->
+
+        <div class="admin-section" id="channelManagementSection">
+
+          <button
+            class="section-toggle"
+            data-target="channelManagementBody"
+          >
+            <span>Channel Management</span>
+            <span class="section-arrow">▼</span>
+          </button>
+
+          <div
+            class="section-body"
+            id="channelManagementBody"
+          >
+
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Icon</th>
+                    <th>Channel</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="channelTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- PROGRAM LIST -->
+
+        <div class="admin-section">
+
+          <button
+            class="section-toggle"
+            data-target="programListBody"
+          >
+            <span>Program List</span>
+            <span class="section-arrow">▼</span>
+          </button>
+
+          <div
+            class="section-body"
+            id="programListBody"
+          >
+
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Program</th>
+                    <th>Channel</th>
+                    <th>Category</th>
+                    <th>Airings</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="programListTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- WEEKLY SCHEDULE -->
+
+        <div class="admin-section">
+
+          <button
+            class="section-toggle"
+            data-target="weeklyScheduleBody"
+          >
+            <span>Weekly Schedule</span>
+            <span class="section-arrow">▼</span>
+          </button>
+
+          <div
+            class="section-body"
+            id="weeklyScheduleBody"
+          >
+
+            <div class="section-toolbar">
+
+              <label>
+                Sort by:
+              </label>
+
+              <select id="scheduleSort">
+                <option value="channel">Channel</option>
+                <option value="day" selected>Day</option>
+                <option value="time">Time</option>
+                <option value="program">Program</option>
+              </select>
+
+            </div>
+
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Channel</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Program</th>
+                    <th>Category</th>
+                    <th>Length</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="adminTable"></tbody>
 
               </table>
 
@@ -1957,48 +1631,35 @@ button,input,select,textarea{
 
     </div>
 
-  </div>
+  </section>
 
 </div>
+
+</div>
+
 <script>
+(() => {
 
-/* =========================================================
-   CHRISTIAN TV GUIDE
-   ========================================================= */
-
-const SUPABASE_URL =
+const URL=
   "https://elimddjnqmttrnfzekqv.supabase.co";
 
-/*
-  IMPORTANT:
-  Keep the same Supabase public ANON key
-  that was in your previous working file.
-*/
-const SUPABASE_ANON_KEY =
-  "PASTE_YOUR_EXISTING_SUPABASE_ANON_KEY_HERE";
+const KEY=
+  "sb_publishable_4GSpMU-WqFVrJrTjZ_NYiw_PfYt-jtG";
 
-const sb = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const INVITE_FUNCTION=
+  "invite-admin";
 
-const INVITE_ADMIN_URL =
-  "https://elimddjnqmttrnfzekqv.supabase.co/functions/v1/invite-admin";
+const sb=
+  window.supabase.createClient(
+    URL,
+    KEY
+  );
 
+const $=
+  id=>
+  document.getElementById(id);
 
-/* =========================================================
-   BASIC VARIABLES
-   ========================================================= */
-
-let channels = [];
-let programs = [];
-let schedules = [];
-let administrators = [];
-
-let currentUser = null;
-let currentAdmin = null;
-
-const DAY_NAMES = [
+const DAYS=[
   "Sunday",
   "Monday",
   "Tuesday",
@@ -2008,3309 +1669,3200 @@ const DAY_NAMES = [
   "Saturday"
 ];
 
+const HOUR_WIDTH=65;
+const CHANNEL_WIDTH=230;
+const EXTENDED_HOURS=30;
 
-/*
-  IMPORTANT TIME SYSTEM
+const ROLE_NAMES={
+  owner:"Owner",
+  administration_manager:"Administration Manager",
+  administration:"Administration"
+};
 
-  The viewer's browser/device is the authority
-  for the viewer's displayed date and time.
+const CHANNEL_LOGOS={
 
-  We deliberately do NOT manually add or subtract
-  Eastern, Central, Mountain or Pacific hours here.
-*/
+  "WOTG Christian TV":
+  "https://primary.jwwb.nl/public/x/a/t/temp-lzblsqgvgvhunkmqxsln/wotg-logo-lg-blue-transparent-high.png",
 
-function viewerNow(){
-  return new Date();
+  "Branson Gospel TV":
+  "https://primary.jwwb.nl/public/x/a/t/temp-lzblsqgvgvhunkmqxsln/branson-gospel-button-high.png",
+
+  "Ohio Valley Christian TV":
+  "https://primary.jwwb.nl/public/x/a/t/temp-lzblsqgvgvhunkmqxsln/image-high-nq6oup.png",
+
+  "WGHC Christian TV":
+  "https://primary.jwwb.nl/public/x/a/t/temp-lzblsqgvgvhunkmqxsln/wghctv-high.png",
+
+  "Wylie Gospel TV":
+  "https://primary.jwwb.nl/public/x/a/t/temp-lzblsqgvgvhunkmqxsln/wylie-logo-high.png"
+
+};
+
+let channels=[];
+let programs=[];
+let administrators=[];
+let user=null;
+let adminRecord=null;
+let selectedDate=null;
+let editingGroupIds=[];
+
+function roleName(role){
+  return ROLE_NAMES[role]||role||"";
 }
 
-function pad2(value){
-  return String(value).padStart(2,"0");
+function isOwner(){
+  return adminRecord?.role==="owner";
 }
 
-function localDateString(date){
-  return (
-    date.getFullYear() +
-    "-" +
-    pad2(date.getMonth()+1) +
-    "-" +
-    pad2(date.getDate())
-  );
+function isManager(){
+  return adminRecord?.role==="administration_manager";
 }
 
-function selectedDate(){
-
-  const value =
-    document.getElementById("date").value;
-
-  if(!value){
-    return viewerNow();
-  }
-
-  const parts = value.split("-");
-
-  return new Date(
-    Number(parts[0]),
-    Number(parts[1])-1,
-    Number(parts[2]),
-    12,
-    0,
-    0,
-    0
-  );
+function canManageAdmins(){
+  return isOwner()||isManager();
 }
 
-function formatTime(date){
-
-  return date.toLocaleTimeString(
-    [],
-    {
-      hour:"numeric",
-      minute:"2-digit"
-    }
-  );
-
+function canManageChannels(){
+  return isOwner()||isManager();
 }
 
-function minutesFromMidnight(date){
+/* HEIGHT */
 
-  return (
-    date.getHours()*60 +
-    date.getMinutes() +
-    date.getSeconds()/60
-  );
+let heightTimer=null;
+let lastReportedHeight=0;
 
-}
+function reportGuideHeight(){
 
+  clearTimeout(heightTimer);
 
-/* =========================================================
-   TIMELINE
-   ========================================================= */
+  heightTimer=setTimeout(()=>{
 
-function getHourWidth(){
+    const app=$("app");
 
-  const raw = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--hour-width");
+    if(!app)return;
 
-  return parseFloat(raw) || 65;
-
-}
-
-function getChannelWidth(){
-
-  const raw = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--channel-width");
-
-  return parseFloat(raw) || 230;
-
-}
-
-function minuteToPixel(minutes){
-
-  return (
-    minutes / 60
-  ) * getHourWidth();
-
-}
-
-
-/*
-  The guide uses a full 24-hour day.
-*/
-
-function buildTimeHeader(){
-
-  let html = `
-    <div class="time-head">
-
-      <div class="channel-head">
-        CHANNEL
-      </div>
-
-      <div class="time-track">
-  `;
-
-  for(let hour=0; hour<24; hour++){
-
-    const date =
-      new Date(
-        2000,
-        0,
-        1,
-        hour,
-        0,
-        0
+    const height=
+      Math.ceil(
+        app.getBoundingClientRect().bottom+4
       );
 
-    const left =
-      hour * getHourWidth();
+    if(
+      height>0 &&
+      Math.abs(
+        height-lastReportedHeight
+      )>1
+    ){
 
-    html += `
-      <div
-        class="time-label"
-        style="left:${left}px"
-      >
-        ${date.toLocaleTimeString(
-          [],
-          {
-            hour:"numeric",
-            minute:"2-digit"
-          }
-        )}
-      </div>
-    `;
+      lastReportedHeight=height;
 
-  }
+      window.parent.postMessage(
+        {
+          type:"christian-tv-guide-height",
+          height
+        },
+        "*"
+      );
 
-  html += `
-      </div>
-    </div>
-  `;
+    }
 
-  return html;
+  },80);
 
 }
+  function esc(v){
 
-
-/* =========================================================
-   CATEGORY CLASS
-   ========================================================= */
-
-function categoryClass(category){
-
-  const c =
-    String(category || "")
-      .toLowerCase();
-
-  if(c.includes("church"))
-    return "church";
-
-  if(c.includes("bible"))
-    return "bible";
-
-  if(c.includes("music"))
-    return "music";
-
-  if(c.includes("news"))
-    return "news";
-
-  if(c.includes("children"))
-    return "children";
-
-  if(c.includes("holiday"))
-    return "holiday";
-
-  return "variety";
-}
-
-
-/* =========================================================
-   PROGRAM LOOKUPS
-   ========================================================= */
-
-function getProgram(id){
-
-  return programs.find(
-    p => String(p.id) === String(id)
+  return String(v??"").replace(
+    /[&<>"']/g,
+    m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
   );
 
 }
 
-function getChannel(id){
+function dateStr(d){
 
-  return channels.find(
-    c => String(c.id) === String(id)
+  return `${d.getFullYear()}-${String(
+    d.getMonth()+1
+  ).padStart(2,"0")}-${String(
+    d.getDate()
+  ).padStart(2,"0")}`;
+
+}
+
+function mins(t){
+
+  let [h,m]=t
+    .slice(0,5)
+    .split(":")
+    .map(Number);
+
+  return h*60+m;
+
+}
+
+function fmt(n){
+
+  n=((n%1440)+1440)%1440;
+
+  let h=Math.floor(n/60);
+  let m=Math.floor(n%60);
+
+  const suffix=
+    h<12
+    ?
+    "AM"
+    :
+    "PM";
+
+  h=h%12||12;
+
+  return `${h}:${String(m).padStart(2,"0")} ${suffix}`;
+
+}
+
+function catClass(t){
+
+  return {
+    "Church Services":"church",
+    "Bible Study":"bible",
+    "Variety Christian program":"variety",
+    "Music":"music",
+    "News":"news",
+    "Children Programs":"children",
+    "Holiday Programs":"holiday"
+  }[t]||"variety";
+
+}
+
+/* TIME */
+
+const VIEWER_TZ=
+  Intl.DateTimeFormat()
+    .resolvedOptions()
+    .timeZone||
+  "UTC";
+
+function zoneParts(d,tz=VIEWER_TZ){
+
+  const a=Object.fromEntries(
+
+    new Intl.DateTimeFormat(
+      "en-US",
+      {
+        timeZone:tz,
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit",
+        hour12:false
+      }
+    )
+    .formatToParts(d)
+    .filter(x=>x.type!=="literal")
+    .map(x=>[x.type,x.value])
+
+  );
+
+  return {
+    year:Number(a.year),
+    month:Number(a.month),
+    day:Number(a.day),
+    hour:Number(a.hour)%24,
+    minute:Number(a.minute),
+    second:Number(a.second)
+  };
+
+}
+
+function zoneDate(d,tz=VIEWER_TZ){
+
+  const p=zoneParts(d,tz);
+
+  return new Date(
+    p.year,
+    p.month-1,
+    p.day
   );
 
 }
 
+function localMinutes(){
 
-/* =========================================================
-   SCHEDULE TIME HELPERS
-   ========================================================= */
+  const p=zoneParts(new Date());
 
-function scheduleMinutes(item){
-
-  /*
-    Supports common database formats such as:
-
-    18:30
-    18:30:00
-  */
-
-  const raw =
-    String(
-      item.start_time ||
-      item.time ||
-      "00:00"
-    );
-
-  const parts = raw.split(":");
-
-  const hour =
-    Number(parts[0]) || 0;
-
-  const minute =
-    Number(parts[1]) || 0;
-
-  return hour*60 + minute;
+  return p.hour*60+
+         p.minute+
+         p.second/60;
 
 }
 
-function scheduleDay(item){
+function localDate(){
+  return zoneDate(new Date());
+}
 
-  if(
-    typeof item.day_of_week === "number"
-  ){
-    return item.day_of_week;
-  }
+function zonedTimeToInstant(
+  y,m,d,h,mi,
+  tz="America/New_York"
+){
 
-  if(
-    typeof item.day === "number"
-  ){
-    return item.day;
-  }
-
-  const raw =
-    String(
-      item.day_of_week ??
-      item.day ??
-      ""
-    ).toLowerCase();
-
-  const index =
-    DAY_NAMES.findIndex(
-      d => d.toLowerCase() === raw
+  let guess=
+    new Date(
+      Date.UTC(
+        y,m-1,d,h,mi,0
+      )
     );
 
-  return index >= 0 ? index : 0;
+  for(let i=0;i<4;i++){
+
+    const p=
+      zoneParts(
+        guess,
+        tz
+      );
+
+    const shown=
+      Date.UTC(
+        p.year,
+        p.month-1,
+        p.day,
+        p.hour,
+        p.minute,
+        p.second
+      );
+
+    const wanted=
+      Date.UTC(
+        y,m-1,d,h,mi,0
+      );
+
+    const diff=
+      wanted-shown;
+
+    if(Math.abs(diff)<1000){
+      break;
+    }
+
+    guess=
+      new Date(
+        guess.getTime()+diff
+      );
+
+  }
+
+  return guess;
 
 }
 
+function addDays(d,n){
 
-/* =========================================================
-   FILTERS
-   ========================================================= */
+  const x=new Date(d);
 
-function programMatchesFilters(program){
+  x.setDate(
+    x.getDate()+n
+  );
 
-  if(!program){
-    return false;
+  return x;
+
+}
+
+function easternDateFromLocalDate(d){
+
+  const noon=
+    new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate(),
+      12,0,0
+    );
+
+  return zoneDate(
+    noon,
+    "America/New_York"
+  );
+
+}
+
+function easternOccurrenceForProgram(
+  p,
+  eDate
+){
+
+  const s=
+    mins(
+      p.start_time
+    );
+
+  return zonedTimeToInstant(
+    eDate.getFullYear(),
+    eDate.getMonth()+1,
+    eDate.getDate(),
+    Math.floor(s/60),
+    s%60,
+    "America/New_York"
+  );
+
+}
+
+function occurrenceForLocalDate(
+  p,
+  localD
+){
+
+  const target=
+    dateStr(localD);
+
+  const etBase=
+    easternDateFromLocalDate(
+      localD
+    );
+
+  for(let i=-2;i<=2;i++){
+
+    const ed=
+      addDays(
+        etBase,
+        i
+      );
+
+    if(
+      ed.getDay()!==
+      Number(
+        p.day_of_week
+      )
+    ){
+      continue;
+    }
+
+    const start=
+      easternOccurrenceForProgram(
+        p,
+        ed
+      );
+
+    const end=
+      new Date(
+        start.getTime()+
+        Number(
+          p.duration_minutes
+        )*60000
+      );
+
+    const sp=
+      zoneParts(start);
+
+    const occurrenceDate=
+      `${sp.year}-${String(
+        sp.month
+      ).padStart(2,"0")}-${String(
+        sp.day
+      ).padStart(2,"0")}`;
+
+    if(
+      occurrenceDate===
+      target
+    ){
+
+      return {
+        p,
+        start,
+        end,
+        startParts:sp,
+        endParts:zoneParts(end),
+        localDate:new Date(
+          sp.year,
+          sp.month-1,
+          sp.day
+        )
+      };
+
+    }
+
   }
 
-  const search =
-    document.getElementById("search")
+  return null;
+
+}
+
+function displayOccurrences(){
+
+  const out=[];
+
+  for(const p of programs){
+
+    const o=
+      occurrenceForLocalDate(
+        p,
+        selectedDate
+      );
+
+    if(o){
+
+      o.displayStartMinutes=
+        o.startParts.hour*60+
+        o.startParts.minute+
+        o.startParts.second/60;
+
+      o.isNextDay=false;
+
+      out.push(o);
+
+    }
+
+  }
+
+  const nextDate=
+    addDays(
+      selectedDate,
+      1
+    );
+
+  for(const p of programs){
+
+    const o=
+      occurrenceForLocalDate(
+        p,
+        nextDate
+      );
+
+    if(!o)continue;
+
+    const nextMinutes=
+      o.startParts.hour*60+
+      o.startParts.minute+
+      o.startParts.second/60;
+
+    if(nextMinutes<360){
+
+      o.displayStartMinutes=
+        1440+
+        nextMinutes;
+
+      o.isNextDay=true;
+
+      out.push(o);
+
+    }
+
+  }
+
+  return out;
+
+}
+
+function currentOccurrences(){
+
+  const now=
+    new Date();
+
+  const localD=
+    localDate();
+
+  const out=[];
+
+  for(const p of programs){
+
+    const o=
+      occurrenceForLocalDate(
+        p,
+        localD
+      );
+
+    if(
+      o &&
+      now>=o.start &&
+      now<o.end
+    ){
+
+      out.push(o);
+
+    }
+
+  }
+
+  return out;
+
+}
+
+selectedDate=localDate();
+
+$("date").value=
+  dateStr(
+    selectedDate
+  );
+
+function filtered(){
+
+  const q=
+    $("search")
       .value
       .trim()
       .toLowerCase();
 
-  const tag =
-    document.getElementById("tag").value;
+  const t=
+    $("tag").value;
 
-  if(search){
+  return displayOccurrences()
+    .filter(
+      o=>
+      (
+        !q ||
+        o.p.title
+          .toLowerCase()
+          .includes(q)
+      )
+      &&
+      (
+        !t ||
+        o.p.tag===t
+      )
+    );
 
-    const haystack = [
-      program.title,
-      program.name,
-      program.description,
-      program.category
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    if(!haystack.includes(search)){
-      return false;
-    }
-
-  }
-
-  if(
-    tag &&
-    String(program.category || "") !== tag
-  ){
-    return false;
-  }
-
-  return true;
 }
 
+function isToday(){
 
-/* =========================================================
-   DRAW GUIDE
-   ========================================================= */
+  const n=localDate();
 
-function renderGuide(){
+  return (
+    selectedDate.getFullYear()===n.getFullYear()
+    &&
+    selectedDate.getMonth()===n.getMonth()
+    &&
+    selectedDate.getDate()===n.getDate()
+  );
 
-  const guide =
-    document.getElementById("guide");
+}
 
-  const date =
-    selectedDate();
+function autoScrollToNow(
+  smooth=true
+){
 
-  const day =
-    date.getDay();
+  if(!isToday())return;
 
-  let html =
-    buildTimeHeader();
+  const sc=
+    $("guideScroll");
 
-  const activeChannels =
-    [...channels]
-      .filter(
-        channel =>
-          channel.active !== false
-      )
-      .sort(
-        (a,b) =>
-          Number(
-            a.display_order ?? 0
-          ) -
-          Number(
-            b.display_order ?? 0
-          )
+  const timelineX=
+    CHANNEL_WIDTH+
+    (
+      localMinutes()/60*
+      HOUR_WIDTH
+    );
+
+  const target=
+    Math.max(
+      0,
+      timelineX-
+      sc.clientWidth*0.25
+    );
+
+  sc.scrollTo({
+    left:target,
+    behavior:
+      smooth
+      ?
+      "smooth"
+      :
+      "auto"
+  });
+
+}
+
+/* RENDER GUIDE */
+
+function render(){
+
+  const g=$("guide");
+
+  g.innerHTML="";
+
+  const head=
+    document.createElement(
+      "div"
+    );
+
+  head.className=
+    "time-head";
+
+  head.innerHTML=
+    '<div class="channel-head">CHANNEL</div>'+
+    '<div class="time-track" id="timeTrack"></div>';
+
+  g.appendChild(head);
+
+  for(let h=0;h<=EXTENDED_HOURS;h++){
+
+    const x=
+      document.createElement(
+        "div"
       );
 
-  for(const channel of activeChannels){
+    x.className=
+      "time-label";
 
-    const logo =
-      channel.logo_url ||
-      channel.logo ||
-      "";
+    x.style.left=
+      (
+        h*
+        HOUR_WIDTH
+      )+"px";
 
-    html += `
-      <div class="row">
+    if(h<24){
 
-        <div class="channel">
-    `;
-
-    if(logo){
-
-      html += `
-        <img
-          class="logo"
-          src="${escapeHtml(logo)}"
-          alt=""
-        >
-      `;
+      x.textContent=
+        fmt(
+          h*60
+        );
 
     }else{
 
-      html += `
-        <div class="placeholder">
-          TV
-        </div>
-      `;
+      x.textContent=
+        fmt(
+          (h-24)*60
+        )+
+        " +1";
+
+      x.classList.add(
+        "next-day-label"
+      );
 
     }
 
-    html += `
-          <div>
-
-            <div class="channel-name">
-              ${escapeHtml(
-                channel.name ||
-                channel.channel_name ||
-                "Channel"
-              )}
-            </div>
-
-            <div class="small">
-              Weekly programming
-            </div>
-
-          </div>
-
-        </div>
-
-        <div
-          class="track"
-          data-channel="${channel.id}"
-        >
-    `;
-
-
-    const channelSchedules =
-      schedules.filter(item => {
-
-        const sameChannel =
-          String(
-            item.channel_id
-          ) === String(
-            channel.id
-          );
-
-        const sameDay =
-          scheduleDay(item) === day;
-
-        const program =
-          getProgram(
-            item.program_id
-          );
-
-        return (
-          sameChannel &&
-          sameDay &&
-          program &&
-          program.active !== false &&
-          programMatchesFilters(program)
-        );
-
-      });
-
-
-    for(const item of channelSchedules){
-
-      const program =
-        getProgram(
-          item.program_id
-        );
-
-      if(!program){
-        continue;
-      }
-
-      const startMinutes =
-        scheduleMinutes(item);
-
-      const duration =
-        Number(
-          item.duration_minutes ??
-          program.duration_minutes ??
-          program.duration ??
-          30
-        );
-
-      const left =
-        minuteToPixel(
-          startMinutes
-        );
-
-      const width =
-        Math.max(
-          25,
-          minuteToPixel(duration)
-        );
-
-      const startDate =
-        new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate(),
-          Math.floor(
-            startMinutes/60
-          ),
-          startMinutes%60
-        );
-
-      const endDate =
-        new Date(
-          startDate.getTime() +
-          duration*60000
-        );
-
-      const live =
-        isProgramLive(
-          date,
-          startMinutes,
-          duration
-        );
-
-      html += `
-        <div
-          class="program
-          ${categoryClass(
-            program.category
-          )}"
-          style="
-            left:${left}px;
-            width:${width}px;
-          "
-          data-program-id="${program.id}"
-        >
-
-          <div class="ptitle">
-            ${escapeHtml(
-              program.title ||
-              program.name ||
-              "Program"
-            )}
-          </div>
-
-          <div class="ptime">
-            ${formatTime(startDate)}
-            –
-            ${formatTime(endDate)}
-          </div>
-
-          <div class="ptag">
-            ${escapeHtml(
-              program.category || ""
-            )}
-          </div>
-
-          ${
-            live
-            ? `<div class="livebadge">LIVE NOW</div>`
-            : ""
-          }
-
-        </div>
-      `;
-
-    }
-
-
-    html += `
-        </div>
-      </div>
-    `;
+    $("timeTrack")
+      .appendChild(x);
 
   }
 
-  guide.innerHTML = html;
+  const visible=
+    filtered();
 
-  attachProgramClicks();
+  channels.forEach(c=>{
 
-  drawCurrentTimeLine();
+    const row=
+      document.createElement(
+        "div"
+      );
 
-  updateNowPlaying();
+    row.className="row";
 
-}
+    const ci=
+      document.createElement(
+        "div"
+      );
 
+    ci.className="channel";
 
-/* =========================================================
-   LIVE PROGRAM TEST
-   ========================================================= */
+    const logo=
+      c.logo_url||
+      CHANNEL_LOGOS[c.name];
 
-function isTodaySelected(){
+    if(logo){
 
-  const now =
-    viewerNow();
+      const im=
+        document.createElement(
+          "img"
+        );
 
-  const date =
-    selectedDate();
+      im.className="logo";
+      im.src=logo;
+      im.alt=c.name;
 
-  return (
-    now.getFullYear() ===
-      date.getFullYear() &&
+      im.onerror=()=>{
+        im.style.display="none";
+      };
 
-    now.getMonth() ===
-      date.getMonth() &&
+      ci.appendChild(im);
 
-    now.getDate() ===
-      date.getDate()
-  );
+    }else{
 
-}
-
-function isProgramLive(
-  selected,
-  startMinutes,
-  duration
-){
-
-  if(!isTodaySelected()){
-    return false;
-  }
-
-  const now =
-    viewerNow();
-
-  const current =
-    minutesFromMidnight(now);
-
-  return (
-    current >= startMinutes &&
-    current <
-      startMinutes + duration
-  );
-
-}
-
-
-/* =========================================================
-   CURRENT-TIME RED LINE
-   ========================================================= */
-
-function drawCurrentTimeLine(){
-
-  document
-    .querySelectorAll(
-      ".current-line"
-    )
-    .forEach(
-      line => line.remove()
-    );
-
-  if(!isTodaySelected()){
-    return;
-  }
-
-  const now =
-    viewerNow();
-
-  const currentMinutes =
-    minutesFromMidnight(now);
-
-  const left =
-    minuteToPixel(
-      currentMinutes
-    );
-
-  document
-    .querySelectorAll(
-      ".track"
-    )
-    .forEach(track => {
-
-      const line =
+      const ph=
         document.createElement(
           "div"
         );
 
-      line.className =
-        "current-line";
+      ph.className=
+        "placeholder";
 
-      line.style.left =
-        `${left}px`;
+      ph.textContent="✝";
 
-      track.appendChild(line);
+      ci.appendChild(ph);
 
-    });
-
-}
-
-
-/* =========================================================
-   NOW BUTTON
-   MOBILE FIX
-   ========================================================= */
-
-function scrollToNow(
-  behavior = "smooth"
-){
-
-  /*
-    THIS IS THE IMPORTANT MOBILE FIX.
-
-    The guide-scroll element contains BOTH:
-
-      1. the sticky channel column
-      2. the timeline
-
-    The red line's position is measured from the
-    beginning of the timeline.
-
-    We therefore calculate the desired horizontal
-    scroll position using the visible schedule area,
-    NOT by simply centering the red line in the
-    entire guide.
-
-    This prevents the sticky channel column from
-    hiding the red line.
-  */
-
-  const scroller =
-    document.getElementById(
-      "guideScroll"
-    );
-
-  if(!scroller){
-    return;
-  }
-
-  const now =
-    viewerNow();
-
-  /*
-    Make sure NOW also returns the guide
-    to today's date.
-  */
-
-  document.getElementById(
-    "date"
-  ).value =
-    localDateString(now);
-
-  renderGuide();
-
-
-  /*
-    Pixel position of the current time
-    inside the timeline.
-  */
-
-  const nowPixel =
-    minuteToPixel(
-      minutesFromMidnight(now)
-    );
-
-
-  /*
-    Actual visible width of the browser guide.
-  */
-
-  const visibleWidth =
-    scroller.clientWidth;
-
-  const channelWidth =
-    getChannelWidth();
-
-
-  /*
-    Width of the schedule area that is actually
-    visible to the RIGHT of the sticky channel
-    information block.
-  */
-
-  const visibleScheduleWidth =
-    Math.max(
-      100,
-      visibleWidth -
-      channelWidth
-    );
-
-
-  /*
-    Put NOW about 30% into the visible schedule.
-
-    Example on a phone:
-
-    CHANNEL | earlier | RED NOW | future programs
-
-    rather than:
-
-    CHANNEL/red line hidden underneath it.
-  */
-
-  const desiredPosition =
-    visibleScheduleWidth * 0.30;
-
-
-  /*
-    Because the timeline starts immediately after
-    the channel column in the full guide layout,
-    the correct scrollLeft is simply the timeline
-    pixel minus the desired visible position.
-
-    DO NOT add channelWidth here.
-
-    Adding channelWidth is what can push the
-    current-time position underneath the sticky
-    channel block.
-  */
-
-  let target =
-    nowPixel -
-    desiredPosition;
-
-
-  /*
-    Keep within legal scrolling limits.
-  */
-
-  const maxScroll =
-    Math.max(
-      0,
-      scroller.scrollWidth -
-      scroller.clientWidth
-    );
-
-  target =
-    Math.max(
-      0,
-      Math.min(
-        target,
-        maxScroll
-      )
-    );
-
-
-  scroller.scrollTo({
-    left:target,
-    behavior
-  });
-
-
-  /*
-    Run the red-line drawing once more after
-    the browser has had time to finish layout.
-  */
-
-  setTimeout(
-    drawCurrentTimeLine,
-    100
-  );
-
-}
-
-
-/* =========================================================
-   NOW PLAYING MESSAGE
-   ========================================================= */
-
-function updateNowPlaying(){
-
-  const box =
-    document.getElementById("now");
-
-  if(!isTodaySelected()){
-
-    box.textContent =
-      "● Viewing scheduled programming.";
-
-    return;
-  }
-
-  const now =
-    viewerNow();
-
-  const day =
-    now.getDay();
-
-  const current =
-    minutesFromMidnight(now);
-
-  const playing = [];
-
-  for(const item of schedules){
-
-    if(
-      scheduleDay(item) !== day
-    ){
-      continue;
     }
 
-    const program =
-      getProgram(
-        item.program_id
+    const text=
+      document.createElement(
+        "div"
       );
 
-    if(
-      !program ||
-      program.active === false
-    ){
-      continue;
-    }
+    text.innerHTML=
+      `<div class="channel-name">
+        ${esc(c.name)}
+      </div>
+      <div class="small">
+        Weekly programming
+      </div>`;
 
-    const start =
-      scheduleMinutes(item);
+    ci.appendChild(text);
+    row.appendChild(ci);
 
-    const duration =
-      Number(
-        item.duration_minutes ??
-        program.duration_minutes ??
-        program.duration ??
-        30
+    const tr=
+      document.createElement(
+        "div"
       );
 
-    if(
-      current >= start &&
-      current < start + duration
-    ){
+    tr.className="track";
 
-      const channel =
-        getChannel(
-          item.channel_id
+    if(isToday()){
+
+      const line=
+        document.createElement(
+          "div"
         );
 
-      playing.push(
-        `${
-          channel?.name ||
-          channel?.channel_name ||
-          "Channel"
-        }: ${
-          program.title ||
-          program.name
-        }`
-      );
+      line.className=
+        "current-line";
+
+      line.style.left=
+        (
+          localMinutes()/60*
+          HOUR_WIDTH
+        )+"px";
+
+      tr.appendChild(line);
 
     }
 
-  }
+    visible
+      .filter(
+        o=>
+        o.p.channel_id===c.id
+      )
+      .forEach(o=>{
 
-  if(!playing.length){
+        const p=o.p;
 
-    box.textContent =
-      "● No program is currently playing.";
+        const startMin=
+          Number(
+            o.displayStartMinutes
+          );
 
-  }else{
+        const duration=
+          Number(
+            p.duration_minutes
+          );
 
-    box.textContent =
-      "● NOW: " +
-      playing.join(" • ");
+        const b=
+          document.createElement(
+            "div"
+          );
 
-  }
+        b.className=
+          `program ${catClass(
+            p.tag
+          )}`;
+
+        b.style.left=
+          (
+            startMin/60*
+            HOUR_WIDTH
+          )+"px";
+
+        b.style.width=
+          Math.max(
+            70,
+            duration/60*
+            HOUR_WIDTH
+          )+"px";
+
+        const nowPlaying=
+          isToday()
+          &&
+          !o.isNextDay
+          &&
+          new Date()>=o.start
+          &&
+          new Date()<o.end;
+
+        b.innerHTML=
+          `<div class="ptitle">
+            ${esc(p.title)}
+          </div>
+
+          <div class="ptime">
+            ${fmt(startMin)}
+            –
+            ${fmt(startMin+duration)}
+          </div>
+
+          <span class="ptag">
+            ${esc(p.tag)}
+          </span>
+
+          ${
+            nowPlaying
+            ?
+            '<span class="livebadge">● NOW</span>'
+            :
+            ''
+          }`;
+
+        b.onclick=
+          ()=>openPopup(
+            p,
+            c,
+            o
+          );
+
+        tr.appendChild(b);
+
+      });
+
+    row.appendChild(tr);
+    g.appendChild(row);
+
+  });
+
+  updateNow();
+  reportGuideHeight();
 
 }
 
+function updateNow(){
 
-/* =========================================================
-   PROGRAM POPUP
-   ========================================================= */
+  if(!isToday()){
 
-function attachProgramClicks(){
+    $("now").textContent=
+      "● Viewing the selected day's schedule. Times shown in your local time.";
 
-  document
-    .querySelectorAll(
-      ".program"
-    )
-    .forEach(element => {
-
-      element.addEventListener(
-        "click",
-        () => {
-
-          const program =
-            getProgram(
-              element.dataset.programId
-            );
-
-          if(program){
-            openProgramPopup(program);
-          }
-
-        }
-      );
-
-    });
-
-}
-
-function openProgramPopup(program){
-
-  const popup =
-    document.getElementById("popup");
-
-  const content =
-    document.getElementById(
-      "popupContent"
-    );
-
-  const image =
-    program.image_url ||
-    program.title_card_url ||
-    program.image ||
-    "";
-
-  const website =
-    program.website_url ||
-    program.url ||
-    "";
-
-  let html = "";
-
-  if(image){
-
-    html += `
-      <img
-        class="popup-title-card"
-        src="${escapeHtml(image)}"
-        alt=""
-      >
-    `;
+    return;
 
   }
 
-  html += `
-    <h2>
-      ${escapeHtml(
-        program.title ||
-        program.name ||
-        "Program"
-      )}
-    </h2>
+  const a=
+    currentOccurrences();
+
+  $("now").textContent=
+    a.length
+    ?
+    "● NOW PLAYING — "+
+    a.map(
+      o=>
+      (
+        channels.find(
+          c=>
+          c.id===
+          o.p.channel_id
+        )?.name||""
+      )
+      +
+      ": "+
+      o.p.title
+    ).join(" • ")
+    :
+    "● No program is currently playing.";
+
+}
+
+function openPopup(
+  p,
+  c,
+  o
+){
+
+  const sp=o.startParts;
+  const ep=o.endParts;
+
+  const titleCard=
+    p.title_card_url
+    ?
+    `<img
+      class="popup-title-card"
+      src="${esc(p.title_card_url)}"
+      alt="${esc(p.title)} title card"
+      onerror="this.style.display='none'"
+    >`
+    :
+    "";
+
+  const day=
+    DAYS[
+      o.localDate.getDay()
+    ];
+
+  $("popupContent").innerHTML=
+
+    `${titleCard}
+
+    <h2>${esc(p.title)}</h2>
 
     <div class="meta">
-      ${escapeHtml(
-        program.category || ""
-      )}
+      ${esc(c.name)}
     </div>
 
     <p>
-      ${escapeHtml(
-        program.description ||
-        "No additional program information is available."
+      <b>${day}</b>
+      ${o.isNextDay?" (following morning)":""}
+      •
+      ${fmt(
+        sp.hour*60+
+        sp.minute
+      )}
+      –
+      ${fmt(
+        ep.hour*60+
+        ep.minute
       )}
     </p>
-  `;
 
-  if(website){
+    <p>
+      <b>Category:</b>
+      ${esc(p.tag)}
+    </p>
 
-    html += `
-      <p>
-        <a
-          href="${escapeHtml(website)}"
-          target="_blank"
-          rel="noopener"
-        >
-          Visit Program Website
-        </a>
-      </p>
-    `;
+    <p>
+      ${esc(
+        p.description||
+        "No description has been entered for this program."
+      )}
+    </p>
+
+    <p class="mini-note">
+      Times shown in your local browser time zone
+      (${esc(VIEWER_TZ)}).
+    </p>`;
+
+  $("popup")
+    .classList
+    .add("open");
+
+}
+
+$("popupClose").onclick=
+  ()=>
+  $("popup")
+    .classList
+    .remove("open");
+
+$("popup").onclick=e=>{
+
+  if(
+    e.target===
+    $("popup")
+  ){
+
+    $("popup")
+      .classList
+      .remove("open");
 
   }
 
-  content.innerHTML = html;
+};
 
-  popup.classList.add("open");
+/* LOAD */
 
-}
+async function load(){
 
-
-/* =========================================================
-   HTML SAFETY
-   ========================================================= */
-
-function escapeHtml(value){
-
-  return String(
-    value ?? ""
-  )
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   LOAD DATABASE
-   ========================================================= */
-
-async function loadGuideData(){
-
-  const [
-    channelResult,
-    programResult,
-    scheduleResult
-  ] = await Promise.all([
-
-    sb
+  const c=
+    await sb
       .from("tv_channels")
-      .select("*"),
-
-    sb
-      .from("tv_programs")
-      .select("*"),
-
-    sb
-      .from("tv_schedule")
       .select("*")
+      .eq("active",true)
+      .order("sort_order");
 
-  ]);
+  const p=
+    await sb
+      .from("tv_programs")
+      .select("*")
+      .eq("active",true)
+      .order("day_of_week")
+      .order("start_time");
 
-  if(channelResult.error){
-    console.error(
-      "Channel load error:",
-      channelResult.error
-    );
+  channels=c.data||[];
+  programs=p.data||[];
+
+  render();
+  fillChannels();
+
+  if(adminRecord){
+    renderChannelTable();
+    renderProgramList();
+    renderWeeklySchedule();
+
+    if(canManageAdmins()){
+      await loadAdministrators();
+    }
   }
 
-  if(programResult.error){
-    console.error(
-      "Program load error:",
-      programResult.error
-    );
-  }
+  setTimeout(
+    ()=>autoScrollToNow(false),
+    180
+  );
 
-  if(scheduleResult.error){
-    console.error(
-      "Schedule load error:",
-      scheduleResult.error
-    );
-  }
-
-  channels =
-    channelResult.data || [];
-
-  programs =
-    programResult.data || [];
-
-  schedules =
-    scheduleResult.data || [];
-
-  renderGuide();
-
-  renderChannelTable();
-
-  renderProgramTable();
-
-  renderScheduleTable();
+  reportGuideHeight();
 
 }
-  <script>
 
-/* =========================================================
-   ADMIN PANEL OPEN / CLOSE
-   ========================================================= */
+function fillChannels(){
 
-const adminToggle =
-  document.getElementById(
-    "adminToggle"
+  $("programChannel")
+    .innerHTML=
+    channels
+      .map(
+        c=>
+        `<option value="${c.id}">
+          ${esc(c.name)}
+        </option>`
+      )
+      .join("");
+
+}
+
+/* VIEWER CONTROLS */
+
+$("search").oninput=render;
+$("tag").onchange=render;
+
+$("date").onchange=()=>{
+
+  const [y,m,d]=
+    $("date")
+      .value
+      .split("-")
+      .map(Number);
+
+  selectedDate=
+    new Date(y,m-1,d);
+
+  render();
+
+};
+
+$("today").onclick=()=>{
+
+  selectedDate=
+    localDate();
+
+  $("date").value=
+    dateStr(
+      selectedDate
+    );
+
+  render();
+
+  setTimeout(
+    ()=>autoScrollToNow(false),
+    100
   );
 
-const adminPanel =
-  document.getElementById(
-    "adminPanel"
+};
+
+$("goNow").onclick=()=>{
+
+  selectedDate=
+    localDate();
+
+  $("date").value=
+    dateStr(
+      selectedDate
+    );
+
+  render();
+
+  setTimeout(
+    ()=>autoScrollToNow(true),
+    100
   );
 
-adminToggle.addEventListener(
+};
+
+/* LEGEND */
+
+document
+  .querySelectorAll(
+    ".legend-item"
+  )
+  .forEach(item=>{
+
+    item.onclick=e=>{
+
+      e.stopPropagation();
+
+      document
+        .querySelectorAll(
+          ".legend-item"
+        )
+        .forEach(i=>{
+
+          if(i!==item){
+            i.classList
+              .remove(
+                "legend-active"
+              );
+          }
+
+        });
+
+      item.classList
+        .toggle(
+          "legend-active"
+        );
+
+    };
+
+  });
+
+document.addEventListener(
   "click",
-  () => {
+  ()=>{
 
-    adminToggle.classList.toggle(
-      "open"
-    );
+    document
+      .querySelectorAll(
+        ".legend-item"
+      )
+      .forEach(
+        i=>
+        i.classList
+          .remove(
+            "legend-active"
+          )
+      );
 
-    adminPanel.classList.toggle(
-      "open"
-    );
+    $("roleHelpWrap")
+      ?.classList
+      .remove("open");
 
   }
 );
 
+$("roleHelpButton").onclick=e=>{
 
-/* =========================================================
-   COLLAPSIBLE ADMIN SECTIONS
-   ========================================================= */
+  e.stopPropagation();
+
+  $("roleHelpWrap")
+    .classList
+    .toggle("open");
+
+};
+
+/* ADMIN OPEN/CLOSE */
+
+function openAdmin(){
+
+  $("adminPanel")
+    .classList
+    .add("open");
+
+  $("adminToggle")
+    .classList
+    .add("open");
+
+  reportGuideHeight();
+
+}
+
+function closeAdmin(){
+
+  $("adminPanel")
+    .classList
+    .remove("open");
+
+  $("adminToggle")
+    .classList
+    .remove("open");
+
+  reportGuideHeight();
+
+}
+
+$("adminToggle").onclick=()=>{
+
+  if(
+    $("adminPanel")
+      .classList
+      .contains("open")
+  ){
+    closeAdmin();
+  }else{
+    openAdmin();
+  }
+
+};
+
+$("adminClose").onclick=
+  closeAdmin;
 
 document
   .querySelectorAll(
     ".section-toggle"
   )
-  .forEach(button => {
+  .forEach(button=>{
 
-    button.addEventListener(
-      "click",
-      () => {
+    button.onclick=()=>{
 
-        const id =
-          button.dataset.section;
-
-        const body =
-          document.getElementById(id);
-
-        button.classList.toggle(
-          "open"
+      const target=
+        $(
+          button.dataset.target
         );
 
-        body.classList.toggle(
-          "open"
+      const open=
+        target.classList
+          .toggle("open");
+
+      button.classList
+        .toggle(
+          "open",
+          open
         );
 
-      }
-    );
+      reportGuideHeight();
+
+    };
 
   });
 
+/* AUTH */
 
-/* =========================================================
-   ROLE INFORMATION POPUP
-   ========================================================= */
+async function checkAdmin(){
 
-const roleInfoBtn =
-  document.getElementById(
-    "roleInfoBtn"
-  );
+  if(!user){
 
-const roleInfoWrap =
-  document.getElementById(
-    "roleInfoWrap"
-  );
+    adminRecord=null;
 
-roleInfoBtn.addEventListener(
-  "click",
-  event => {
+    $("loginBox")
+      .style.display=
+      "block";
 
-    event.stopPropagation();
+    $("adminArea")
+      .style.display=
+      "none";
 
-    roleInfoWrap.classList.toggle(
-      "open"
-    );
-
-  }
-);
-
-document.addEventListener(
-  "click",
-  () => {
-
-    roleInfoWrap.classList.remove(
-      "open"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-document
-  .getElementById("loginBtn")
-  .addEventListener(
-    "click",
-    loginAdministrator
-  );
-
-async function loginAdministrator(){
-
-  const email =
-    document
-      .getElementById("adminEmail")
-      .value
-      .trim();
-
-  const password =
-    document
-      .getElementById("adminPassword")
-      .value;
-
-  const message =
-    document.getElementById(
-      "loginMessage"
-    );
-
-  message.className =
-    "message";
-
-  message.textContent =
-    "Signing in...";
-
-  const {
-    data,
-    error
-  } =
-    await sb.auth.signInWithPassword({
-      email,
-      password
-    });
-
-  if(error){
-
-    message.textContent =
-      error.message;
+    $("signedInCard")
+      .style.display=
+      "none";
 
     return;
+
   }
 
-  currentUser =
-    data.user;
-
-  await loadCurrentAdministrator();
-
-}
-
-
-/* =========================================================
-   CURRENT ADMINISTRATOR
-   ========================================================= */
-
-async function loadCurrentAdministrator(){
-
-  if(!currentUser){
-
-    showLoggedOut();
-
-    return;
-  }
-
-  const {
-    data,
-    error
-  } =
+  const r=
     await sb
       .from("tv_admins")
-      .select("*")
+      .select(
+        "user_id,role,approved"
+      )
       .eq(
         "user_id",
-        currentUser.id
+        user.id
       )
       .maybeSingle();
 
   if(
-    error ||
-    !data ||
-    data.approved === false
+    r.error||
+    !r.data||
+    r.data.approved!==true
   ){
 
-    await sb.auth.signOut();
+    adminRecord=null;
 
-    currentUser = null;
-    currentAdmin = null;
-
-    const message =
-      document.getElementById(
-        "loginMessage"
-      );
-
-    message.textContent =
-      "This account is not authorized for TV Guide administration.";
-
-    showLoggedOut();
-
-    return;
-  }
-
-  currentAdmin = data;
-
-  showLoggedIn();
-
-  await loadAdministratorList();
-
-}
-
-
-/* =========================================================
-   ROLE HELPERS
-   ========================================================= */
-
-function normalizedRole(){
-
-  return String(
-    currentAdmin?.role ||
-    "administration"
-  )
-    .trim()
-    .toLowerCase();
-
-}
-
-function isOwner(){
-
-  return (
-    normalizedRole() ===
-    "owner"
-  );
-
-}
-
-function isManager(){
-
-  return (
-    normalizedRole() ===
-    "administration_manager"
-  );
-
-}
-
-function canManageAdministrators(){
-
-  return (
-    isOwner() ||
-    isManager()
-  );
-
-}
-
-function roleDisplayName(role){
-
-  switch(
-    String(role || "")
-      .toLowerCase()
-  ){
-
-    case "owner":
-      return "Owner";
-
-    case "administration_manager":
-      return "Administration Manager";
-
-    default:
-      return "Administration";
-
-  }
-
-}
-
-
-/* =========================================================
-   LOGGED-IN DISPLAY
-   ========================================================= */
-
-function showLoggedIn(){
-
-  document.getElementById(
-    "loginArea"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "adminArea"
-  ).style.display =
-    "block";
-
-  const card =
-    document.getElementById(
-      "signedInCard"
-    );
-
-  card.style.display =
-    "block";
-
-  document.getElementById(
-    "signedInEmail"
-  ).textContent =
-    currentUser?.email || "";
-
-  document.getElementById(
-    "signedInRole"
-  ).textContent =
-    roleDisplayName(
-      currentAdmin?.role
-    );
-
-
-  const adminManagement =
-    document.getElementById(
-      "administratorManagementSection"
-    );
-
-  const inviteButton =
-    document.getElementById(
-      "inviteAdminBtn"
-    );
-
-  if(canManageAdministrators()){
-
-    adminManagement.style.display =
+    $("loginBox")
+      .style.display=
       "block";
 
-    inviteButton.style.display =
-      "";
-
-  }else{
-
-    adminManagement.style.display =
+    $("adminArea")
+      .style.display=
       "none";
 
-    inviteButton.style.display =
+    $("signedInCard")
+      .style.display=
       "none";
+
+    $("loginMessage")
+      .textContent=
+      "This account is not an approved TV Guide administrator.";
+
+    return;
 
   }
 
-}
+  adminRecord=
+    r.data;
 
-
-/* =========================================================
-   LOGGED-OUT DISPLAY
-   ========================================================= */
-
-function showLoggedOut(){
-
-  document.getElementById(
-    "loginArea"
-  ).style.display =
-    "block";
-
-  document.getElementById(
-    "adminArea"
-  ).style.display =
+  $("loginBox")
+    .style.display=
     "none";
 
-}
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-document
-  .getElementById("logoutBtn")
-  .addEventListener(
-    "click",
-    async () => {
-
-      await sb.auth.signOut();
-
-      currentUser = null;
-      currentAdmin = null;
-
-      showLoggedOut();
-
-    }
-  );
-
-
-/* =========================================================
-   PASSWORD RESET
-   ========================================================= */
-
-document
-  .getElementById(
-    "forgotPasswordBtn"
-  )
-  .addEventListener(
-    "click",
-    async () => {
-
-      const email =
-        document
-          .getElementById(
-            "adminEmail"
-          )
-          .value
-          .trim();
-
-      const message =
-        document.getElementById(
-          "loginMessage"
-        );
-
-      if(!email){
-
-        message.textContent =
-          "Enter your email address first.";
-
-        return;
-      }
-
-      const {
-        error
-      } =
-        await sb.auth.resetPasswordForEmail(
-          email,
-          {
-            redirectTo:
-              window.location.href
-          }
-        );
-
-      if(error){
-
-        message.textContent =
-          error.message;
-
-      }else{
-
-        message.className =
-          "message ok";
-
-        message.textContent =
-          "Password reset email sent.";
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
-   PROGRAM EDITOR
-   ========================================================= */
-
-const programEditor =
-  document.getElementById(
-    "programEditor"
-  );
-
-document
-  .getElementById(
-    "newProgramBtn"
-  )
-  .addEventListener(
-    "click",
-    () => openProgramEditor()
-  );
-
-document
-  .getElementById(
-    "cancelProgramBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      programEditor.style.display =
-        "none";
-
-    }
-  );
-
-function openProgramEditor(program=null){
-
-  programEditor.style.display =
+  $("adminArea")
+    .style.display=
     "block";
 
-  document.getElementById(
-    "programEditorTitle"
-  ).textContent =
-    program
-      ? "Edit Program"
-      : "Add Program";
-
-  document.getElementById(
-    "programId"
-  ).value =
-    program?.id || "";
-
-  document.getElementById(
-    "programTitle"
-  ).value =
-    program?.title ||
-    program?.name ||
-    "";
-
-  document.getElementById(
-    "programDescription"
-  ).value =
-    program?.description || "";
-
-  document.getElementById(
-    "programCategory"
-  ).value =
-    program?.category ||
-    "Church Services";
-
-  document.getElementById(
-    "programDuration"
-  ).value =
-    String(
-      program?.duration_minutes ??
-      program?.duration ??
-      30
-    );
-
-  document.getElementById(
-    "programImage"
-  ).value =
-    program?.image_url ||
-    program?.title_card_url ||
-    "";
-
-  document.getElementById(
-    "programUrl"
-  ).value =
-    program?.website_url ||
-    program?.url ||
-    "";
-
-  document.getElementById(
-    "programActive"
-  ).value =
-    String(
-      program?.active !== false
-    );
-
-  programEditor.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
-
-}
-
-
-/* =========================================================
-   SAVE PROGRAM
-   ========================================================= */
-
-document
-  .getElementById(
-    "saveProgramBtn"
-  )
-  .addEventListener(
-    "click",
-    saveProgram
-  );
-
-async function saveProgram(){
-
-  const id =
-    document.getElementById(
-      "programId"
-    ).value;
-
-  const title =
-    document.getElementById(
-      "programTitle"
-    ).value.trim();
-
-  const message =
-    document.getElementById(
-      "programMessage"
-    );
-
-  if(!title){
-
-    message.textContent =
-      "Please enter the program name.";
-
-    return;
-  }
-
-  /*
-    These field names match the guide structure
-    used by this file.
-  */
-
-  const record = {
-
-    title,
-
-    description:
-      document.getElementById(
-        "programDescription"
-      ).value.trim(),
-
-    category:
-      document.getElementById(
-        "programCategory"
-      ).value,
-
-    duration_minutes:
-      Number(
-        document.getElementById(
-          "programDuration"
-        ).value
-      ),
-
-    image_url:
-      document.getElementById(
-        "programImage"
-      ).value.trim() || null,
-
-    website_url:
-      document.getElementById(
-        "programUrl"
-      ).value.trim() || null,
-
-    active:
-      document.getElementById(
-        "programActive"
-      ).value === "true"
-
-  };
-
-  let result;
-
-  if(id){
-
-    result =
-      await sb
-        .from("tv_programs")
-        .update(record)
-        .eq("id",id);
-
-  }else{
-
-    result =
-      await sb
-        .from("tv_programs")
-        .insert(record);
-
-  }
-
-  if(result.error){
-
-    message.className =
-      "message";
-
-    message.textContent =
-      result.error.message;
-
-    return;
-  }
-
-  message.className =
-    "message ok";
-
-  message.textContent =
-    "Program saved.";
-
-  await loadGuideData();
-
-  setTimeout(
-    () => {
-
-      programEditor.style.display =
-        "none";
-
-    },
-    500
-  );
-
-}
-
-
-/* =========================================================
-   PROGRAM LIST
-   ========================================================= */
-
-function renderProgramTable(){
-
-  const tbody =
-    document.getElementById(
-      "programTableBody"
-    );
-
-  if(!tbody){
-    return;
-  }
-
-  const sorted =
-    [...programs].sort(
-      (a,b) =>
-        String(
-          a.title ||
-          a.name ||
-          ""
-        ).localeCompare(
-          String(
-            b.title ||
-            b.name ||
-            ""
-          ),
-          undefined,
-          {
-            sensitivity:"base"
-          }
-        )
-    );
-
-  tbody.innerHTML =
-    sorted.map(program => `
-
-      <tr>
-
-        <td>
-          ${escapeHtml(
-            program.title ||
-            program.name ||
-            ""
-          )}
-        </td>
-
-        <td>
-          ${escapeHtml(
-            program.category || ""
-          )}
-        </td>
-
-        <td>
-          ${
-            Number(
-              program.duration_minutes ??
-              program.duration ??
-              30
-            )
-          } min
-        </td>
-
-        <td>
-
-          <button
-            class="edit-mini"
-            onclick="editProgramById(
-              '${program.id}'
-            )"
-          >
-            Edit
-          </button>
-
-          <button
-            class="delete-mini"
-            onclick="deleteProgramById(
-              '${program.id}'
-            )"
-          >
-            Delete
-          </button>
-
-        </td>
-
-      </tr>
-
-    `).join("");
-
-}
-
-window.editProgramById =
-  function(id){
-
-    const program =
-      getProgram(id);
-
-    if(program){
-      openProgramEditor(program);
-    }
-
-  };
-
-window.deleteProgramById =
-  async function(id){
-
-    const program =
-      getProgram(id);
-
-    if(!program){
-      return;
-    }
-
-    const name =
-      program.title ||
-      program.name ||
-      "this program";
-
-    const yes =
-      confirm(
-        `Are you sure you want to delete "${name}"?`
-      );
-
-    if(!yes){
-      return;
-    }
-
-    const {
-      error
-    } =
-      await sb
-        .from("tv_programs")
-        .delete()
-        .eq("id",id);
-
-    if(error){
-
-      alert(
-        "Unable to delete program: " +
-        error.message
-      );
-
-      return;
-    }
-
-    await loadGuideData();
-
-  };
-
-
-/* =========================================================
-   CHANNEL EDITOR
-   ========================================================= */
-
-const channelEditor =
-  document.getElementById(
-    "channelEditor"
-  );
-
-document
-  .getElementById(
-    "newChannelBtn"
-  )
-  .addEventListener(
-    "click",
-    () => openChannelEditor()
-  );
-
-document
-  .getElementById(
-    "cancelChannelBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      channelEditor.style.display =
-        "none";
-
-    }
-  );
-
-function openChannelEditor(channel=null){
-
-  channelEditor.style.display =
+  $("signedInCard")
+    .style.display=
     "block";
 
-  document.getElementById(
-    "channelId"
-  ).value =
-    channel?.id || "";
+  $("signedInEmail")
+    .textContent=
+    user.email||"";
 
-  document.getElementById(
-    "channelName"
-  ).value =
-    channel?.name ||
-    channel?.channel_name ||
-    "";
-
-  document.getElementById(
-    "channelLogo"
-  ).value =
-    channel?.logo_url ||
-    channel?.logo ||
-    "";
-
-  document.getElementById(
-    "channelOrder"
-  ).value =
-    Number(
-      channel?.display_order ?? 0
+  $("signedInRole")
+    .textContent=
+    roleName(
+      adminRecord.role
     );
 
-  document.getElementById(
-    "channelActive"
-  ).value =
-    String(
-      channel?.active !== false
-    );
+  applyRoleInterface();
 
-  document.getElementById(
-    "deleteChannelBtn"
-  ).style.display =
-    channel ? "" : "none";
-
-  channelEditor.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+  await load();
 
 }
 
+function applyRoleInterface(){
 
-/* =========================================================
-   SAVE CHANNEL
-   ========================================================= */
+  $("addChannel")
+    .style.display=
+    canManageChannels()
+    ?
+    ""
+    :
+    "none";
 
-document
-  .getElementById(
-    "saveChannelBtn"
-  )
-  .addEventListener(
-    "click",
-    saveChannel
-  );
+  $("channelManagementSection")
+    .style.display=
+    canManageChannels()
+    ?
+    ""
+    :
+    "none";
 
-async function saveChannel(){
+  $("addAdmin")
+    .style.display=
+    canManageAdmins()
+    ?
+    ""
+    :
+    "none";
 
-  const id =
-    document.getElementById(
-      "channelId"
-    ).value;
+  $("administratorManagementSection")
+    .style.display=
+    canManageAdmins()
+    ?
+    ""
+    :
+    "none";
 
-  const name =
-    document.getElementById(
-      "channelName"
-    ).value.trim();
-
-  const message =
-    document.getElementById(
-      "channelMessage"
-    );
-
-  if(!name){
-
-    message.textContent =
-      "Please enter a channel name.";
-
-    return;
-  }
-
-  const record = {
-
-    name,
-
-    logo_url:
-      document.getElementById(
-        "channelLogo"
-      ).value.trim() || null,
-
-    display_order:
-      Number(
-        document.getElementById(
-          "channelOrder"
-        ).value || 0
-      ),
-
-    active:
-      document.getElementById(
-        "channelActive"
-      ).value === "true"
-
-  };
-
-  let result;
-
-  if(id){
-
-    result =
-      await sb
-        .from("tv_channels")
-        .update(record)
-        .eq("id",id);
-
-  }else{
-
-    result =
-      await sb
-        .from("tv_channels")
-        .insert(record);
-
-  }
-
-  if(result.error){
-
-    message.className =
-      "message";
-
-    message.textContent =
-      result.error.message;
-
-    return;
-  }
-
-  message.className =
-    "message ok";
-
-  message.textContent =
-    "Channel saved.";
-
-  await loadGuideData();
-
-  setTimeout(
-    () => {
-
-      channelEditor.style.display =
-        "none";
-
-    },
-    500
-  );
+  populateRoleChoices();
 
 }
 
+function populateRoleChoices(){
 
-/* =========================================================
-   DELETE CHANNEL
-   ========================================================= */
+  const select=
+    $("newAdminRole");
 
-document
-  .getElementById(
-    "deleteChannelBtn"
-  )
-  .addEventListener(
-    "click",
-    async () => {
+  if(isOwner()){
 
-      const id =
-        document.getElementById(
-          "channelId"
-        ).value;
+    select.innerHTML=
+      `
+      <option value="administration">
+        Administration
+      </option>
 
-      if(!id){
-        return;
-      }
+      <option value="administration_manager">
+        Administration Manager
+      </option>
 
-      const channel =
-        getChannel(id);
-
-      const name =
-        channel?.name ||
-        channel?.channel_name ||
-        "this channel";
-
-      const yes =
-        confirm(
-          `Are you sure you want to delete "${name}"?`
-        );
-
-      if(!yes){
-        return;
-      }
-
-      const {
-        error
-      } =
-        await sb
-          .from("tv_channels")
-          .delete()
-          .eq("id",id);
-
-      if(error){
-
-        alert(
-          "Unable to delete channel: " +
-          error.message
-        );
-
-        return;
-      }
-
-      channelEditor.style.display =
-        "none";
-
-      await loadGuideData();
-
-    }
-  );
-
-
-/* =========================================================
-   CHANNEL TABLE
-   ========================================================= */
-
-function renderChannelTable(){
-
-  const tbody =
-    document.getElementById(
-      "channelTableBody"
-    );
-
-  if(!tbody){
-    return;
-  }
-
-  const sorted =
-    [...channels].sort(
-      (a,b) =>
-        Number(
-          a.display_order ?? 0
-        ) -
-        Number(
-          b.display_order ?? 0
-        )
-    );
-
-  tbody.innerHTML =
-    sorted.map(channel => `
-
-      <tr>
-
-        <td>
-          ${escapeHtml(
-            channel.name ||
-            channel.channel_name ||
-            ""
-          )}
-        </td>
-
-        <td>
-          ${
-            channel.active !== false
-              ? "Yes"
-              : "No"
-          }
-        </td>
-
-        <td>
-
-          <button
-            class="edit-mini"
-            onclick="editChannelById(
-              '${channel.id}'
-            )"
-          >
-            Edit
-          </button>
-
-          <button
-            class="delete-mini"
-            onclick="deleteChannelFromList(
-              '${channel.id}'
-            )"
-          >
-            Delete
-          </button>
-
-        </td>
-
-      </tr>
-
-    `).join("");
-
-}
-
-window.editChannelById =
-  function(id){
-
-    const channel =
-      getChannel(id);
-
-    if(channel){
-      openChannelEditor(channel);
-    }
-
-  };
-
-window.deleteChannelFromList =
-  async function(id){
-
-    const channel =
-      getChannel(id);
-
-    if(!channel){
-      return;
-    }
-
-    const name =
-      channel.name ||
-      channel.channel_name ||
-      "this channel";
-
-    if(
-      !confirm(
-        `Are you sure you want to delete "${name}"?`
-      )
-    ){
-      return;
-    }
-
-    const {
-      error
-    } =
-      await sb
-        .from("tv_channels")
-        .delete()
-        .eq("id",id);
-
-    if(error){
-
-      alert(
-        "Unable to delete channel: " +
-        error.message
-      );
-
-      return;
-    }
-
-    await loadGuideData();
-
-  };
-
-
-/* =========================================================
-   WEEKLY SCHEDULE TABLE
-   ========================================================= */
-
-function renderScheduleTable(){
-
-  const tbody =
-    document.getElementById(
-      "scheduleTableBody"
-    );
-
-  if(!tbody){
-    return;
-  }
-
-  const sort =
-    document.getElementById(
-      "scheduleSort"
-    )?.value || "channel";
-
-  const rows =
-    schedules.map(item => {
-
-      const channel =
-        getChannel(
-          item.channel_id
-        );
-
-      const program =
-        getProgram(
-          item.program_id
-        );
-
-      return {
-        item,
-        channel,
-        program,
-        channelName:
-          channel?.name ||
-          channel?.channel_name ||
-          "",
-        programName:
-          program?.title ||
-          program?.name ||
-          "",
-        day:
-          scheduleDay(item),
-        minutes:
-          scheduleMinutes(item)
-      };
-
-    });
-
-
-  rows.sort((a,b) => {
-
-    if(sort === "day"){
-
-      return (
-        a.day - b.day ||
-        a.minutes - b.minutes
-      );
-
-    }
-
-    if(sort === "time"){
-
-      return (
-        a.minutes - b.minutes ||
-        a.day - b.day
-      );
-
-    }
-
-    if(sort === "program"){
-
-      return a.programName.localeCompare(
-        b.programName,
-        undefined,
-        {
-          sensitivity:"base"
-        }
-      );
-
-    }
-
-    return a.channelName.localeCompare(
-      b.channelName,
-      undefined,
-      {
-        sensitivity:"base"
-      }
-    );
-
-  });
-
-
-  tbody.innerHTML =
-    rows.map(row => {
-
-      const fakeDate =
-        new Date(
-          2000,
-          0,
-          1,
-          Math.floor(
-            row.minutes/60
-          ),
-          row.minutes%60
-        );
-
-      return `
-
-        <tr>
-
-          <td>
-            ${escapeHtml(
-              row.channelName
-            )}
-          </td>
-
-          <td>
-            ${
-              DAY_NAMES[row.day] ||
-              ""
-            }
-          </td>
-
-          <td>
-            ${formatTime(fakeDate)}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              row.programName
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="edit-mini"
-              onclick="editScheduleById(
-                '${row.item.id}'
-              )"
-            >
-              Edit
-            </button>
-
-            <button
-              class="delete-mini"
-              onclick="deleteScheduleById(
-                '${row.item.id}'
-              )"
-            >
-              Delete
-            </button>
-
-          </td>
-
-        </tr>
-
+      <option value="owner">
+        Owner
+      </option>
       `;
 
-    }).join("");
+    $("roleInviteNote")
+      .textContent=
+      "Owners may invite all administrator role levels.";
 
-}
+  }else{
 
-document
-  .getElementById(
-    "scheduleSort"
-  )
-  .addEventListener(
-    "change",
-    renderScheduleTable
-  );
+    select.innerHTML=
+      `
+      <option value="administration">
+        Administration
+      </option>
+      `;
 
-
-/*
-  If your existing schedule editor is already
-  connected elsewhere in your file, this Edit
-  function can be connected to that editor.
-*/
-
-window.editScheduleById =
-  function(id){
-
-    const item =
-      schedules.find(
-        schedule =>
-          String(schedule.id) ===
-          String(id)
-      );
-
-    if(!item){
-      return;
-    }
-
-    alert(
-      "Schedule editing will open for this entry."
-    );
-
-  };
-
-window.deleteScheduleById =
-  async function(id){
-
-    if(
-      !confirm(
-        "Are you sure you want to delete this scheduled program?"
-      )
-    ){
-      return;
-    }
-
-    const {
-      error
-    } =
-      await sb
-        .from("tv_schedule")
-        .delete()
-        .eq("id",id);
-
-    if(error){
-
-      alert(
-        "Unable to delete schedule: " +
-        error.message
-      );
-
-      return;
-    }
-
-    await loadGuideData();
-
-  };
-
-
-/* =========================================================
-   INVITE ADMINISTRATOR
-   ========================================================= */
-
-const adminEditor =
-  document.getElementById(
-    "adminEditor"
-  );
-
-document
-  .getElementById(
-    "inviteAdminBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      if(
-        !canManageAdministrators()
-      ){
-        return;
-      }
-
-      adminEditor.style.display =
-        "block";
-
-      document.getElementById(
-        "inviteEmail"
-      ).value = "";
-
-      document.getElementById(
-        "inviteRole"
-      ).value =
-        "administration";
-
-      adminEditor.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-
-    }
-  );
-
-document
-  .getElementById(
-    "cancelInviteBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      adminEditor.style.display =
-        "none";
-
-    }
-  );
-
-
-/* =========================================================
-   OWNER ROLE OPTION
-   ========================================================= */
-
-function updateInviteRoleOptions(){
-
-  const select =
-    document.getElementById(
-      "inviteRole"
-    );
-
-  const ownerOption =
-    [...select.options].find(
-      option =>
-        option.value === "owner"
-    );
-
-  if(ownerOption){
-
-    ownerOption.disabled =
-      !isOwner();
+    $("roleInviteNote")
+      .textContent=
+      "Administration Managers may invite regular Administration accounts only.";
 
   }
 
 }
 
+$("login").onclick=
+  async()=>{
 
-/* =========================================================
-   SEND INVITATION
-   ========================================================= */
+    $("loginMessage")
+      .textContent="";
 
-document
-  .getElementById(
-    "sendInviteBtn"
-  )
-  .addEventListener(
-    "click",
-    async () => {
+    const r=
+      await sb.auth
+        .signInWithPassword({
 
-      const email =
-        document
-          .getElementById(
-            "inviteEmail"
-          )
-          .value
-          .trim()
-          .toLowerCase();
+          email:
+            $("email")
+              .value
+              .trim(),
 
-      const role =
-        document.getElementById(
-          "inviteRole"
-        ).value;
+          password:
+            $("password")
+              .value
 
-      const message =
-        document.getElementById(
-          "inviteMessage"
+        });
+
+    if(r.error){
+
+      $("loginMessage")
+        .textContent=
+        r.error.message;
+
+      return;
+
+    }
+
+    user=r.data.user;
+
+    await checkAdmin();
+
+  };
+
+$("forgot").onclick=
+  async()=>{
+
+    const email=
+      $("email")
+        .value
+        .trim();
+
+    if(!email){
+
+      $("loginMessage")
+        .textContent=
+        "Enter your administrator email first, then click Forgot password.";
+
+      return;
+
+    }
+
+    const redirectTo=
+      window.location.origin+
+      window.location.pathname;
+
+    const r=
+      await sb.auth
+        .resetPasswordForEmail(
+          email,
+          {redirectTo}
         );
 
-      if(!email){
+    $("loginMessage")
+      .textContent=
+      r.error
+      ?
+      r.error.message
+      :
+      "Password reset email sent. Check your email.";
 
-        message.textContent =
-          "Please enter an email address.";
+  };
 
-        return;
-      }
+sb.auth.onAuthStateChange(
+  (event,s)=>{
 
-      if(
-        role === "owner" &&
-        !isOwner()
-      ){
+    user=
+      s?.user||null;
 
-        message.textContent =
-          "Only an Owner can assign another Owner.";
+    if(
+      event===
+      "PASSWORD_RECOVERY"
+    ){
 
-        return;
-      }
+      openAdmin();
 
-      const {
-        data:{
-          session
-        }
-      } =
-        await sb.auth.getSession();
+      $("loginBox")
+        .style.display=
+        "none";
 
-      if(!session){
+      $("adminArea")
+        .style.display=
+        "block";
 
-        message.textContent =
-          "Your session has expired. Please sign in again.";
+      $("resetEditor")
+        .style.display=
+        "block";
 
-        return;
-      }
+    }else{
 
-      message.className =
-        "message";
-
-      message.textContent =
-        "Sending invitation...";
-
-      try{
-
-        const response =
-          await fetch(
-            INVITE_ADMIN_URL,
-            {
-              method:"POST",
-
-              headers:{
-                "Content-Type":
-                  "application/json",
-
-                "Authorization":
-                  `Bearer ${session.access_token}`
-              },
-
-              body:JSON.stringify({
-                email,
-                role
-              })
-            }
-          );
-
-        const result =
-          await response.json();
-
-        if(!response.ok){
-
-          throw new Error(
-            result.error ||
-            "Invitation failed."
-          );
-
-        }
-
-        message.className =
-          "message ok";
-
-        message.textContent =
-          "Administrator invitation sent successfully.";
-
-        await loadAdministratorList();
-
-      }catch(error){
-
-        message.className =
-          "message";
-
-        message.textContent =
-          error.message;
-
-      }
+      checkAdmin();
 
     }
-  );
 
+  }
+);
 
-/* =========================================================
-   ADMINISTRATOR LIST
-   ========================================================= */
+$("saveNewPassword").onclick=
+  async()=>{
 
-async function loadAdministratorList(){
+    const a=
+      $("newPassword").value;
 
-  if(!canManageAdministrators()){
+    const b=
+      $("newPassword2").value;
+
+    if(a.length<8){
+
+      $("resetMessage")
+        .textContent=
+        "Password must be at least 8 characters.";
+
+      return;
+
+    }
+
+    if(a!==b){
+
+      $("resetMessage")
+        .textContent=
+        "The passwords do not match.";
+
+      return;
+
+    }
+
+    const r=
+      await sb.auth
+        .updateUser({
+          password:a
+        });
+
+    $("resetMessage")
+      .textContent=
+      r.error
+      ?
+      r.error.message
+      :
+      "Password changed successfully.";
+
+  };
+  /* ADMIN INVITATIONS */
+
+$("addAdmin").onclick=()=>{
+
+  if(!canManageAdmins()){
     return;
   }
 
-  const {
-    data,
-    error
-  } =
+  $("adminInvite")
+    .style.display=
+    "block";
+
+  $("programEditor")
+    .style.display=
+    "none";
+
+  $("channelEditor")
+    .style.display=
+    "none";
+
+  $("inviteMessage")
+    .textContent="";
+
+  populateRoleChoices();
+
+  reportGuideHeight();
+
+};
+
+$("cancelInvite").onclick=()=>{
+
+  $("adminInvite")
+    .style.display=
+    "none";
+
+  reportGuideHeight();
+
+};
+
+$("sendInvite").onclick=
+  async()=>{
+
+    const email=
+      $("newAdminEmail")
+        .value
+        .trim();
+
+    const role=
+      $("newAdminRole")
+        .value;
+
+    if(!email){
+
+      $("inviteMessage")
+        .textContent=
+        "Enter an email address.";
+
+      return;
+
+    }
+
+    $("inviteMessage")
+      .textContent=
+      "Sending invitation...";
+
+    const r=
+      await sb.functions
+        .invoke(
+          INVITE_FUNCTION,
+          {
+            body:{
+              email,
+              role
+            }
+          }
+        );
+
+    if(r.error){
+
+      $("inviteMessage")
+        .textContent=
+        r.error.message;
+
+      return;
+
+    }
+
+    if(r.data?.error){
+
+      $("inviteMessage")
+        .textContent=
+        r.data.error;
+
+      return;
+
+    }
+
+    $("inviteMessage")
+      .textContent=
+      r.data?.message||
+      "Invitation sent.";
+
+    $("inviteMessage")
+      .className=
+      "message ok";
+
+    $("newAdminEmail")
+      .value="";
+
+    await loadAdministrators();
+
+  };
+
+/* ADMINISTRATOR MANAGEMENT */
+
+async function loadAdministrators(){
+
+  if(!canManageAdmins()){
+    administrators=[];
+    return;
+  }
+
+  const r=
     await sb
       .from("tv_admins")
-      .select("*")
-      .order(
-        "created_at",
-        {
-          ascending:true
-        }
-      );
+      .select(
+        "user_id,role,approved,created_at,updated_at"
+      )
+      .order("created_at");
 
-  if(error){
-
-    console.error(
-      "Administrator list error:",
-      error
-    );
-
-    return;
-  }
-
-  administrators =
-    data || [];
+  administrators=
+    r.data||[];
 
   renderAdministratorTable();
-
-  updateInviteRoleOptions();
 
 }
 
 function renderAdministratorTable(){
 
-  const tbody =
-    document.getElementById(
-      "administratorTableBody"
-    );
+  const t=
+    $("administratorTable");
 
-  if(!tbody){
-    return;
-  }
+  t.innerHTML="";
 
-  tbody.innerHTML =
-    administrators.map(admin => {
+  administrators.forEach(a=>{
 
-      const email =
-        admin.email ||
-        admin.user_email ||
-        (
-          String(admin.user_id) ===
-          String(currentUser?.id)
-            ? currentUser?.email
-            : ""
-        ) ||
-        "Administrator";
+    const tr=
+      document.createElement(
+        "tr"
+      );
 
-      const ownAccount =
-        String(admin.user_id) ===
-        String(currentUser?.id);
+    const userCell=
+      document.createElement(
+        "td"
+      );
 
-      return `
+    userCell.textContent=
+      a.user_id===user?.id
+      ?
+      `${user?.email||a.user_id} (You)`
+      :
+      a.user_id;
 
-        <tr>
+    const roleCell=
+      document.createElement(
+        "td"
+      );
 
-          <td>
-            ${escapeHtml(email)}
-            ${
-              ownAccount
-                ? " (You)"
-                : ""
-            }
-          </td>
+    roleCell.textContent=
+      roleName(
+        a.role
+      );
 
-          <td>
-            ${escapeHtml(
-              roleDisplayName(
-                admin.role
-              )
-            )}
-          </td>
+    const approvedCell=
+      document.createElement(
+        "td"
+      );
 
-          <td>
-            ${
-              admin.approved !== false
-                ? "Yes"
-                : "No"
-            }
-          </td>
+    approvedCell.textContent=
+      a.approved
+      ?
+      "Yes"
+      :
+      "No";
 
-          <td>
+    const actionsCell=
+      document.createElement(
+        "td"
+      );
 
-            ${
-              isOwner()
-              ? `
-                <button
-                  class="edit-mini"
-                  onclick="changeAdministratorRole(
-                    '${admin.user_id}',
-                    '${admin.role || "administration"}'
-                  )"
-                >
-                  Change Role
-                </button>
-              `
-              : ""
-            }
+    const canEditTarget=
+      isOwner()
+      ||
+      (
+        isManager()
+        &&
+        a.role==="administration"
+      );
 
-            ${
-              !ownAccount
-              ? `
-                <button
-                  class="delete-mini"
-                  onclick="removeAdministrator(
-                    '${admin.user_id}'
-                  )"
-                >
-                  Remove
-                </button>
-              `
-              : ""
-            }
+    if(canEditTarget){
 
-          </td>
+      const edit=
+        document.createElement(
+          "button"
+        );
 
-        </tr>
+      edit.className=
+        "edit-mini";
 
-      `;
+      edit.textContent=
+        "Change Role";
 
-    }).join("");
+      edit.onclick=
+        ()=>changeAdministratorRole(
+          a
+        );
+
+      actionsCell.appendChild(edit);
+
+      const del=
+        document.createElement(
+          "button"
+        );
+
+      del.className=
+        "delete-mini";
+
+      del.textContent=
+        "Remove";
+
+      del.onclick=
+        ()=>removeAdministrator(
+          a
+        );
+
+      actionsCell.appendChild(del);
+
+    }else{
+
+      actionsCell.textContent=
+        a.role==="owner"
+        ?
+        "Owner protected"
+        :
+        "No permission";
+
+    }
+
+    tr.appendChild(userCell);
+    tr.appendChild(roleCell);
+    tr.appendChild(approvedCell);
+    tr.appendChild(actionsCell);
+
+    t.appendChild(tr);
+
+  });
 
 }
 
+async function changeAdministratorRole(a){
 
-/* =========================================================
-   CHANGE ADMINISTRATOR ROLE
-   ========================================================= */
+  if(!isOwner()){
 
-window.changeAdministratorRole =
-  async function(
-    userId,
-    existingRole
-  ){
+    alert(
+      "Only an Owner can change administrator role levels."
+    );
 
-    if(!isOwner()){
+    return;
 
-      alert(
-        "Only an Owner can change administrator roles."
-      );
+  }
 
-      return;
-    }
+  const answer=
+    prompt(
+      `Enter the new role for this account:\n\nowner\nadministration_manager\nadministration`,
+      a.role
+    );
 
-    const newRole =
-      prompt(
-        "Enter the new role:\n\n" +
-        "owner\n" +
-        "administration_manager\n" +
-        "administration",
-        existingRole
-      );
+  if(!answer){
+    return;
+  }
 
-    if(!newRole){
-      return;
-    }
+  const role=
+    answer.trim();
 
-    const allowed = [
+  if(
+    ![
       "owner",
       "administration_manager",
       "administration"
-    ];
+    ].includes(role)
+  ){
 
-    const role =
-      newRole
-        .trim()
-        .toLowerCase();
+    alert(
+      "That is not a valid role."
+    );
 
-    if(!allowed.includes(role)){
+    return;
+
+  }
+
+  if(
+    !confirm(
+      `Are you sure you want to change this administrator to ${roleName(role)}?`
+    )
+  ){
+    return;
+  }
+
+  const r=
+    await sb
+      .from("tv_admins")
+      .update({
+        role,
+        updated_at:
+          new Date()
+            .toISOString()
+      })
+      .eq(
+        "user_id",
+        a.user_id
+      );
+
+  if(r.error){
+
+    alert(
+      r.error.message
+    );
+
+    return;
+
+  }
+
+  await loadAdministrators();
+
+}
+
+async function removeAdministrator(a){
+
+  if(
+    !confirm(
+      `Are you sure you want to remove this ${roleName(a.role)} administrator?`
+    )
+  ){
+    return;
+  }
+
+  const r=
+    await sb
+      .from("tv_admins")
+      .delete()
+      .eq(
+        "user_id",
+        a.user_id
+      );
+
+  if(r.error){
+
+    alert(
+      r.error.message
+    );
+
+    return;
+
+  }
+
+  await loadAdministrators();
+
+}
+
+/* PROGRAM GROUPING */
+
+function makeProgramGroupKey(p){
+
+  return (
+    String(p.channel_id)+
+    "|||"+
+    String(p.title)
+      .trim()
+      .toLowerCase()
+  );
+
+}
+
+function getProgramGroups(){
+
+  const map=
+    new Map();
+
+  programs.forEach(p=>{
+
+    const key=
+      makeProgramGroupKey(p);
+
+    if(!map.has(key)){
+
+      map.set(
+        key,
+        {
+          key,
+          title:p.title,
+          channel_id:p.channel_id,
+          tag:p.tag,
+          rows:[]
+        }
+      );
+
+    }
+
+    map.get(key)
+      .rows
+      .push(p);
+
+  });
+
+  return [
+    ...map.values()
+  ].sort(
+    (a,b)=>
+    a.title.localeCompare(
+      b.title,
+      undefined,
+      {sensitivity:"base"}
+    )
+  );
+
+}
+
+/* PROGRAM EDITOR */
+
+function scheduleEntryHTML(
+  day=0,
+  start="08:00",
+  duration=30,
+  removable=true
+){
+
+  return `
+  <div class="schedule-entry">
+
+    <div class="schedule-grid">
+
+      <div>
+        <label>Day of Week</label>
+
+        <select class="scheduleDay">
+          ${DAYS.map(
+            (name,index)=>
+            `<option
+              value="${index}"
+              ${Number(day)===index?"selected":""}
+            >
+              ${name}
+            </option>`
+          ).join("")}
+        </select>
+      </div>
+
+      <div>
+        <label>Start Time</label>
+
+        <input
+          class="scheduleStart"
+          type="time"
+          value="${start}"
+        >
+      </div>
+
+      <div>
+        <label>Program Length</label>
+
+        <select class="scheduleDuration">
+
+          ${[
+            [15,"15 Minutes"],
+            [30,"30 Minutes"],
+            [45,"45 Minutes"],
+            [60,"1 Hour"],
+            [75,"1 Hour 15 Minutes"],
+            [90,"1 Hour 30 Minutes"],
+            [105,"1 Hour 45 Minutes"],
+            [120,"2 Hours"],
+            [150,"2 Hours 30 Minutes"],
+            [180,"3 Hours"],
+            [240,"4 Hours"]
+          ].map(
+            ([value,label])=>
+            `<option
+              value="${value}"
+              ${Number(duration)===value?"selected":""}
+            >
+              ${label}
+            </option>`
+          ).join("")}
+
+        </select>
+      </div>
+
+      ${
+        removable
+        ?
+        `<button
+          type="button"
+          class="remove-time"
+        >
+          Remove
+        </button>`
+        :
+        `<div></div>`
+      }
+
+    </div>
+
+  </div>`;
+
+}
+
+function bindScheduleRemoveButtons(){
+
+  document
+    .querySelectorAll(
+      ".remove-time"
+    )
+    .forEach(btn=>{
+
+      btn.onclick=()=>{
+
+        if(
+          document
+            .querySelectorAll(
+              ".schedule-entry"
+            )
+            .length<=1
+        ){
+
+          alert(
+            "A program must have at least one day and time."
+          );
+
+          return;
+
+        }
+
+        btn
+          .closest(
+            ".schedule-entry"
+          )
+          .remove();
+
+      };
+
+    });
+
+}
+
+function resetProgramEditor(){
+
+  editingGroupIds=[];
+
+  $("programId").value="";
+  $("programEditMode").value="new";
+  $("programTitle").value="";
+  $("programDescription").value="";
+  $("programTitleCard").value="";
+  $("programActive").checked=true;
+  $("programTag").value="Church Services";
+
+  $("titleCardArea")
+    .classList
+    .remove("open");
+
+  $("toggleTitleCard")
+    .textContent=
+    "+ Add Title Card";
+
+  $("scheduleEntries")
+    .innerHTML=
+    scheduleEntryHTML(
+      0,
+      "08:00",
+      30,
+      false
+    );
+
+  bindScheduleRemoveButtons();
+
+}
+
+$("addProgram").onclick=()=>{
+
+  $("programEditor")
+    .style.display=
+    "block";
+
+  $("channelEditor")
+    .style.display=
+    "none";
+
+  $("adminInvite")
+    .style.display=
+    "none";
+
+  resetProgramEditor();
+
+  reportGuideHeight();
+
+};
+
+$("cancelProgram").onclick=()=>{
+
+  $("programEditor")
+    .style.display=
+    "none";
+
+  editingGroupIds=[];
+
+  reportGuideHeight();
+
+};
+
+$("toggleTitleCard").onclick=()=>{
+
+  const open=
+    $("titleCardArea")
+      .classList
+      .toggle("open");
+
+  $("toggleTitleCard")
+    .textContent=
+    open
+    ?
+    "− Hide Title Card"
+    :
+    "+ Add Title Card";
+
+};
+
+$("addSchedule").onclick=()=>{
+
+  $("scheduleEntries")
+    .insertAdjacentHTML(
+      "beforeend",
+      scheduleEntryHTML(
+        0,
+        "08:00",
+        30,
+        true
+      )
+    );
+
+  bindScheduleRemoveButtons();
+
+};
+
+function collectScheduleRows(common){
+
+  return [
+    ...document
+      .querySelectorAll(
+        ".schedule-entry"
+      )
+  ]
+  .map(entry=>{
+
+    const start=
+      entry
+        .querySelector(
+          ".scheduleStart"
+        )
+        .value;
+
+    if(!start){
+      return null;
+    }
+
+    return {
+      ...common,
+
+      day_of_week:
+        Number(
+          entry
+            .querySelector(
+              ".scheduleDay"
+            )
+            .value
+        ),
+
+      start_time:
+        start+":00",
+
+      duration_minutes:
+        Number(
+          entry
+            .querySelector(
+              ".scheduleDuration"
+            )
+            .value
+        )
+    };
+
+  })
+  .filter(Boolean);
+
+}
+
+$("saveProgram").onclick=
+  async()=>{
+
+    const channelId=
+      $("programChannel")
+        .value;
+
+    const title=
+      $("programTitle")
+        .value
+        .trim();
+
+    if(!channelId||!title){
 
       alert(
-        "That is not a valid administrator role."
+        "Please enter a channel and program name."
       );
 
       return;
+
     }
 
-    const {
-      error
-    } =
-      await sb
-        .from("tv_admins")
-        .update({
-          role
-        })
-        .eq(
-          "user_id",
-          userId
+    const common={
+      channel_id:channelId,
+      title,
+      tag:$("programTag").value,
+      description:
+        $("programDescription")
+          .value
+          .trim(),
+      title_card_url:
+        $("programTitleCard")
+          .value
+          .trim()||
+        null,
+      active:
+        $("programActive")
+          .checked
+    };
+
+    const rows=
+      collectScheduleRows(
+        common
+      );
+
+    const mode=
+      $("programEditMode")
+        .value;
+
+    const id=
+      $("programId")
+        .value;
+
+    if(mode==="group"){
+
+      const oldIds=[
+        ...editingGroupIds
+      ];
+
+      const count=
+        Math.min(
+          oldIds.length,
+          rows.length
         );
 
-    if(error){
+      for(let i=0;i<count;i++){
 
-      alert(
-        "Unable to change role: " +
-        error.message
-      );
+        const r=
+          await sb
+            .from("tv_programs")
+            .update(
+              rows[i]
+            )
+            .eq(
+              "id",
+              oldIds[i]
+            );
 
-      return;
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+      if(rows.length>oldIds.length){
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .insert(
+              rows.slice(
+                oldIds.length
+              )
+            );
+
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+      if(oldIds.length>rows.length){
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .delete()
+            .in(
+              "id",
+              oldIds.slice(
+                rows.length
+              )
+            );
+
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+    }else if(
+      mode==="single" &&
+      id
+    ){
+
+      const r=
+        await sb
+          .from("tv_programs")
+          .update(
+            rows[0]
+          )
+          .eq(
+            "id",
+            id
+          );
+
+      if(r.error){
+        return alert(r.error.message);
+      }
+
+    }else{
+
+      const r=
+        await sb
+          .from("tv_programs")
+          .insert(rows);
+
+      if(r.error){
+        return alert(r.error.message);
+      }
+
     }
 
-    await loadAdministratorList();
+    $("programEditor")
+      .style.display=
+      "none";
+
+    editingGroupIds=[];
+
+    await load();
 
   };
 
+window.editProgram=id=>{
 
-/* =========================================================
-   REMOVE ADMINISTRATOR
-   ========================================================= */
+  const p=
+    programs.find(
+      x=>x.id===id
+    );
 
-window.removeAdministrator =
-  async function(userId){
+  if(!p)return;
 
-    if(
-      String(userId) ===
-      String(currentUser?.id)
-    ){
+  editingGroupIds=[];
 
-      alert(
-        "You cannot remove your own administrator account from this screen."
+  $("programEditor")
+    .style.display=
+    "block";
+
+  $("programEditMode")
+    .value=
+    "single";
+
+  $("programId")
+    .value=
+    p.id;
+
+  $("programChannel").value=
+    p.channel_id;
+
+  $("programTitle").value=
+    p.title;
+
+  $("programTag").value=
+    p.tag;
+
+  $("programDescription").value=
+    p.description||"";
+
+  $("programTitleCard").value=
+    p.title_card_url||"";
+
+  $("programActive").checked=
+    p.active;
+
+  $("scheduleEntries")
+    .innerHTML=
+    scheduleEntryHTML(
+      p.day_of_week,
+      p.start_time.slice(0,5),
+      p.duration_minutes,
+      false
+    );
+
+};
+
+function editProgramGroup(key){
+
+  const group=
+    getProgramGroups()
+      .find(
+        g=>g.key===key
       );
 
-      return;
-    }
+  if(!group)return;
+
+  const rows=[
+    ...group.rows
+  ].sort(
+    (a,b)=>
+    a.day_of_week-b.day_of_week
+    ||
+    mins(a.start_time)-
+    mins(b.start_time)
+  );
+
+  editingGroupIds=
+    rows.map(
+      p=>p.id
+    );
+
+  const first=
+    rows[0];
+
+  $("programEditor")
+    .style.display=
+    "block";
+
+  $("programEditMode")
+    .value=
+    "group";
+
+  $("programId").value="";
+
+  $("programChannel").value=
+    first.channel_id;
+
+  $("programTitle").value=
+    first.title;
+
+  $("programTag").value=
+    first.tag;
+
+  $("programDescription").value=
+    first.description||"";
+
+  $("programTitleCard").value=
+    first.title_card_url||"";
+
+  $("programActive").checked=
+    first.active;
+
+  $("scheduleEntries")
+    .innerHTML=
+    rows.map(
+      (p,index)=>
+      scheduleEntryHTML(
+        p.day_of_week,
+        p.start_time.slice(0,5),
+        p.duration_minutes,
+        index!==0
+      )
+    ).join("");
+
+  bindScheduleRemoveButtons();
+
+}
+
+window.deleteProgram=
+  async id=>{
 
     if(
       !confirm(
-        "Are you sure you want to remove this administrator?"
+        "Are you sure you want to delete this scheduled airing?"
       )
     ){
       return;
     }
 
-    const {
-      error
-    } =
+    const r=
       await sb
-        .from("tv_admins")
+        .from("tv_programs")
         .delete()
-        .eq(
-          "user_id",
-          userId
-        );
+        .eq("id",id);
 
-    if(error){
-
-      alert(
-        "Unable to remove administrator: " +
-        error.message
-      );
-
-      return;
+    if(r.error){
+      alert(r.error.message);
+    }else{
+      await load();
     }
-
-    await loadAdministratorList();
 
   };
 
+async function deleteProgramGroup(group){
 
-/* =========================================================
-   VIEWER BUTTONS
-   ========================================================= */
+  if(
+    !confirm(
+      `Are you sure you want to delete "${group.title}" and all of its scheduled airings?`
+    )
+  ){
+    return;
+  }
 
-document
-  .getElementById("today")
-  .addEventListener(
-    "click",
-    () => {
-
-      const now =
-        viewerNow();
-
-      document.getElementById(
-        "date"
-      ).value =
-        localDateString(now);
-
-      renderGuide();
-
-    }
-  );
-
-document
-  .getElementById("goNow")
-  .addEventListener(
-    "click",
-    () => {
-
-      scrollToNow("smooth");
-
-    }
-  );
-
-document
-  .getElementById("date")
-  .addEventListener(
-    "change",
-    renderGuide
-  );
-
-document
-  .getElementById("search")
-  .addEventListener(
-    "input",
-    renderGuide
-  );
-
-document
-  .getElementById("tag")
-  .addEventListener(
-    "change",
-    renderGuide
-  );
-
-
-/* =========================================================
-   POPUP CLOSE
-   ========================================================= */
-
-document
-  .getElementById(
-    "popupClose"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      document.getElementById(
-        "popup"
-      ).classList.remove(
-        "open"
+  const r=
+    await sb
+      .from("tv_programs")
+      .delete()
+      .in(
+        "id",
+        group.rows.map(
+          p=>p.id
+        )
       );
 
+  if(r.error){
+    alert(r.error.message);
+  }else{
+    await load();
+  }
+
+}
+
+function renderProgramList(){
+
+  const t=
+    $("programListTable");
+
+  t.innerHTML="";
+
+  getProgramGroups()
+    .forEach(group=>{
+
+      const c=
+        channels.find(
+          x=>
+          x.id===
+          group.channel_id
+        );
+
+      const tr=
+        document.createElement(
+          "tr"
+        );
+
+      tr.innerHTML=
+        `<td>${esc(group.title)}</td>
+         <td>${esc(c?.name||"")}</td>
+         <td>${esc(group.tag||"")}</td>
+         <td>${group.rows.length}</td>
+         <td></td>`;
+
+      const actions=
+        tr.lastElementChild;
+
+      const edit=
+        document.createElement(
+          "button"
+        );
+
+      edit.className=
+        "edit-mini";
+
+      edit.textContent=
+        "Edit";
+
+      edit.onclick=
+        ()=>editProgramGroup(
+          group.key
+        );
+
+      const del=
+        document.createElement(
+          "button"
+        );
+
+      del.className=
+        "delete-mini";
+
+      del.textContent=
+        "Delete Program";
+
+      del.onclick=
+        ()=>deleteProgramGroup(
+          group
+        );
+
+      actions.append(
+        edit,
+        del
+      );
+
+      t.appendChild(tr);
+
+    });
+
+}
+
+/* CHANNELS */
+
+$("addChannel").onclick=()=>{
+
+  if(!canManageChannels()){
+    return;
+  }
+
+  $("channelEditor")
+    .style.display=
+    "block";
+
+  $("programEditor")
+    .style.display=
+    "none";
+
+  $("adminInvite")
+    .style.display=
+    "none";
+
+  $("channelId").value="";
+  $("channelName").value="";
+  $("channelLogo").value="";
+
+  $("deleteChannel")
+    .style.display=
+    "none";
+
+};
+
+$("cancelChannel").onclick=()=>{
+
+  $("channelEditor")
+    .style.display=
+    "none";
+
+};
+
+$("saveChannel").onclick=
+  async()=>{
+
+    if(!canManageChannels()){
+      return;
     }
-  );
 
-document
-  .getElementById("popup")
-  .addEventListener(
-    "click",
-    event => {
+    const id=
+      $("channelId")
+        .value;
 
-      if(
-        event.target.id ===
-        "popup"
-      ){
+    const data={
+      name:
+        $("channelName")
+          .value
+          .trim(),
+      logo_url:
+        $("channelLogo")
+          .value
+          .trim()||
+        null,
+      active:true
+    };
 
-        event.currentTarget
-          .classList.remove(
-            "open"
+    if(!data.name){
+
+      alert(
+        "Enter a channel name."
+      );
+
+      return;
+
+    }
+
+    let r;
+
+    if(id){
+
+      r=
+        await sb
+          .from("tv_channels")
+          .update(data)
+          .eq(
+            "id",
+            id
           );
 
-      }
+    }else{
+
+      data.sort_order=
+        channels.length;
+
+      r=
+        await sb
+          .from("tv_channels")
+          .insert(data);
 
     }
-  );
 
+    if(r.error){
+      alert(r.error.message);
+    }else{
 
-/* =========================================================
-   WINDOW RESIZE
-   ========================================================= */
+      $("channelEditor")
+        .style.display=
+        "none";
 
-let resizeTimer;
+      await load();
 
-window.addEventListener(
-  "resize",
-  () => {
+    }
 
-    clearTimeout(
-      resizeTimer
+  };
+
+window.editChannel=id=>{
+
+  if(!canManageChannels()){
+    return;
+  }
+
+  const c=
+    channels.find(
+      x=>x.id===id
     );
 
-    resizeTimer =
-      setTimeout(
-        () => {
+  if(!c)return;
 
-          renderGuide();
+  $("channelEditor")
+    .style.display=
+    "block";
 
-        },
-        150
+  $("channelId").value=
+    c.id;
+
+  $("channelName").value=
+    c.name;
+
+  $("channelLogo").value=
+    c.logo_url||"";
+
+  $("deleteChannel")
+    .style.display=
+    "inline-block";
+
+};
+
+$("deleteChannel").onclick=
+  async()=>{
+
+    if(!canManageChannels()){
+      return;
+    }
+
+    const id=
+      $("channelId")
+        .value;
+
+    const c=
+      channels.find(
+        x=>x.id===id
       );
 
-  }
-);
+    if(!c)return;
 
+    const count=
+      programs.filter(
+        p=>
+        p.channel_id===id
+      ).length;
 
-/* =========================================================
-   KEEP CURRENT LINE CURRENT
-   ========================================================= */
+    if(count){
 
-setInterval(
-  () => {
+      alert(
+        `"${c.name}" still has ${count} scheduled program airing${count===1?"":"s"}. Move or delete them first.`
+      );
 
-    drawCurrentTimeLine();
-    updateNowPlaying();
+      return;
 
-  },
-  30000
-);
-
-
-/* =========================================================
-   START APPLICATION
-   ========================================================= */
-
-async function initialize(){
-
-  const now =
-    viewerNow();
-
-  document.getElementById(
-    "date"
-  ).value =
-    localDateString(now);
-
-
-  const {
-    data:{
-      session
     }
-  } =
-    await sb.auth.getSession();
 
-  if(session?.user){
+    if(
+      !confirm(
+        `Are you sure you want to delete "${c.name}"?`
+      )
+    ){
+      return;
+    }
 
-    currentUser =
-      session.user;
+    const r=
+      await sb
+        .from("tv_channels")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
 
-    await loadCurrentAdministrator();
+    if(r.error){
+      alert(r.error.message);
+    }else{
+      await load();
+    }
 
-  }else{
+  };
 
-    showLoggedOut();
+function renderChannelTable(){
 
-  }
+  const t=
+    $("channelTable");
 
+  t.innerHTML="";
 
-  await loadGuideData();
+  channels.forEach(c=>{
 
+    const logo=
+      c.logo_url||
+      CHANNEL_LOGOS[c.name];
 
-  /*
-    Initial positioning.
+    const tr=
+      document.createElement(
+        "tr"
+      );
 
-    We wait briefly so mobile Safari has finished
-    measuring the sticky channel column and the
-    visible schedule area.
-  */
+    tr.innerHTML=
+      `<td>
+        ${
+          logo
+          ?
+          `<img
+            class="channel-preview"
+            src="${esc(logo)}"
+            alt=""
+          >`
+          :
+          "✝"
+        }
+       </td>
+       <td>${esc(c.name)}</td>
+       <td>
+         <button
+           class="edit-mini"
+           onclick="editChannel('${c.id}')"
+         >
+           Edit
+         </button>
+       </td>`;
 
-  setTimeout(
-    () => {
+    t.appendChild(tr);
 
-      scrollToNow("auto");
+  });
 
-    },
-    250
+}
+
+/* WEEKLY SCHEDULE */
+
+function getChannelName(id){
+
+  return (
+    channels.find(
+      c=>c.id===id
+    )?.name||""
   );
 
 }
 
-initialize();
+function sortedPrograms(){
 
+  const sort=
+    $("scheduleSort")
+      .value;
+
+  const list=[
+    ...programs
+  ];
+
+  list.sort(
+    (a,b)=>{
+
+      if(sort==="channel"){
+
+        return (
+          getChannelName(
+            a.channel_id
+          )
+          .localeCompare(
+            getChannelName(
+              b.channel_id
+            )
+          )
+          ||
+          a.day_of_week-
+          b.day_of_week
+          ||
+          mins(a.start_time)-
+          mins(b.start_time)
+        );
+
+      }
+
+      if(sort==="time"){
+
+        return (
+          mins(a.start_time)-
+          mins(b.start_time)
+          ||
+          a.day_of_week-
+          b.day_of_week
+        );
+
+      }
+
+      if(sort==="program"){
+
+        return (
+          a.title.localeCompare(
+            b.title
+          )
+          ||
+          a.day_of_week-
+          b.day_of_week
+        );
+
+      }
+
+      return (
+        a.day_of_week-
+        b.day_of_week
+        ||
+        mins(a.start_time)-
+        mins(b.start_time)
+      );
+
+    }
+  );
+
+  return list;
+
+}
+
+$("scheduleSort")
+  .onchange=
+  renderWeeklySchedule;
+
+function renderWeeklySchedule(){
+
+  const t=
+    $("adminTable");
+
+  t.innerHTML="";
+
+  sortedPrograms()
+    .forEach(p=>{
+
+      const c=
+        channels.find(
+          x=>
+          x.id===
+          p.channel_id
+        );
+
+      const tr=
+        document.createElement(
+          "tr"
+        );
+
+      tr.innerHTML=
+        `<td>${esc(c?.name||"")}</td>
+         <td>${DAYS[p.day_of_week]}</td>
+         <td>${fmt(mins(p.start_time))}</td>
+         <td>${esc(p.title)}</td>
+         <td>${esc(p.tag)}</td>
+         <td>${p.duration_minutes} min</td>
+         <td>
+           <button
+             class="edit-mini"
+             onclick="editProgram('${p.id}')"
+           >
+             Edit
+           </button>
+
+           <button
+             class="delete-mini"
+             onclick="deleteProgram('${p.id}')"
+           >
+             Delete
+           </button>
+         </td>`;
+
+      t.appendChild(tr);
+
+    });
+
+}
+
+/* LOGOUT */
+
+$("logout").onclick=
+  async()=>{
+
+    await sb.auth.signOut();
+
+    user=null;
+    adminRecord=null;
+    administrators=[];
+
+    $("loginBox")
+      .style.display=
+      "block";
+
+    $("adminArea")
+      .style.display=
+      "none";
+
+    $("signedInCard")
+      .style.display=
+      "none";
+
+    $("password").value="";
+
+    $("loginMessage")
+      .textContent=
+      "Signed out.";
+
+  };
+
+$("refresh").onclick=
+  load;
+
+/* REALTIME */
+
+sb.channel(
+  "christian-tv-guide-live"
+)
+.on(
+  "postgres_changes",
+  {
+    event:"*",
+    schema:"public",
+    table:"tv_channels"
+  },
+  load
+)
+.on(
+  "postgres_changes",
+  {
+    event:"*",
+    schema:"public",
+    table:"tv_programs"
+  },
+  load
+)
+.subscribe();
+
+setInterval(
+  ()=>render(),
+  30000
+);
+
+if(
+  "ResizeObserver" in window
+){
+
+  const observer=
+    new ResizeObserver(
+      ()=>reportGuideHeight()
+    );
+
+  observer.observe(
+    $("app")
+  );
+
+}
+
+window.addEventListener(
+  "load",
+  reportGuideHeight
+);
+
+window.addEventListener(
+  "resize",
+  reportGuideHeight
+);
+
+load();
+
+setTimeout(
+  reportGuideHeight,
+  500
+);
+
+})();
 </script>
 
 </body>

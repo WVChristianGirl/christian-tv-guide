@@ -84,6 +84,8 @@ button,input,select,textarea{
   margin-top:4px;
 }
 
+/* CATEGORY LEGEND */
+
 .category-legend{
   display:flex;
   flex-wrap:wrap;
@@ -226,13 +228,17 @@ button,input,select,textarea{
 }
 
 .guide{
-  min-width:2180px;
+  min-width:calc(
+    var(--channel-width) + var(--timeline-width)
+  );
   position:relative;
 }
 
 .time-head{
   display:grid;
-  grid-template-columns:var(--channel-width) var(--timeline-width);
+  grid-template-columns:
+    var(--channel-width)
+    var(--timeline-width);
   height:40px;
   background:#f7f9fc;
   border-bottom:1px solid var(--line);
@@ -274,7 +280,9 @@ button,input,select,textarea{
 .row{
   height:var(--row-height);
   display:grid;
-  grid-template-columns:var(--channel-width) var(--timeline-width);
+  grid-template-columns:
+    var(--channel-width)
+    var(--timeline-width);
   border-bottom:1px solid var(--line);
 }
 
@@ -433,7 +441,7 @@ button,input,select,textarea{
   bottom:0;
   width:2px;
   background:var(--red);
-  z-index:4;
+  z-index:5;
   pointer-events:none;
 }
 
@@ -448,7 +456,7 @@ button,input,select,textarea{
   background:var(--red);
 }
 
-/* POPUP */
+/* PROGRAM POPUP */
 
 .popup{
   position:fixed;
@@ -923,7 +931,10 @@ button,input,select,textarea{
   padding:4px;
 }
 
+/* TABLET */
+
 @media(max-width:750px){
+
   .schedule-grid{
     grid-template-columns:1fr;
   }
@@ -931,13 +942,85 @@ button,input,select,textarea{
   .remove-time{
     width:100%;
   }
+
 }
 
+/* IPHONE / SMALL PHONE IMPROVEMENTS */
+
 @media(max-width:650px){
-  .title{font-size:19px}
-  .subtitle{display:none}
-  .header{padding:12px}
-  .legend-item{font-size:8px}
+
+  :root{
+    --channel-width:170px;
+    --row-height:72px;
+  }
+
+  .app{
+    margin:8px auto 0;
+  }
+
+  .title{
+    font-size:19px;
+  }
+
+  .subtitle{
+    display:none;
+  }
+
+  .header{
+    padding:12px;
+  }
+
+  .legend-item{
+    font-size:8px;
+  }
+
+  .channel{
+    padding:5px 6px;
+    gap:6px;
+  }
+
+  .logo{
+    width:36px;
+    height:36px;
+    flex:0 0 36px;
+  }
+
+  .placeholder{
+    width:36px;
+    height:36px;
+    flex:0 0 36px;
+    font-size:17px;
+  }
+
+  .channel-name{
+    font-size:10px;
+    line-height:1.15;
+  }
+
+  .small{
+    font-size:8px;
+    line-height:1.1;
+    margin-top:2px;
+  }
+
+  .program{
+    top:6px;
+    height:60px;
+    padding:5px;
+  }
+
+  .ptitle{
+    font-size:10px;
+  }
+
+  .ptime{
+    font-size:8px;
+  }
+
+  .ptag{
+    font-size:7px;
+  }
+
 }
 </style>
 </head>
@@ -1051,6 +1134,7 @@ button,input,select,textarea{
 </div>
 
 <div class="popup" id="popup">
+
   <div class="popup-box">
 
     <button class="close" id="popupClose">
@@ -1060,6 +1144,7 @@ button,input,select,textarea{
     <div id="popupContent"></div>
 
   </div>
+
 </div>
 <div class="admin-dock">
 
@@ -1150,8 +1235,6 @@ button,input,select,textarea{
 
         </div>
 
-        <!-- INVITE ADMINISTRATOR -->
-
         <div
           class="editor"
           id="adminInvite"
@@ -1182,7 +1265,6 @@ button,input,select,textarea{
                 class="info-btn"
                 id="roleHelpButton"
                 type="button"
-                aria-label="Role information"
               >
                 i
               </button>
@@ -1233,8 +1315,6 @@ button,input,select,textarea{
 
         </div>
 
-        <!-- PASSWORD RESET -->
-
         <div
           class="editor"
           id="resetEditor"
@@ -1273,8 +1353,6 @@ button,input,select,textarea{
           <div class="message" id="resetMessage"></div>
 
         </div>
-
-        <!-- PROGRAM EDITOR -->
 
         <div
           class="editor"
@@ -1398,8 +1476,6 @@ button,input,select,textarea{
 
         </div>
 
-        <!-- CHANNEL EDITOR -->
-
         <div
           class="editor"
           id="channelEditor"
@@ -1449,9 +1525,10 @@ button,input,select,textarea{
 
         </div>
 
-        <!-- ADMINISTRATOR MANAGEMENT -->
-
-        <div class="admin-section" id="administratorManagementSection">
+        <div
+          class="admin-section"
+          id="administratorManagementSection"
+        >
 
           <button
             class="section-toggle"
@@ -1489,9 +1566,10 @@ button,input,select,textarea{
 
         </div>
 
-        <!-- CHANNEL MANAGEMENT -->
-
-        <div class="admin-section" id="channelManagementSection">
+        <div
+          class="admin-section"
+          id="channelManagementSection"
+        >
 
           <button
             class="section-toggle"
@@ -1527,8 +1605,6 @@ button,input,select,textarea{
           </div>
 
         </div>
-
-        <!-- PROGRAM LIST -->
 
         <div class="admin-section">
 
@@ -1568,8 +1644,6 @@ button,input,select,textarea{
           </div>
 
         </div>
-
-        <!-- WEEKLY SCHEDULE -->
 
         <div class="admin-section">
 
@@ -1670,7 +1744,6 @@ const DAYS=[
 ];
 
 const HOUR_WIDTH=65;
-const CHANNEL_WIDTH=230;
 const EXTENDED_HOURS=30;
 
 const ROLE_NAMES={
@@ -1726,8 +1799,6 @@ function canManageChannels(){
   return isOwner()||isManager();
 }
 
-/* HEIGHT */
-
 let heightTimer=null;
 let lastReportedHeight=0;
 
@@ -1768,7 +1839,7 @@ function reportGuideHeight(){
   },80);
 
 }
-  function esc(v){
+function esc(v){
 
   return String(v??"").replace(
     /[&<>"']/g,
@@ -2157,12 +2228,8 @@ function displayOccurrences(){
 
 function currentOccurrences(){
 
-  const now=
-    new Date();
-
-  const localD=
-    localDate();
-
+  const now=new Date();
+  const localD=localDate();
   const out=[];
 
   for(const p of programs){
@@ -2239,6 +2306,12 @@ function isToday(){
 
 }
 
+/* =========================================================
+   CORRECTED NOW SCROLLING
+   Keeps the red line visible to the right of the sticky
+   channel information column, especially on iPhone.
+   ========================================================= */
+
 function autoScrollToNow(
   smooth=true
 ){
@@ -2248,18 +2321,61 @@ function autoScrollToNow(
   const sc=
     $("guideScroll");
 
-  const timelineX=
-    CHANNEL_WIDTH+
-    (
-      localMinutes()/60*
-      HOUR_WIDTH
+  const styles=
+    getComputedStyle(
+      document.documentElement
     );
 
-  const target=
+  const channelWidth=
+    parseFloat(
+      styles.getPropertyValue(
+        "--channel-width"
+      )
+    )||230;
+
+  const hourWidth=
+    parseFloat(
+      styles.getPropertyValue(
+        "--hour-width"
+      )
+    )||65;
+
+  const nowPosition=
+    localMinutes()/60*
+    hourWidth;
+
+  const visibleScheduleWidth=
+    Math.max(
+      120,
+      sc.clientWidth-
+      channelWidth
+    );
+
+  /*
+    Put current time about 30% into the visible
+    schedule area. This leaves some earlier time
+    visible, while showing considerably more future
+    programming.
+  */
+
+  let target=
+    nowPosition-
+    visibleScheduleWidth*0.30;
+
+  const maxScroll=
     Math.max(
       0,
-      timelineX-
-      sc.clientWidth*0.25
+      sc.scrollWidth-
+      sc.clientWidth
+    );
+
+  target=
+    Math.max(
+      0,
+      Math.min(
+        target,
+        maxScroll
+      )
     );
 
   sc.scrollTo({
@@ -2663,7 +2779,7 @@ $("popup").onclick=e=>{
 
 };
 
-/* LOAD */
+/* LOAD DATA */
 
 async function load(){
 
@@ -2682,6 +2798,20 @@ async function load(){
       .order("day_of_week")
       .order("start_time");
 
+  if(c.error){
+    console.error(
+      "Channel load error:",
+      c.error
+    );
+  }
+
+  if(p.error){
+    console.error(
+      "Program load error:",
+      p.error
+    );
+  }
+
   channels=c.data||[];
   programs=p.data||[];
 
@@ -2689,6 +2819,7 @@ async function load(){
   fillChannels();
 
   if(adminRecord){
+
     renderChannelTable();
     renderProgramList();
     renderWeeklySchedule();
@@ -2696,6 +2827,7 @@ async function load(){
     if(canManageAdmins()){
       await loadAdministrators();
     }
+
   }
 
   setTimeout(
@@ -2736,7 +2868,11 @@ $("date").onchange=()=>{
       .map(Number);
 
   selectedDate=
-    new Date(y,m-1,d);
+    new Date(
+      y,
+      m-1,
+      d
+    );
 
   render();
 
@@ -2799,10 +2935,12 @@ document
         .forEach(i=>{
 
           if(i!==item){
+
             i.classList
               .remove(
                 "legend-active"
               );
+
           }
 
         });
@@ -2886,9 +3024,13 @@ $("adminToggle").onclick=()=>{
       .classList
       .contains("open")
   ){
+
     closeAdmin();
+
   }else{
+
     openAdmin();
+
   }
 
 };
@@ -3132,7 +3274,8 @@ $("login").onclick=
 
     }
 
-    user=r.data.user;
+    user=
+      r.data.user;
 
     await checkAdmin();
 
@@ -3373,8 +3516,11 @@ $("sendInvite").onclick=
 async function loadAdministrators(){
 
   if(!canManageAdmins()){
+
     administrators=[];
+
     return;
+
   }
 
   const r=
@@ -3528,7 +3674,11 @@ async function changeAdministratorRole(a){
 
   const answer=
     prompt(
-      `Enter the new role for this account:\n\nowner\nadministration_manager\nadministration`,
+      `Enter the new role for this account:
+
+owner
+administration_manager
+administration`,
       a.role
     );
 
@@ -4004,6 +4154,16 @@ $("saveProgram").onclick=
         common
       );
 
+    if(!rows.length){
+
+      alert(
+        "Please enter at least one day and time."
+      );
+
+      return;
+
+    }
+
     const mode=
       $("programEditMode")
         .value;
@@ -4099,6 +4259,21 @@ $("saveProgram").onclick=
         return alert(r.error.message);
       }
 
+      if(rows.length>1){
+
+        const extra=
+          await sb
+            .from("tv_programs")
+            .insert(
+              rows.slice(1)
+            );
+
+        if(extra.error){
+          return alert(extra.error.message);
+        }
+
+      }
+
     }else{
 
       const r=
@@ -4163,6 +4338,28 @@ window.editProgram=id=>{
   $("programActive").checked=
     p.active;
 
+  if(p.title_card_url){
+
+    $("titleCardArea")
+      .classList
+      .add("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "− Hide Title Card";
+
+  }else{
+
+    $("titleCardArea")
+      .classList
+      .remove("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "+ Add Title Card";
+
+  }
+
   $("scheduleEntries")
     .innerHTML=
     scheduleEntryHTML(
@@ -4171,6 +4368,8 @@ window.editProgram=id=>{
       p.duration_minutes,
       false
     );
+
+  bindScheduleRemoveButtons();
 
 };
 
@@ -4230,6 +4429,28 @@ function editProgramGroup(key){
   $("programActive").checked=
     first.active;
 
+  if(first.title_card_url){
+
+    $("titleCardArea")
+      .classList
+      .add("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "− Hide Title Card";
+
+  }else{
+
+    $("titleCardArea")
+      .classList
+      .remove("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "+ Add Title Card";
+
+  }
+
   $("scheduleEntries")
     .innerHTML=
     rows.map(
@@ -4264,9 +4485,13 @@ window.deleteProgram=
         .eq("id",id);
 
     if(r.error){
+
       alert(r.error.message);
+
     }else{
+
       await load();
+
     }
 
   };
@@ -4293,9 +4518,13 @@ async function deleteProgramGroup(group){
       );
 
   if(r.error){
+
     alert(r.error.message);
+
   }else{
+
     await load();
+
   }
 
 }
@@ -4473,7 +4702,9 @@ $("saveChannel").onclick=
     }
 
     if(r.error){
+
       alert(r.error.message);
+
     }else{
 
       $("channelEditor")
@@ -4570,9 +4801,17 @@ $("deleteChannel").onclick=
         );
 
     if(r.error){
+
       alert(r.error.message);
+
     }else{
+
+      $("channelEditor")
+        .style.display=
+        "none";
+
       await load();
+
     }
 
   };
@@ -4800,7 +5039,7 @@ $("logout").onclick=
 $("refresh").onclick=
   load;
 
-/* REALTIME */
+/* REALTIME DATABASE UPDATES */
 
 sb.channel(
   "christian-tv-guide-live"
@@ -4825,10 +5064,14 @@ sb.channel(
 )
 .subscribe();
 
+/* KEEP NOW LINE CURRENT */
+
 setInterval(
   ()=>render(),
   30000
 );
+
+/* AUTO HEIGHT */
 
 if(
   "ResizeObserver" in window
@@ -4852,8 +5095,26 @@ window.addEventListener(
 
 window.addEventListener(
   "resize",
-  reportGuideHeight
+  ()=>{
+    reportGuideHeight();
+
+    /*
+      If the user rotates the iPhone while viewing TODAY,
+      reposition the current time using the new screen width.
+    */
+
+    if(isToday()){
+
+      setTimeout(
+        ()=>autoScrollToNow(false),
+        150
+      );
+
+    }
+  }
 );
+
+/* START */
 
 load();
 

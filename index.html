@@ -16,32 +16,39 @@
   --line:#d5dce6;
   --red:#d52331;
   --green:#17864b;
-
-  /* Compact guide sizing */
   --channel-width:230px;
   --hour-width:65px;
-  --timeline-hours:30;
   --timeline-width:1950px;
   --row-height:86px;
 }
 
 *{box-sizing:border-box}
 
-body{
+html,body{
   margin:0;
+  padding:0;
+}
+
+body{
   background:var(--bg);
   font-family:Arial,Helvetica,sans-serif;
   color:#172033;
 }
 
+button,input,select,textarea{
+  font:inherit;
+}
+
 .app{
   max-width:1600px;
-  margin:18px auto;
+  margin:18px auto 0;
   background:#fff;
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 8px 35px #0002;
 }
+
+/* HEADER */
 
 .header{
   background:linear-gradient(135deg,#09162b,#22518d);
@@ -51,23 +58,23 @@ body{
 
 .brand{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
 }
 
 .cross{
   width:46px;
   height:46px;
+  flex:0 0 46px;
   border-radius:10px;
   background:#ffffff18;
   display:grid;
   place-items:center;
   font-size:27px;
-  flex:0 0 auto;
 }
 
 .title{
-  font-size:25px;
+  font-size:24px;
   font-weight:800;
 }
 
@@ -76,8 +83,6 @@ body{
   color:#dce8fb;
   margin-top:4px;
 }
-
-/* CATEGORY COLOR LEGEND */
 
 .category-legend{
   display:flex;
@@ -89,12 +94,12 @@ body{
 
 .legend-item{
   position:relative;
-  padding:5px 8px;
+  padding:5px 9px;
   border-radius:6px;
   font-size:9px;
   font-weight:800;
   cursor:pointer;
-  border:1px solid #ffffff44;
+  border:1px solid #ffffff55;
   color:#172033;
   transition:.15s ease;
   user-select:none;
@@ -103,7 +108,7 @@ body{
 .legend-item:hover,
 .legend-item.legend-active{
   transform:scale(1.08);
-  z-index:15;
+  z-index:30;
 }
 
 .legend-item .legend-pop{
@@ -112,13 +117,14 @@ body{
   bottom:calc(100% + 8px);
   transform:translateX(-50%);
   background:#111827;
-  color:white;
+  color:#fff;
   padding:8px 11px;
   border-radius:7px;
   white-space:nowrap;
   font-size:13px;
   font-weight:800;
   opacity:0;
+  visibility:hidden;
   pointer-events:none;
   transition:.15s;
   box-shadow:0 5px 16px #0004;
@@ -127,6 +133,7 @@ body{
 .legend-item:hover .legend-pop,
 .legend-item.legend-active .legend-pop{
   opacity:1;
+  visibility:visible;
 }
 
 .legend-church{background:#dcecff}
@@ -136,8 +143,6 @@ body{
 .legend-news{background:#ffdcdc}
 .legend-children{background:#c9f4f0}
 .legend-holiday{background:#f3d5ec}
-
-/* CLICK PROGRAM NOTE */
 
 .guide-note{
   margin-top:8px;
@@ -154,7 +159,7 @@ body{
 /* VIEWER CONTROLS */
 
 .controls{
-  padding:10px 11px;
+  padding:9px 11px;
   display:flex;
   gap:8px;
   flex-wrap:wrap;
@@ -166,7 +171,7 @@ body{
 .controls button{
   border:1px solid #c8d1de;
   border-radius:8px;
-  padding:10px;
+  padding:9px 10px;
   background:#fff;
 }
 
@@ -192,48 +197,42 @@ body{
   background:#edf8f1;
   color:var(--green);
   font-weight:800;
-  font-size:13px;
+  font-size:12px;
   border-bottom:1px solid #cde6d7;
 }
 
 /* GUIDE */
 
 .guide-scroll{
-  width:100%;
   overflow-x:scroll;
   overflow-y:hidden;
   scroll-behavior:smooth;
-
-  /* Keeps the horizontal scrollbar visible */
   scrollbar-gutter:stable;
+  background:#fff;
 }
 
 .guide-scroll::-webkit-scrollbar{
-  height:13px;
+  height:14px;
 }
 
 .guide-scroll::-webkit-scrollbar-track{
-  background:#e4e8ed;
+  background:#e8edf4;
 }
 
 .guide-scroll::-webkit-scrollbar-thumb{
-  background:#9aa5b3;
-  border-radius:10px;
-  border:3px solid #e4e8ed;
+  background:#7f8da1;
+  border-radius:8px;
+  border:3px solid #e8edf4;
 }
 
 .guide{
-  min-width:calc(
-    var(--channel-width) + var(--timeline-width)
-  );
+  min-width:2180px;
   position:relative;
 }
 
 .time-head{
   display:grid;
-  grid-template-columns:
-    var(--channel-width)
-    var(--timeline-width);
+  grid-template-columns:var(--channel-width) var(--timeline-width);
   height:40px;
   background:#f7f9fc;
   border-bottom:1px solid var(--line);
@@ -262,18 +261,20 @@ body{
   position:absolute;
   top:12px;
   transform:translateX(-50%);
-  font-size:11px;
+  font-size:10px;
   font-weight:800;
   color:#657286;
   white-space:nowrap;
 }
 
+.next-day-label{
+  color:#8b5a16;
+}
+
 .row{
   height:var(--row-height);
   display:grid;
-  grid-template-columns:
-    var(--channel-width)
-    var(--timeline-width);
+  grid-template-columns:var(--channel-width) var(--timeline-width);
   border-bottom:1px solid var(--line);
 }
 
@@ -286,39 +287,39 @@ body{
   display:flex;
   align-items:center;
   gap:9px;
-  padding:7px 10px;
+  padding:8px 10px;
 }
 
 .logo{
-  width:48px;
-  height:48px;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
   object-fit:contain;
-  border-radius:8px;
+  border-radius:7px;
   background:#e9eef5;
-  padding:4px;
-  flex:0 0 auto;
+  padding:3px;
 }
 
 .placeholder{
-  width:48px;
-  height:48px;
-  border-radius:8px;
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:7px;
   background:#e8eef7;
   color:#245087;
   display:grid;
   place-items:center;
   font-weight:800;
-  font-size:21px;
-  flex:0 0 auto;
+  font-size:20px;
 }
 
 .channel-name{
   font-weight:800;
-  font-size:13px;
+  font-size:12px;
 }
 
 .small{
-  font-size:10px;
+  font-size:9px;
   color:#778397;
   margin-top:3px;
 }
@@ -338,9 +339,9 @@ body{
 .program{
   position:absolute;
   top:8px;
-  height:70px;
-  border-radius:8px;
-  padding:7px;
+  height:68px;
+  border-radius:7px;
+  padding:6px 7px;
   overflow:hidden;
   cursor:pointer;
   border:1px solid #0002;
@@ -349,7 +350,7 @@ body{
 }
 
 .program:hover{
-  transform:translateY(-2px) scale(1.02);
+  transform:translateY(-2px);
   z-index:9;
   box-shadow:0 5px 13px #0002;
 }
@@ -401,27 +402,29 @@ body{
   font-size:9px;
   color:#536173;
   margin-top:3px;
+  white-space:nowrap;
 }
 
 .ptag{
   font-size:8px;
   display:inline-block;
-  background:#ffffffbb;
+  background:#ffffffaa;
   border-radius:10px;
   padding:2px 5px;
-  margin-top:3px;
+  margin-top:4px;
+  white-space:nowrap;
 }
 
 .livebadge{
-  display:block;
+  position:absolute;
+  right:4px;
+  bottom:4px;
   background:var(--red);
   color:#fff;
   border-radius:9px;
   padding:2px 5px;
-  width:max-content;
   font-size:7px;
   font-weight:800;
-  margin-top:3px;
 }
 
 .current-line{
@@ -445,7 +448,7 @@ body{
   background:var(--red);
 }
 
-/* PROGRAM POPUP */
+/* POPUP */
 
 .popup{
   position:fixed;
@@ -513,7 +516,7 @@ body{
   color:#4e5a6b;
 }
 
-/* BOTTOM ADMINISTRATION */
+/* ADMIN */
 
 .admin-dock{
   border-top:1px solid #dfe5ed;
@@ -543,12 +546,6 @@ body{
   transform:rotate(180deg);
 }
 
-/*
-  IMPORTANT:
-  Administration occupies NO large white area
-  until the button is opened.
-*/
-
 .admin-panel{
   display:none;
   border-top:4px solid var(--gold);
@@ -561,6 +558,44 @@ body{
 
 .admin{
   padding:20px;
+}
+
+.admin-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.admin-top button,
+.actions button{
+  border:0;
+  border-radius:8px;
+  padding:9px 12px;
+  cursor:pointer;
+  background:var(--blue);
+  color:#fff;
+}
+
+.signed-in-card{
+  display:none;
+  margin:8px 0 14px;
+  padding:10px 12px;
+  border-radius:9px;
+  background:#edf4ff;
+  border:1px solid #ccd9ec;
+  font-size:12px;
+}
+
+.role-badge{
+  display:inline-block;
+  border-radius:14px;
+  padding:4px 8px;
+  margin-left:4px;
+  font-size:10px;
+  font-weight:800;
+  background:#dcecff;
+  color:#214f82;
 }
 
 .login{
@@ -603,26 +638,7 @@ body{
   margin-top:8px;
 }
 
-.ok{
-  color:#17864b;
-}
-
-.admin-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-
-.admin-top button,
-.actions button{
-  border:0;
-  border-radius:8px;
-  padding:9px 12px;
-  cursor:pointer;
-  background:var(--blue);
-  color:#fff;
-}
+.ok{color:#17864b}
 
 .actions{
   display:flex;
@@ -689,12 +705,72 @@ body{
   color:#fff;
 }
 
-/* COLLAPSIBLE ADMIN SECTIONS */
+/* ROLE HELP */
+
+.role-label-line{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+}
+
+.role-label-line label{
+  margin-top:0;
+}
+
+.info-wrap{
+  position:relative;
+  display:inline-block;
+}
+
+.info-btn{
+  width:23px;
+  height:23px;
+  border:0;
+  border-radius:50%;
+  background:#315887;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  padding:0;
+}
+
+.role-help{
+  display:none;
+  position:absolute;
+  left:0;
+  top:30px;
+  z-index:100;
+  width:340px;
+  max-width:80vw;
+  padding:12px;
+  border-radius:9px;
+  background:#172033;
+  color:#fff;
+  box-shadow:0 8px 24px #0005;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.info-wrap:hover .role-help,
+.info-wrap.open .role-help{
+  display:block;
+}
+
+.role-help strong{
+  color:#f4d780;
+}
+
+.role-help div+div{
+  margin-top:8px;
+}
+
+/* ADMIN SECTIONS */
 
 .admin-section{
-  margin-top:16px;
-  border:1px solid #d6deea;
-  border-radius:11px;
+  margin-top:14px;
+  border:1px solid #d8e0ea;
+  border-radius:10px;
   overflow:hidden;
   background:#fff;
 }
@@ -702,24 +778,23 @@ body{
 .section-toggle{
   width:100%;
   border:0;
-  background:#eef3f9;
+  background:#edf2f8;
   color:#172033;
   padding:12px 14px;
+  cursor:pointer;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  text-align:left;
+  justify-content:space-between;
   font-size:14px;
   font-weight:800;
-  cursor:pointer;
+  text-align:left;
 }
 
 .section-toggle:hover{
-  background:#e6edf6;
+  background:#e3eaf3;
 }
 
 .section-arrow{
-  display:inline-block;
   transition:.2s;
 }
 
@@ -727,44 +802,34 @@ body{
   transform:rotate(180deg);
 }
 
-.section-content{
+.section-body{
   display:none;
-  padding:13px;
+  padding:12px;
 }
 
-.section-content.open{
+.section-body.open{
   display:block;
 }
 
 .section-toolbar{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
   gap:8px;
+  flex-wrap:wrap;
   margin-bottom:10px;
 }
 
-.section-toolbar h3{
-  margin:0;
-}
-
-.sort-control{
-  display:flex;
-  align-items:center;
-  gap:7px;
+.section-toolbar label{
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
 }
 
-.sort-control select{
+.section-toolbar select{
   border:1px solid #cbd3df;
   border-radius:7px;
   padding:7px 9px;
   background:#fff;
 }
-
-/* TABLES */
 
 .table-wrap{
   overflow:auto;
@@ -792,17 +857,17 @@ body{
   border-radius:6px;
   padding:6px 8px;
   cursor:pointer;
-  margin:2px;
+  margin:1px;
 }
 
-.edit-btn{
-  background:#245a9b;
-  color:#fff;
+.edit-mini{
+  background:#dfeafb;
+  color:#194c87;
 }
 
-.delete-btn{
-  background:#c62e2e;
-  color:#fff;
+.delete-mini{
+  background:#f8dddd;
+  color:#a32222;
 }
 
 .mini-note{
@@ -811,15 +876,12 @@ body{
   margin-top:5px;
 }
 
-/* PROGRAM SCHEDULE EDITOR */
-
 .schedule-entry{
   border:1px solid #d6deea;
   background:#fff;
   border-radius:9px;
   padding:12px;
   margin-top:9px;
-  position:relative;
 }
 
 .schedule-grid{
@@ -861,10 +923,7 @@ body{
   padding:4px;
 }
 
-/* MOBILE */
-
 @media(max-width:750px){
-
   .schedule-grid{
     grid-template-columns:1fr;
   }
@@ -872,41 +931,13 @@ body{
   .remove-time{
     width:100%;
   }
-
 }
 
 @media(max-width:650px){
-
-  .title{
-    font-size:19px;
-  }
-
-  .subtitle{
-    display:none;
-  }
-
-  .header{
-    padding:12px;
-  }
-
-  .legend-item{
-    font-size:8px;
-  }
-
-  :root{
-    --channel-width:190px;
-  }
-
-  .channel-name{
-    font-size:11px;
-  }
-
-  .logo,
-  .placeholder{
-    width:43px;
-    height:43px;
-  }
-
+  .title{font-size:19px}
+  .subtitle{display:none}
+  .header{padding:12px}
+  .legend-item{font-size:8px}
 }
 </style>
 </head>
@@ -931,55 +962,41 @@ body{
         Times automatically shown in your local time • Live current-time indicator
       </div>
 
-      <div class="category-legend" id="categoryLegend">
+      <div class="category-legend">
 
         <div class="legend-item legend-church">
           Church
-          <span class="legend-pop">
-            Church Services
-          </span>
+          <span class="legend-pop">Church Services</span>
         </div>
 
         <div class="legend-item legend-bible">
           Bible
-          <span class="legend-pop">
-            Bible Study
-          </span>
+          <span class="legend-pop">Bible Study</span>
         </div>
 
         <div class="legend-item legend-variety">
           Variety
-          <span class="legend-pop">
-            Variety Christian Program
-          </span>
+          <span class="legend-pop">Variety Christian Program</span>
         </div>
 
         <div class="legend-item legend-music">
           Music
-          <span class="legend-pop">
-            Music
-          </span>
+          <span class="legend-pop">Music</span>
         </div>
 
         <div class="legend-item legend-news">
           News
-          <span class="legend-pop">
-            News
-          </span>
+          <span class="legend-pop">News</span>
         </div>
 
         <div class="legend-item legend-children">
           Children
-          <span class="legend-pop">
-            Children Programs
-          </span>
+          <span class="legend-pop">Children Programs</span>
         </div>
 
         <div class="legend-item legend-holiday">
           Holiday
-          <span class="legend-pop">
-            Holiday Programs
-          </span>
+          <span class="legend-pop">Holiday Programs</span>
         </div>
 
       </div>
@@ -1034,7 +1051,6 @@ body{
 </div>
 
 <div class="popup" id="popup">
-
   <div class="popup-box">
 
     <button class="close" id="popupClose">
@@ -1044,9 +1060,7 @@ body{
     <div id="popupContent"></div>
 
   </div>
-
 </div>
-
 <div class="admin-dock">
 
   <button class="admin-toggle" id="adminToggle">
@@ -1061,15 +1075,13 @@ body{
       <div class="admin-top">
 
         <div>
-
           <h2 style="margin:0">
             Christian TV Guide Administration
           </h2>
 
           <p style="color:#6b7788">
-            Manage channels and recurring weekly programming.
+            Manage channels, programs, schedules and administrators.
           </p>
-
         </div>
 
         <button id="adminClose">
@@ -1078,11 +1090,15 @@ body{
 
       </div>
 
+      <div class="signed-in-card" id="signedInCard">
+        Signed in as
+        <strong id="signedInEmail"></strong>
+        <span class="role-badge" id="signedInRole"></span>
+      </div>
+
       <div class="login" id="loginBox">
 
-        <h3>
-          Administrator Login
-        </h3>
+        <h3>Administrator Login</h3>
 
         <input
           id="email"
@@ -1104,10 +1120,7 @@ body{
           Forgot password?
         </button>
 
-        <div
-          class="message"
-          id="loginMessage">
-        </div>
+        <div class="message" id="loginMessage"></div>
 
       </div>
 
@@ -1137,19 +1150,15 @@ body{
 
         </div>
 
+        <!-- INVITE ADMINISTRATOR -->
+
         <div
           class="editor"
           id="adminInvite"
-          style="display:none">
+          style="display:none"
+        >
 
-          <h3>
-            Invite New Administrator
-          </h3>
-
-          <p class="mini-note">
-            The new administrator will receive an email invitation.
-            They will create their own password.
-          </p>
+          <h3>Invite New Administrator</h3>
 
           <label>
             Administrator Email
@@ -1161,45 +1170,80 @@ body{
             placeholder="name@example.com"
           >
 
+          <div class="role-label-line">
+
+            <label>
+              Role
+            </label>
+
+            <div class="info-wrap" id="roleHelpWrap">
+
+              <button
+                class="info-btn"
+                id="roleHelpButton"
+                type="button"
+                aria-label="Role information"
+              >
+                i
+              </button>
+
+              <div class="role-help">
+
+                <div>
+                  <strong>Owner</strong><br>
+                  Full control of the TV Guide, including programs,
+                  schedules, channels, administrators and role assignments.
+                </div>
+
+                <div>
+                  <strong>Administration Manager</strong><br>
+                  Can manage programs, schedules, channels and regular
+                  Administration accounts. Cannot control Owner accounts.
+                </div>
+
+                <div>
+                  <strong>Administration</strong><br>
+                  Can manage normal TV programming and weekly schedules.
+                  Cannot manage administrator accounts or Owner permissions.
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <select id="newAdminRole"></select>
+
+          <div class="mini-note" id="roleInviteNote"></div>
+
           <div class="editor-actions">
 
-            <button
-              class="save"
-              id="sendInvite">
+            <button class="save" id="sendInvite">
               Send Invitation
             </button>
 
-            <button
-              class="cancel"
-              id="cancelInvite">
+            <button class="cancel" id="cancelInvite">
               Cancel
             </button>
 
           </div>
 
-          <div
-            class="message"
-            id="inviteMessage">
-          </div>
+          <div class="message" id="inviteMessage"></div>
 
         </div>
+
+        <!-- PASSWORD RESET -->
 
         <div
           class="editor"
           id="resetEditor"
-          style="display:none">
+          style="display:none"
+        >
 
-          <h3>
-            Set New Password
-          </h3>
+          <h3>Set New Password</h3>
 
-          <p class="mini-note">
-            Enter a new password for your account.
-          </p>
-
-          <label>
-            New Password
-          </label>
+          <label>New Password</label>
 
           <input
             id="newPassword"
@@ -1207,9 +1251,7 @@ body{
             minlength="8"
           >
 
-          <label>
-            Confirm New Password
-          </label>
+          <label>Confirm New Password</label>
 
           <input
             id="newPassword2"
@@ -1221,53 +1263,37 @@ body{
 
             <button
               class="save"
-              id="saveNewPassword">
+              id="saveNewPassword"
+            >
               Save New Password
             </button>
 
           </div>
 
-          <div
-            class="message"
-            id="resetMessage">
-          </div>
+          <div class="message" id="resetMessage"></div>
 
         </div>
-                <div
+
+        <!-- PROGRAM EDITOR -->
+
+        <div
           class="editor"
           id="programEditor"
-          style="display:none">
+          style="display:none"
+        >
 
-          <h3>
-            Add / Edit Program
-          </h3>
+          <h3>Add / Edit Program</h3>
 
-          <input
-            id="programId"
-            type="hidden"
-          >
+          <input id="programId" type="hidden">
+          <input id="programEditMode" type="hidden" value="new">
 
-          <input
-            id="programEditMode"
-            type="hidden"
-            value="new"
-          >
-
-          <label>
-            Channel
-          </label>
-
+          <label>Channel</label>
           <select id="programChannel"></select>
 
-          <label>
-            Program Name
-          </label>
-
+          <label>Program Name</label>
           <input id="programTitle">
 
-          <label>
-            Program Category
-          </label>
+          <label>Program Category</label>
 
           <select id="programTag">
             <option>Church Services</option>
@@ -1279,21 +1305,20 @@ body{
             <option>Holiday Programs</option>
           </select>
 
-          <label>
-            Description
-          </label>
+          <label>Description</label>
 
           <textarea
             id="programDescription"
-            rows="4">
-          </textarea>
+            rows="4"
+          ></textarea>
 
           <div class="editor-actions">
 
             <button
               class="secondary"
               id="toggleTitleCard"
-              type="button">
+              type="button"
+            >
               + Add Title Card
             </button>
 
@@ -1301,7 +1326,8 @@ body{
 
           <div
             class="title-card-area"
-            id="titleCardArea">
+            id="titleCardArea"
+          >
 
             <label>
               Title Card Image URL
@@ -1324,10 +1350,8 @@ body{
             Day & Time
           </h4>
 
-          <div
-            class="mini-note"
-            style="margin-bottom:8px">
-            Add as many weekly airings as needed before saving the program.
+          <div class="mini-note">
+            Add as many weekly airings as needed before saving.
           </div>
 
           <div id="scheduleEntries"></div>
@@ -1337,7 +1361,8 @@ body{
             <button
               class="secondary"
               id="addSchedule"
-              type="button">
+              type="button"
+            >
               + Add New Day & Time
             </button>
 
@@ -1348,7 +1373,8 @@ body{
               id="programActive"
               type="checkbox"
               checked
-              style="width:auto">
+              style="width:auto"
+            >
             Active program
           </label>
 
@@ -1356,13 +1382,15 @@ body{
 
             <button
               class="save"
-              id="saveProgram">
+              id="saveProgram"
+            >
               Save Program
             </button>
 
             <button
               class="cancel"
-              id="cancelProgram">
+              id="cancelProgram"
+            >
               Cancel
             </button>
 
@@ -1370,29 +1398,22 @@ body{
 
         </div>
 
+        <!-- CHANNEL EDITOR -->
+
         <div
           class="editor"
           id="channelEditor"
-          style="display:none">
+          style="display:none"
+        >
 
-          <h3>
-            Add / Edit Channel
-          </h3>
+          <h3>Add / Edit Channel</h3>
 
-          <input
-            id="channelId"
-            type="hidden"
-          >
+          <input id="channelId" type="hidden">
 
-          <label>
-            Channel Name
-          </label>
-
+          <label>Channel Name</label>
           <input id="channelName">
 
-          <label>
-            Channel Logo URL
-          </label>
+          <label>Channel Logo URL</label>
 
           <input
             id="channelLogo"
@@ -1400,28 +1421,27 @@ body{
             placeholder="https://..."
           >
 
-          <div class="mini-note">
-            Paste the direct web address for the channel icon or logo.
-          </div>
-
           <div class="editor-actions">
 
             <button
               class="save"
-              id="saveChannel">
+              id="saveChannel"
+            >
               Save Channel
             </button>
 
             <button
               class="cancel"
-              id="cancelChannel">
+              id="cancelChannel"
+            >
               Cancel
             </button>
 
             <button
               class="danger"
               id="deleteChannel"
-              style="display:none">
+              style="display:none"
+            >
               Delete Channel
             </button>
 
@@ -1429,27 +1449,62 @@ body{
 
         </div>
 
-        <!-- CHANNEL MANAGEMENT -->
+        <!-- ADMINISTRATOR MANAGEMENT -->
 
-        <div class="admin-section">
+        <div class="admin-section" id="administratorManagementSection">
 
           <button
             class="section-toggle"
-            data-target="channelManagementContent">
-
-            <span>
-              Channel Management
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-
+            data-target="administratorManagementBody"
+          >
+            <span>Administrator Management</span>
+            <span class="section-arrow">▼</span>
           </button>
 
           <div
-            class="section-content"
-            id="channelManagementContent">
+            class="section-body"
+            id="administratorManagementBody"
+          >
+
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Approved</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="administratorTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- CHANNEL MANAGEMENT -->
+
+        <div class="admin-section" id="channelManagementSection">
+
+          <button
+            class="section-toggle"
+            data-target="channelManagementBody"
+          >
+            <span>Channel Management</span>
+            <span class="section-arrow">▼</span>
+          </button>
+
+          <div
+            class="section-body"
+            id="channelManagementBody"
+          >
 
             <div class="table-wrap">
 
@@ -1479,33 +1534,16 @@ body{
 
           <button
             class="section-toggle"
-            data-target="programListContent">
-
-            <span>
-              Program List
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-
+            data-target="programListBody"
+          >
+            <span>Program List</span>
+            <span class="section-arrow">▼</span>
           </button>
 
           <div
-            class="section-content"
-            id="programListContent">
-
-            <div class="section-toolbar">
-
-              <h3>
-                Programs
-              </h3>
-
-              <div class="mini-note">
-                Listed alphabetically
-              </div>
-
-            </div>
+            class="section-body"
+            id="programListBody"
+          >
 
             <div class="table-wrap">
 
@@ -1537,53 +1575,29 @@ body{
 
           <button
             class="section-toggle"
-            data-target="weeklyScheduleContent">
-
-            <span>
-              Weekly Schedule
-            </span>
-
-            <span class="section-arrow">
-              ▼
-            </span>
-
+            data-target="weeklyScheduleBody"
+          >
+            <span>Weekly Schedule</span>
+            <span class="section-arrow">▼</span>
           </button>
 
           <div
-            class="section-content"
-            id="weeklyScheduleContent">
+            class="section-body"
+            id="weeklyScheduleBody"
+          >
 
             <div class="section-toolbar">
 
-              <h3>
-                Weekly Schedule
-              </h3>
+              <label>
+                Sort by:
+              </label>
 
-              <div class="sort-control">
-
-                <label for="scheduleSort">
-                  Sort by:
-                </label>
-
-                <select id="scheduleSort">
-                  <option value="channel">
-                    Channel
-                  </option>
-
-                  <option value="day" selected>
-                    Day
-                  </option>
-
-                  <option value="time">
-                    Time
-                  </option>
-
-                  <option value="program">
-                    Program
-                  </option>
-                </select>
-
-              </div>
+              <select id="scheduleSort">
+                <option value="channel">Channel</option>
+                <option value="day" selected>Day</option>
+                <option value="time">Time</option>
+                <option value="program">Program</option>
+              </select>
 
             </div>
 
@@ -1659,6 +1673,12 @@ const HOUR_WIDTH=65;
 const CHANNEL_WIDTH=230;
 const EXTENDED_HOURS=30;
 
+const ROLE_NAMES={
+  owner:"Owner",
+  administration_manager:"Administration Manager",
+  administration:"Administration"
+};
+
 const CHANNEL_LOGOS={
 
   "WOTG Christian TV":
@@ -1680,99 +1700,105 @@ const CHANNEL_LOGOS={
 
 let channels=[];
 let programs=[];
+let administrators=[];
 let user=null;
+let adminRecord=null;
 let selectedDate=null;
 let editingGroupIds=[];
 
-/* WEBADOR HEIGHT REPORTING */
+function roleName(role){
+  return ROLE_NAMES[role]||role||"";
+}
+
+function isOwner(){
+  return adminRecord?.role==="owner";
+}
+
+function isManager(){
+  return adminRecord?.role==="administration_manager";
+}
+
+function canManageAdmins(){
+  return isOwner()||isManager();
+}
+
+function canManageChannels(){
+  return isOwner()||isManager();
+}
+
+/* HEIGHT */
 
 let heightTimer=null;
 let lastReportedHeight=0;
 
 function reportGuideHeight(){
 
-  clearTimeout(
-    heightTimer
-  );
+  clearTimeout(heightTimer);
 
-  heightTimer=
-    setTimeout(()=>{
+  heightTimer=setTimeout(()=>{
 
-      const app=$("app");
+    const app=$("app");
 
-      if(!app)return;
+    if(!app)return;
 
-      const height=
-        Math.ceil(
-          app.getBoundingClientRect().bottom+
-          4
-        );
+    const height=
+      Math.ceil(
+        app.getBoundingClientRect().bottom+4
+      );
 
-      if(
-        height>0 &&
-        Math.abs(
-          height-
-          lastReportedHeight
-        )>1
-      ){
+    if(
+      height>0 &&
+      Math.abs(
+        height-lastReportedHeight
+      )>1
+    ){
 
-        lastReportedHeight=
-          height;
+      lastReportedHeight=height;
 
-        window.parent.postMessage(
-          {
-            type:
-              "christian-tv-guide-height",
-            height
-          },
-          "*"
-        );
+      window.parent.postMessage(
+        {
+          type:"christian-tv-guide-height",
+          height
+        },
+        "*"
+      );
 
-      }
+    }
 
-    },80);
+  },80);
 
 }
+  function esc(v){
 
-/* BASIC HELPERS */
-
-function esc(v){
-
-  return String(v??"")
-    .replace(
-      /[&<>"']/g,
-      m=>({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[m])
-    );
+  return String(v??"").replace(
+    /[&<>"']/g,
+    m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
+  );
 
 }
 
 function dateStr(d){
 
-  return (
-    `${d.getFullYear()}-`+
-    `${String(
-      d.getMonth()+1
-    ).padStart(2,"0")}-`+
-    `${String(
-      d.getDate()
-    ).padStart(2,"0")}`
-  );
+  return `${d.getFullYear()}-${String(
+    d.getMonth()+1
+  ).padStart(2,"0")}-${String(
+    d.getDate()
+  ).padStart(2,"0")}`;
 
 }
 
 function mins(t){
 
-  let [h,m]=
-    t
-      .slice(0,5)
-      .split(":")
-      .map(Number);
+  let [h,m]=t
+    .slice(0,5)
+    .split(":")
+    .map(Number);
 
   return h*60+m;
 
@@ -1780,63 +1806,39 @@ function mins(t){
 
 function fmt(n){
 
-  n=
-    ((n%1440)+1440)%1440;
+  n=((n%1440)+1440)%1440;
 
-  let h=
-    Math.floor(n/60);
+  let h=Math.floor(n/60);
+  let m=Math.floor(n%60);
 
-  let m=
-    Math.floor(n%60);
-
-  let suffix=
+  const suffix=
     h<12
     ?
     "AM"
     :
     "PM";
 
-  h=
-    h%12||12;
+  h=h%12||12;
 
-  return (
-    `${h}:`+
-    `${String(m).padStart(2,"0")} `+
-    `${suffix}`
-  );
+  return `${h}:${String(m).padStart(2,"0")} ${suffix}`;
 
 }
 
 function catClass(t){
 
   return {
-
-    "Church Services":
-      "church",
-
-    "Bible Study":
-      "bible",
-
-    "Variety Christian program":
-      "variety",
-
-    "Music":
-      "music",
-
-    "News":
-      "news",
-
-    "Children Programs":
-      "children",
-
-    "Holiday Programs":
-      "holiday"
-
+    "Church Services":"church",
+    "Bible Study":"bible",
+    "Variety Christian program":"variety",
+    "Music":"music",
+    "News":"news",
+    "Children Programs":"children",
+    "Holiday Programs":"holiday"
   }[t]||"variety";
 
 }
 
-/* TIME ZONE FUNCTIONS */
+/* TIME */
 
 const VIEWER_TZ=
   Intl.DateTimeFormat()
@@ -1844,73 +1846,43 @@ const VIEWER_TZ=
     .timeZone||
   "UTC";
 
-function zoneParts(
-  d,
-  tz=VIEWER_TZ
-){
+function zoneParts(d,tz=VIEWER_TZ){
 
-  const parts=
-    Object.fromEntries(
+  const a=Object.fromEntries(
 
-      new Intl.DateTimeFormat(
-        "en-US",
-        {
-          timeZone:tz,
-          year:"numeric",
-          month:"2-digit",
-          day:"2-digit",
-          hour:"2-digit",
-          minute:"2-digit",
-          second:"2-digit",
-          hour12:false
-        }
-      )
-      .formatToParts(d)
-      .filter(
-        x=>
-        x.type!=="literal"
-      )
-      .map(
-        x=>
-        [x.type,x.value]
-      )
+    new Intl.DateTimeFormat(
+      "en-US",
+      {
+        timeZone:tz,
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit",
+        hour12:false
+      }
+    )
+    .formatToParts(d)
+    .filter(x=>x.type!=="literal")
+    .map(x=>[x.type,x.value])
 
-    );
+  );
 
   return {
-
-    year:
-      Number(parts.year),
-
-    month:
-      Number(parts.month),
-
-    day:
-      Number(parts.day),
-
-    hour:
-      Number(parts.hour)%24,
-
-    minute:
-      Number(parts.minute),
-
-    second:
-      Number(parts.second)
-
+    year:Number(a.year),
+    month:Number(a.month),
+    day:Number(a.day),
+    hour:Number(a.hour)%24,
+    minute:Number(a.minute),
+    second:Number(a.second)
   };
 
 }
 
-function zoneDate(
-  d,
-  tz=VIEWER_TZ
-){
+function zoneDate(d,tz=VIEWER_TZ){
 
-  const p=
-    zoneParts(
-      d,
-      tz
-    );
+  const p=zoneParts(d,tz);
 
   return new Date(
     p.year,
@@ -1922,25 +1894,16 @@ function zoneDate(
 
 function localMinutes(){
 
-  const p=
-    zoneParts(
-      new Date()
-    );
+  const p=zoneParts(new Date());
 
-  return (
-    p.hour*60+
-    p.minute+
-    p.second/60
-  );
+  return p.hour*60+
+         p.minute+
+         p.second/60;
 
 }
 
 function localDate(){
-
-  return zoneDate(
-    new Date()
-  );
-
+  return zoneDate(new Date());
 }
 
 function zonedTimeToInstant(
@@ -1951,20 +1914,11 @@ function zonedTimeToInstant(
   let guess=
     new Date(
       Date.UTC(
-        y,
-        m-1,
-        d,
-        h,
-        mi,
-        0
+        y,m-1,d,h,mi,0
       )
     );
 
-  for(
-    let i=0;
-    i<4;
-    i++
-  ){
+  for(let i=0;i<4;i++){
 
     const p=
       zoneParts(
@@ -1984,27 +1938,19 @@ function zonedTimeToInstant(
 
     const wanted=
       Date.UTC(
-        y,
-        m-1,
-        d,
-        h,
-        mi,
-        0
+        y,m-1,d,h,mi,0
       );
 
     const diff=
       wanted-shown;
 
-    if(
-      Math.abs(diff)<1000
-    ){
+    if(Math.abs(diff)<1000){
       break;
     }
 
     guess=
       new Date(
-        guess.getTime()+
-        diff
+        guess.getTime()+diff
       );
 
   }
@@ -2013,13 +1959,9 @@ function zonedTimeToInstant(
 
 }
 
-function addDays(
-  d,
-  n
-){
+function addDays(d,n){
 
-  const x=
-    new Date(d);
+  const x=new Date(d);
 
   x.setDate(
     x.getDate()+n
@@ -2029,9 +1971,7 @@ function addDays(
 
 }
 
-function easternDateFromLocalDate(
-  d
-){
+function easternDateFromLocalDate(d){
 
   const noon=
     new Date(
@@ -2082,11 +2022,7 @@ function occurrenceForLocalDate(
       localD
     );
 
-  for(
-    let i=-2;
-    i<=2;
-    i++
-  ){
+  for(let i=-2;i<=2;i++){
 
     const ed=
       addDays(
@@ -2121,11 +2057,9 @@ function occurrenceForLocalDate(
       zoneParts(start);
 
     const occurrenceDate=
-      `${sp.year}-`+
-      `${String(
+      `${sp.year}-${String(
         sp.month
-      ).padStart(2,"0")}-`+
-      `${String(
+      ).padStart(2,"0")}-${String(
         sp.day
       ).padStart(2,"0")}`;
 
@@ -2135,26 +2069,16 @@ function occurrenceForLocalDate(
     ){
 
       return {
-
         p,
-
         start,
-
         end,
-
-        startParts:
-          sp,
-
-        endParts:
-          zoneParts(end),
-
-        localDate:
-          new Date(
-            sp.year,
-            sp.month-1,
-            sp.day
-          )
-
+        startParts:sp,
+        endParts:zoneParts(end),
+        localDate:new Date(
+          sp.year,
+          sp.month-1,
+          sp.day
+        )
       };
 
     }
@@ -2164,15 +2088,12 @@ function occurrenceForLocalDate(
   return null;
 
 }
-  /* SELECTED DAY + 6 HOURS INTO NEXT DAY */
 
 function displayOccurrences(){
 
   const out=[];
 
-  for(
-    const p of programs
-  ){
+  for(const p of programs){
 
     const o=
       occurrenceForLocalDate(
@@ -2201,9 +2122,7 @@ function displayOccurrences(){
       1
     );
 
-  for(
-    const p of programs
-  ){
+  for(const p of programs){
 
     const o=
       occurrenceForLocalDate(
@@ -2218,9 +2137,7 @@ function displayOccurrences(){
       o.startParts.minute+
       o.startParts.second/60;
 
-    if(
-      nextMinutes<360
-    ){
+    if(nextMinutes<360){
 
       o.displayStartMinutes=
         1440+
@@ -2248,9 +2165,7 @@ function currentOccurrences(){
 
   const out=[];
 
-  for(
-    const p of programs
-  ){
+  for(const p of programs){
 
     const o=
       occurrenceForLocalDate(
@@ -2274,15 +2189,12 @@ function currentOccurrences(){
 
 }
 
-selectedDate=
-  localDate();
+selectedDate=localDate();
 
 $("date").value=
   dateStr(
     selectedDate
   );
-
-/* FILTERS */
 
 function filtered(){
 
@@ -2315,33 +2227,23 @@ function filtered(){
 
 function isToday(){
 
-  const n=
-    localDate();
+  const n=localDate();
 
   return (
-    selectedDate.getFullYear()===
-    n.getFullYear()
+    selectedDate.getFullYear()===n.getFullYear()
     &&
-    selectedDate.getMonth()===
-    n.getMonth()
+    selectedDate.getMonth()===n.getMonth()
     &&
-    selectedDate.getDate()===
-    n.getDate()
+    selectedDate.getDate()===n.getDate()
   );
 
 }
-
-/* NOW POSITION */
 
 function autoScrollToNow(
   smooth=true
 ){
 
-  if(
-    !isToday()
-  ){
-    return;
-  }
+  if(!isToday())return;
 
   const sc=
     $("guideScroll");
@@ -2357,10 +2259,7 @@ function autoScrollToNow(
     Math.max(
       0,
       timelineX-
-      (
-        sc.clientWidth*
-        0.25
-      )
+      sc.clientWidth*0.25
     );
 
   sc.scrollTo({
@@ -2375,12 +2274,11 @@ function autoScrollToNow(
 
 }
 
-/* GUIDE RENDER */
+/* RENDER GUIDE */
 
 function render(){
 
-  const g=
-    $("guide");
+  const g=$("guide");
 
   g.innerHTML="";
 
@@ -2396,15 +2294,9 @@ function render(){
     '<div class="channel-head">CHANNEL</div>'+
     '<div class="time-track" id="timeTrack"></div>';
 
-  g.appendChild(
-    head
-  );
+  g.appendChild(head);
 
-  for(
-    let h=0;
-    h<=EXTENDED_HOURS;
-    h++
-  ){
+  for(let h=0;h<=EXTENDED_HOURS;h++){
 
     const x=
       document.createElement(
@@ -2418,12 +2310,9 @@ function render(){
       (
         h*
         HOUR_WIDTH
-      )+
-      "px";
+      )+"px";
 
-    if(
-      h<24
-    ){
+    if(h<24){
 
       x.textContent=
         fmt(
@@ -2438,6 +2327,10 @@ function render(){
         )+
         " +1";
 
+      x.classList.add(
+        "next-day-label"
+      );
+
     }
 
     $("timeTrack")
@@ -2448,249 +2341,200 @@ function render(){
   const visible=
     filtered();
 
-  channels.forEach(
-    c=>{
+  channels.forEach(c=>{
 
-      const row=
+    const row=
+      document.createElement(
+        "div"
+      );
+
+    row.className="row";
+
+    const ci=
+      document.createElement(
+        "div"
+      );
+
+    ci.className="channel";
+
+    const logo=
+      c.logo_url||
+      CHANNEL_LOGOS[c.name];
+
+    if(logo){
+
+      const im=
+        document.createElement(
+          "img"
+        );
+
+      im.className="logo";
+      im.src=logo;
+      im.alt=c.name;
+
+      im.onerror=()=>{
+        im.style.display="none";
+      };
+
+      ci.appendChild(im);
+
+    }else{
+
+      const ph=
         document.createElement(
           "div"
         );
 
-      row.className=
-        "row";
+      ph.className=
+        "placeholder";
 
-      const ci=
-        document.createElement(
-          "div"
-        );
+      ph.textContent="✝";
 
-      ci.className=
-        "channel";
-
-      const logo=
-        c.logo_url||
-        CHANNEL_LOGOS[c.name];
-
-      if(logo){
-
-        const im=
-          document.createElement(
-            "img"
-          );
-
-        im.className=
-          "logo";
-
-        im.src=
-          logo;
-
-        im.alt=
-          c.name;
-
-        im.onerror=()=>{
-
-          im.style.display=
-            "none";
-
-        };
-
-        ci.appendChild(
-          im
-        );
-
-      }else{
-
-        const ph=
-          document.createElement(
-            "div"
-          );
-
-        ph.className=
-          "placeholder";
-
-        ph.textContent=
-          "✝";
-
-        ci.appendChild(
-          ph
-        );
-
-      }
-
-      const channelText=
-        document.createElement(
-          "div"
-        );
-
-      channelText.innerHTML=
-        `<div class="channel-name">
-          ${esc(c.name)}
-        </div>
-
-        <div class="small">
-          Weekly programming
-        </div>`;
-
-      ci.appendChild(
-        channelText
-      );
-
-      row.appendChild(
-        ci
-      );
-
-      const tr=
-        document.createElement(
-          "div"
-        );
-
-      tr.className=
-        "track";
-
-      if(
-        isToday()
-      ){
-
-        const line=
-          document.createElement(
-            "div"
-          );
-
-        line.className=
-          "current-line";
-
-        line.style.left=
-          (
-            localMinutes()/60*
-            HOUR_WIDTH
-          )+
-          "px";
-
-        tr.appendChild(
-          line
-        );
-
-      }
-
-      visible
-        .filter(
-          o=>
-          o.p.channel_id===
-          c.id
-        )
-        .forEach(
-          o=>{
-
-            const p=
-              o.p;
-
-            const startMin=
-              Number(
-                o.displayStartMinutes
-              );
-
-            const duration=
-              Number(
-                p.duration_minutes
-              );
-
-            const endDisplayMin=
-              startMin+
-              duration;
-
-            const b=
-              document.createElement(
-                "div"
-              );
-
-            b.className=
-              `program ${catClass(
-                p.tag
-              )}`;
-
-            b.style.left=
-              (
-                startMin/60*
-                HOUR_WIDTH
-              )+
-              "px";
-
-            b.style.width=
-              Math.max(
-                70,
-                duration/60*
-                HOUR_WIDTH
-              )+
-              "px";
-
-            const nowPlaying=
-              isToday()
-              &&
-              !o.isNextDay
-              &&
-              new Date()>=o.start
-              &&
-              new Date()<o.end;
-
-            b.innerHTML=
-              `<div class="ptitle">
-                ${esc(p.title)}
-              </div>
-
-              <div class="ptime">
-                ${fmt(startMin)}
-                –
-                ${fmt(endDisplayMin)}
-              </div>
-
-              <span class="ptag">
-                ${esc(p.tag)}
-              </span>
-
-              ${
-                nowPlaying
-                ?
-                '<span class="livebadge">● NOW</span>'
-                :
-                ''
-              }`;
-
-            b.onclick=
-              ()=>openPopup(
-                p,
-                c,
-                o
-              );
-
-            tr.appendChild(
-              b
-            );
-
-          }
-        );
-
-      row.appendChild(
-        tr
-      );
-
-      g.appendChild(
-        row
-      );
+      ci.appendChild(ph);
 
     }
-  );
+
+    const text=
+      document.createElement(
+        "div"
+      );
+
+    text.innerHTML=
+      `<div class="channel-name">
+        ${esc(c.name)}
+      </div>
+      <div class="small">
+        Weekly programming
+      </div>`;
+
+    ci.appendChild(text);
+    row.appendChild(ci);
+
+    const tr=
+      document.createElement(
+        "div"
+      );
+
+    tr.className="track";
+
+    if(isToday()){
+
+      const line=
+        document.createElement(
+          "div"
+        );
+
+      line.className=
+        "current-line";
+
+      line.style.left=
+        (
+          localMinutes()/60*
+          HOUR_WIDTH
+        )+"px";
+
+      tr.appendChild(line);
+
+    }
+
+    visible
+      .filter(
+        o=>
+        o.p.channel_id===c.id
+      )
+      .forEach(o=>{
+
+        const p=o.p;
+
+        const startMin=
+          Number(
+            o.displayStartMinutes
+          );
+
+        const duration=
+          Number(
+            p.duration_minutes
+          );
+
+        const b=
+          document.createElement(
+            "div"
+          );
+
+        b.className=
+          `program ${catClass(
+            p.tag
+          )}`;
+
+        b.style.left=
+          (
+            startMin/60*
+            HOUR_WIDTH
+          )+"px";
+
+        b.style.width=
+          Math.max(
+            70,
+            duration/60*
+            HOUR_WIDTH
+          )+"px";
+
+        const nowPlaying=
+          isToday()
+          &&
+          !o.isNextDay
+          &&
+          new Date()>=o.start
+          &&
+          new Date()<o.end;
+
+        b.innerHTML=
+          `<div class="ptitle">
+            ${esc(p.title)}
+          </div>
+
+          <div class="ptime">
+            ${fmt(startMin)}
+            –
+            ${fmt(startMin+duration)}
+          </div>
+
+          <span class="ptag">
+            ${esc(p.tag)}
+          </span>
+
+          ${
+            nowPlaying
+            ?
+            '<span class="livebadge">● NOW</span>'
+            :
+            ''
+          }`;
+
+        b.onclick=
+          ()=>openPopup(
+            p,
+            c,
+            o
+          );
+
+        tr.appendChild(b);
+
+      });
+
+    row.appendChild(tr);
+    g.appendChild(row);
+
+  });
 
   updateNow();
-
   reportGuideHeight();
 
 }
 
 function updateNow(){
 
-  if(
-    !isToday()
-  ){
+  if(!isToday()){
 
     $("now").textContent=
       "● Viewing the selected day's schedule. Times shown in your local time.";
@@ -2713,20 +2557,16 @@ function updateNow(){
           c=>
           c.id===
           o.p.channel_id
-        )?.name||
-        ""
+        )?.name||""
       )
       +
       ": "+
       o.p.title
-    )
-    .join(" • ")
+    ).join(" • ")
     :
     "● No program is currently playing.";
 
 }
-
-/* PROGRAM POPUP */
 
 function openPopup(
   p,
@@ -2734,56 +2574,39 @@ function openPopup(
   o
 ){
 
-  const sp=
-    o.startParts;
-
-  const ep=
-    o.endParts;
+  const sp=o.startParts;
+  const ep=o.endParts;
 
   const titleCard=
     p.title_card_url
     ?
     `<img
       class="popup-title-card"
-      src="${esc(
-        p.title_card_url
-      )}"
-      alt="${esc(
-        p.title
-      )} title card"
+      src="${esc(p.title_card_url)}"
+      alt="${esc(p.title)} title card"
       onerror="this.style.display='none'"
     >`
     :
     "";
 
-  const actualDay=
+  const day=
     DAYS[
       o.localDate.getDay()
     ];
 
-  const nextDayNotice=
-    o.isNextDay
-    ?
-    ' <span style="color:#8b5a16;font-weight:800;">(following morning)</span>'
-    :
-    "";
-
-  $("popupContent")
-    .innerHTML=
+  $("popupContent").innerHTML=
 
     `${titleCard}
 
-    <h2>
-      ${esc(p.title)}
-    </h2>
+    <h2>${esc(p.title)}</h2>
 
     <div class="meta">
       ${esc(c.name)}
     </div>
 
     <p>
-      <b>${actualDay}</b>
-      ${nextDayNotice}
+      <b>${day}</b>
+      ${o.isNextDay?" (following morning)":""}
       •
       ${fmt(
         sp.hour*60+
@@ -2819,115 +2642,64 @@ function openPopup(
 
 }
 
-$("popupClose")
-  .onclick=
+$("popupClose").onclick=
   ()=>
   $("popup")
     .classList
     .remove("open");
 
-$("popup")
-  .onclick=
-  e=>{
+$("popup").onclick=e=>{
 
-    if(
-      e.target===
-      $("popup")
-    ){
+  if(
+    e.target===
+    $("popup")
+  ){
 
-      $("popup")
-        .classList
-        .remove("open");
+    $("popup")
+      .classList
+      .remove("open");
 
-    }
+  }
 
-  };
+};
 
-/* LOAD DATA */
+/* LOAD */
 
 async function load(){
 
   const c=
     await sb
-      .from(
-        "tv_channels"
-      )
+      .from("tv_channels")
       .select("*")
-      .eq(
-        "active",
-        true
-      )
-      .order(
-        "sort_order"
-      );
+      .eq("active",true)
+      .order("sort_order");
 
   const p=
     await sb
-      .from(
-        "tv_programs"
-      )
+      .from("tv_programs")
       .select("*")
-      .eq(
-        "active",
-        true
-      )
-      .order(
-        "day_of_week"
-      )
-      .order(
-        "start_time"
-      );
+      .eq("active",true)
+      .order("day_of_week")
+      .order("start_time");
 
-  if(
-    c.error
-  ){
-
-    $("now")
-      .textContent=
-      "● Supabase channel error: "+
-      c.error.message;
-
-    console.error(
-      c.error
-    );
-
-  }
-
-  if(
-    p.error
-  ){
-
-    $("now")
-      .textContent=
-      "● Supabase program error: "+
-      p.error.message;
-
-    console.error(
-      p.error
-    );
-
-  }
-
-  channels=
-    c.data||[];
-
-  programs=
-    p.data||[];
+  channels=c.data||[];
+  programs=p.data||[];
 
   render();
-
   fillChannels();
 
-  renderChannelTable();
+  if(adminRecord){
+    renderChannelTable();
+    renderProgramList();
+    renderWeeklySchedule();
 
-  renderProgramList();
-
-  renderWeeklySchedule();
+    if(canManageAdmins()){
+      await loadAdministrators();
+    }
+  }
 
   setTimeout(
-    ()=>autoScrollToNow(
-      false
-    ),
+    ()=>autoScrollToNow(false),
     180
   );
 
@@ -2952,149 +2724,132 @@ function fillChannels(){
 
 /* VIEWER CONTROLS */
 
-$("search")
-  .oninput=
-  render;
+$("search").oninput=render;
+$("tag").onchange=render;
 
-$("tag")
-  .onchange=
-  render;
+$("date").onchange=()=>{
 
-$("date")
-  .onchange=
-  ()=>{
+  const [y,m,d]=
+    $("date")
+      .value
+      .split("-")
+      .map(Number);
 
-    const [y,m,d]=
-      $("date")
-        .value
-        .split("-")
-        .map(Number);
+  selectedDate=
+    new Date(y,m-1,d);
 
-    selectedDate=
-      new Date(
-        y,
-        m-1,
-        d
-      );
+  render();
 
-    render();
+};
 
-  };
+$("today").onclick=()=>{
 
-$("today")
-  .onclick=
-  ()=>{
+  selectedDate=
+    localDate();
 
-    selectedDate=
-      localDate();
-
-    $("date").value=
-      dateStr(
-        selectedDate
-      );
-
-    render();
-
-    setTimeout(
-      ()=>autoScrollToNow(
-        false
-      ),
-      100
+  $("date").value=
+    dateStr(
+      selectedDate
     );
 
-  };
+  render();
 
-$("goNow")
-  .onclick=
-  ()=>{
+  setTimeout(
+    ()=>autoScrollToNow(false),
+    100
+  );
 
-    selectedDate=
-      localDate();
+};
 
-    $("date").value=
-      dateStr(
-        selectedDate
-      );
+$("goNow").onclick=()=>{
 
-    render();
+  selectedDate=
+    localDate();
 
-    setTimeout(
-      ()=>autoScrollToNow(
-        true
-      ),
-      100
+  $("date").value=
+    dateStr(
+      selectedDate
     );
 
-  };
+  render();
 
-/* LEGEND TOUCH */
+  setTimeout(
+    ()=>autoScrollToNow(true),
+    100
+  );
+
+};
+
+/* LEGEND */
 
 document
   .querySelectorAll(
     ".legend-item"
   )
-  .forEach(
-    item=>{
+  .forEach(item=>{
 
-      item.addEventListener(
-        "click",
-        e=>{
+    item.onclick=e=>{
 
-          e.stopPropagation();
-
-          document
-            .querySelectorAll(
-              ".legend-item"
-            )
-            .forEach(
-              i=>{
-
-                if(
-                  i!==item
-                ){
-
-                  i.classList
-                    .remove(
-                      "legend-active"
-                    );
-
-                }
-
-              }
-            );
-
-          item.classList
-            .toggle(
-              "legend-active"
-            );
-
-        }
-      );
-
-    }
-  );
-
-document
-  .addEventListener(
-    "click",
-    ()=>{
+      e.stopPropagation();
 
       document
         .querySelectorAll(
           ".legend-item"
         )
-        .forEach(
-          i=>
-          i.classList
-            .remove(
-              "legend-active"
-            )
+        .forEach(i=>{
+
+          if(i!==item){
+            i.classList
+              .remove(
+                "legend-active"
+              );
+          }
+
+        });
+
+      item.classList
+        .toggle(
+          "legend-active"
         );
 
-    }
-  );
+    };
 
-/* ADMIN MAIN DROPDOWN */
+  });
+
+document.addEventListener(
+  "click",
+  ()=>{
+
+    document
+      .querySelectorAll(
+        ".legend-item"
+      )
+      .forEach(
+        i=>
+        i.classList
+          .remove(
+            "legend-active"
+          )
+      );
+
+    $("roleHelpWrap")
+      ?.classList
+      .remove("open");
+
+  }
+);
+
+$("roleHelpButton").onclick=e=>{
+
+  e.stopPropagation();
+
+  $("roleHelpWrap")
+    .classList
+    .toggle("open");
+
+};
+
+/* ADMIN OPEN/CLOSE */
 
 function openAdmin(){
 
@@ -3124,73 +2879,59 @@ function closeAdmin(){
 
 }
 
-$("adminToggle")
-  .onclick=
-  ()=>{
+$("adminToggle").onclick=()=>{
 
-    const open=
-      $("adminPanel")
-        .classList
-        .contains("open");
+  if(
+    $("adminPanel")
+      .classList
+      .contains("open")
+  ){
+    closeAdmin();
+  }else{
+    openAdmin();
+  }
 
-    if(open){
-      closeAdmin();
-    }else{
-      openAdmin();
-    }
+};
 
-  };
-
-$("adminClose")
-  .onclick=
+$("adminClose").onclick=
   closeAdmin;
-
-/* COLLAPSIBLE ADMIN SUBSECTIONS */
 
 document
   .querySelectorAll(
     ".section-toggle"
   )
-  .forEach(
-    button=>{
+  .forEach(button=>{
 
-      button.onclick=()=>{
+    button.onclick=()=>{
 
-        const target=
-          $(
-            button.dataset.target
-          );
+      const target=
+        $(
+          button.dataset.target
+        );
 
-        if(!target)return;
-
-        const opening=
-          !target.classList
-            .contains("open");
-
+      const open=
         target.classList
-          .toggle(
-            "open",
-            opening
-          );
+          .toggle("open");
 
-        button.classList
-          .toggle(
-            "open",
-            opening
-          );
+      button.classList
+        .toggle(
+          "open",
+          open
+        );
 
-        reportGuideHeight();
+      reportGuideHeight();
 
-      };
+    };
 
-    }
-  );
+  });
 
-/* ADMIN AUTH */
+/* AUTH */
 
 async function checkAdmin(){
 
   if(!user){
+
+    adminRecord=null;
 
     $("loginBox")
       .style.display=
@@ -3200,7 +2941,9 @@ async function checkAdmin(){
       .style.display=
       "none";
 
-    reportGuideHeight();
+    $("signedInCard")
+      .style.display=
+      "none";
 
     return;
 
@@ -3208,11 +2951,9 @@ async function checkAdmin(){
 
   const r=
     await sb
-      .from(
-        "tv_admins"
-      )
+      .from("tv_admins")
       .select(
-        "user_id"
+        "user_id,role,approved"
       )
       .eq(
         "user_id",
@@ -3222,8 +2963,11 @@ async function checkAdmin(){
 
   if(
     r.error||
-    !r.data
+    !r.data||
+    r.data.approved!==true
   ){
+
+    adminRecord=null;
 
     $("loginBox")
       .style.display=
@@ -3233,15 +2977,20 @@ async function checkAdmin(){
       .style.display=
       "none";
 
+    $("signedInCard")
+      .style.display=
+      "none";
+
     $("loginMessage")
       .textContent=
-      "This account is not authorized as a TV Guide administrator.";
-
-    reportGuideHeight();
+      "This account is not an approved TV Guide administrator.";
 
     return;
 
   }
+
+  adminRecord=
+    r.data;
 
   $("loginBox")
     .style.display=
@@ -3251,14 +3000,108 @@ async function checkAdmin(){
     .style.display=
     "block";
 
-  await load();
+  $("signedInCard")
+    .style.display=
+    "block";
 
-  reportGuideHeight();
+  $("signedInEmail")
+    .textContent=
+    user.email||"";
+
+  $("signedInRole")
+    .textContent=
+    roleName(
+      adminRecord.role
+    );
+
+  applyRoleInterface();
+
+  await load();
 
 }
 
-$("login")
-  .onclick=
+function applyRoleInterface(){
+
+  $("addChannel")
+    .style.display=
+    canManageChannels()
+    ?
+    ""
+    :
+    "none";
+
+  $("channelManagementSection")
+    .style.display=
+    canManageChannels()
+    ?
+    ""
+    :
+    "none";
+
+  $("addAdmin")
+    .style.display=
+    canManageAdmins()
+    ?
+    ""
+    :
+    "none";
+
+  $("administratorManagementSection")
+    .style.display=
+    canManageAdmins()
+    ?
+    ""
+    :
+    "none";
+
+  populateRoleChoices();
+
+}
+
+function populateRoleChoices(){
+
+  const select=
+    $("newAdminRole");
+
+  if(isOwner()){
+
+    select.innerHTML=
+      `
+      <option value="administration">
+        Administration
+      </option>
+
+      <option value="administration_manager">
+        Administration Manager
+      </option>
+
+      <option value="owner">
+        Owner
+      </option>
+      `;
+
+    $("roleInviteNote")
+      .textContent=
+      "Owners may invite all administrator role levels.";
+
+  }else{
+
+    select.innerHTML=
+      `
+      <option value="administration">
+        Administration
+      </option>
+      `;
+
+    $("roleInviteNote")
+      .textContent=
+      "Administration Managers may invite regular Administration accounts only.";
+
+  }
+
+}
+
+$("login").onclick=
   async()=>{
 
     $("loginMessage")
@@ -3279,9 +3122,7 @@ $("login")
 
         });
 
-    if(
-      r.error
-    ){
+    if(r.error){
 
       $("loginMessage")
         .textContent=
@@ -3291,17 +3132,13 @@ $("login")
 
     }
 
-    user=
-      r.data.user;
+    user=r.data.user;
 
-    checkAdmin();
+    await checkAdmin();
 
   };
 
-/* PASSWORD RESET */
-
-$("forgot")
-  .onclick=
+$("forgot").onclick=
   async()=>{
 
     const email=
@@ -3338,79 +3175,52 @@ $("forgot")
       :
       "Password reset email sent. Check your email.";
 
-    $("loginMessage")
-      .className=
-      "message "+
-      (
-        r.error
-        ?
-        ""
-        :
-        "ok"
-      );
-
   };
 
-sb.auth
-  .onAuthStateChange(
-    (event,s)=>{
+sb.auth.onAuthStateChange(
+  (event,s)=>{
 
-      user=
-        s?.user||null;
+    user=
+      s?.user||null;
 
-      if(
-        event===
-        "PASSWORD_RECOVERY"
-      ){
+    if(
+      event===
+      "PASSWORD_RECOVERY"
+    ){
 
-        openAdmin();
+      openAdmin();
 
-        $("loginBox")
-          .style.display=
-          "none";
+      $("loginBox")
+        .style.display=
+        "none";
 
-        $("adminArea")
-          .style.display=
-          "block";
+      $("adminArea")
+        .style.display=
+        "block";
 
-        $("resetEditor")
-          .style.display=
-          "block";
+      $("resetEditor")
+        .style.display=
+        "block";
 
-        $("resetMessage")
-          .textContent="";
+    }else{
 
-        reportGuideHeight();
-
-      }
-
-      if(
-        event!==
-        "PASSWORD_RECOVERY"
-      ){
-
-        checkAdmin();
-
-      }
+      checkAdmin();
 
     }
-  );
 
-$("saveNewPassword")
-  .onclick=
+  }
+);
+
+$("saveNewPassword").onclick=
   async()=>{
 
     const a=
-      $("newPassword")
-        .value;
+      $("newPassword").value;
 
     const b=
-      $("newPassword2")
-        .value;
+      $("newPassword2").value;
 
-    if(
-      a.length<8
-    ){
+    if(a.length<8){
 
       $("resetMessage")
         .textContent=
@@ -3420,9 +3230,7 @@ $("saveNewPassword")
 
     }
 
-    if(
-      a!==b
-    ){
+    if(a!==b){
 
       $("resetMessage")
         .textContent=
@@ -3446,58 +3254,384 @@ $("saveNewPassword")
       :
       "Password changed successfully.";
 
-    $("resetMessage")
-      .className=
-      "message "+
-      (
-        r.error
-        ?
-        ""
-        :
-        "ok"
-      );
+  };
+  /* ADMIN INVITATIONS */
 
-    if(
-      !r.error
-    ){
+$("addAdmin").onclick=()=>{
 
-      $("newPassword")
-        .value="";
+  if(!canManageAdmins()){
+    return;
+  }
 
-      $("newPassword2")
-        .value="";
+  $("adminInvite")
+    .style.display=
+    "block";
 
-      setTimeout(
-        ()=>{
+  $("programEditor")
+    .style.display=
+    "none";
 
-          $("resetEditor")
-            .style.display=
-            "none";
+  $("channelEditor")
+    .style.display=
+    "none";
 
-          reportGuideHeight();
+  $("inviteMessage")
+    .textContent="";
 
-        },
-        1200
-      );
+  populateRoleChoices();
+
+  reportGuideHeight();
+
+};
+
+$("cancelInvite").onclick=()=>{
+
+  $("adminInvite")
+    .style.display=
+    "none";
+
+  reportGuideHeight();
+
+};
+
+$("sendInvite").onclick=
+  async()=>{
+
+    const email=
+      $("newAdminEmail")
+        .value
+        .trim();
+
+    const role=
+      $("newAdminRole")
+        .value;
+
+    if(!email){
+
+      $("inviteMessage")
+        .textContent=
+        "Enter an email address.";
+
+      return;
 
     }
 
+    $("inviteMessage")
+      .textContent=
+      "Sending invitation...";
+
+    const r=
+      await sb.functions
+        .invoke(
+          INVITE_FUNCTION,
+          {
+            body:{
+              email,
+              role
+            }
+          }
+        );
+
+    if(r.error){
+
+      $("inviteMessage")
+        .textContent=
+        r.error.message;
+
+      return;
+
+    }
+
+    if(r.data?.error){
+
+      $("inviteMessage")
+        .textContent=
+        r.data.error;
+
+      return;
+
+    }
+
+    $("inviteMessage")
+      .textContent=
+      r.data?.message||
+      "Invitation sent.";
+
+    $("inviteMessage")
+      .className=
+      "message ok";
+
+    $("newAdminEmail")
+      .value="";
+
+    await loadAdministrators();
+
   };
+
+/* ADMINISTRATOR MANAGEMENT */
+
+async function loadAdministrators(){
+
+  if(!canManageAdmins()){
+    administrators=[];
+    return;
+  }
+
+  const r=
+    await sb
+      .from("tv_admins")
+      .select(
+        "user_id,role,approved,created_at,updated_at"
+      )
+      .order("created_at");
+
+  administrators=
+    r.data||[];
+
+  renderAdministratorTable();
+
+}
+
+function renderAdministratorTable(){
+
+  const t=
+    $("administratorTable");
+
+  t.innerHTML="";
+
+  administrators.forEach(a=>{
+
+    const tr=
+      document.createElement(
+        "tr"
+      );
+
+    const userCell=
+      document.createElement(
+        "td"
+      );
+
+    userCell.textContent=
+      a.user_id===user?.id
+      ?
+      `${user?.email||a.user_id} (You)`
+      :
+      a.user_id;
+
+    const roleCell=
+      document.createElement(
+        "td"
+      );
+
+    roleCell.textContent=
+      roleName(
+        a.role
+      );
+
+    const approvedCell=
+      document.createElement(
+        "td"
+      );
+
+    approvedCell.textContent=
+      a.approved
+      ?
+      "Yes"
+      :
+      "No";
+
+    const actionsCell=
+      document.createElement(
+        "td"
+      );
+
+    const canEditTarget=
+      isOwner()
+      ||
+      (
+        isManager()
+        &&
+        a.role==="administration"
+      );
+
+    if(canEditTarget){
+
+      const edit=
+        document.createElement(
+          "button"
+        );
+
+      edit.className=
+        "edit-mini";
+
+      edit.textContent=
+        "Change Role";
+
+      edit.onclick=
+        ()=>changeAdministratorRole(
+          a
+        );
+
+      actionsCell.appendChild(edit);
+
+      const del=
+        document.createElement(
+          "button"
+        );
+
+      del.className=
+        "delete-mini";
+
+      del.textContent=
+        "Remove";
+
+      del.onclick=
+        ()=>removeAdministrator(
+          a
+        );
+
+      actionsCell.appendChild(del);
+
+    }else{
+
+      actionsCell.textContent=
+        a.role==="owner"
+        ?
+        "Owner protected"
+        :
+        "No permission";
+
+    }
+
+    tr.appendChild(userCell);
+    tr.appendChild(roleCell);
+    tr.appendChild(approvedCell);
+    tr.appendChild(actionsCell);
+
+    t.appendChild(tr);
+
+  });
+
+}
+
+async function changeAdministratorRole(a){
+
+  if(!isOwner()){
+
+    alert(
+      "Only an Owner can change administrator role levels."
+    );
+
+    return;
+
+  }
+
+  const answer=
+    prompt(
+      `Enter the new role for this account:\n\nowner\nadministration_manager\nadministration`,
+      a.role
+    );
+
+  if(!answer){
+    return;
+  }
+
+  const role=
+    answer.trim();
+
+  if(
+    ![
+      "owner",
+      "administration_manager",
+      "administration"
+    ].includes(role)
+  ){
+
+    alert(
+      "That is not a valid role."
+    );
+
+    return;
+
+  }
+
+  if(
+    !confirm(
+      `Are you sure you want to change this administrator to ${roleName(role)}?`
+    )
+  ){
+    return;
+  }
+
+  const r=
+    await sb
+      .from("tv_admins")
+      .update({
+        role,
+        updated_at:
+          new Date()
+            .toISOString()
+      })
+      .eq(
+        "user_id",
+        a.user_id
+      );
+
+  if(r.error){
+
+    alert(
+      r.error.message
+    );
+
+    return;
+
+  }
+
+  await loadAdministrators();
+
+}
+
+async function removeAdministrator(a){
+
+  if(
+    !confirm(
+      `Are you sure you want to remove this ${roleName(a.role)} administrator?`
+    )
+  ){
+    return;
+  }
+
+  const r=
+    await sb
+      .from("tv_admins")
+      .delete()
+      .eq(
+        "user_id",
+        a.user_id
+      );
+
+  if(r.error){
+
+    alert(
+      r.error.message
+    );
+
+    return;
+
+  }
+
+  await loadAdministrators();
+
+}
 
 /* PROGRAM GROUPING */
 
-function makeProgramGroupKey(
-  p
-){
+function makeProgramGroupKey(p){
 
   return (
-    String(
-      p.channel_id
-    )+
+    String(p.channel_id)+
     "|||"+
-    String(
-      p.title
-    )
+    String(p.title)
       .trim()
       .toLowerCase()
   );
@@ -3509,63 +3643,46 @@ function getProgramGroups(){
   const map=
     new Map();
 
-  programs.forEach(
-    p=>{
+  programs.forEach(p=>{
 
-      const key=
-        makeProgramGroupKey(
-          p
-        );
+    const key=
+      makeProgramGroupKey(p);
 
-      if(
-        !map.has(key)
-      ){
+    if(!map.has(key)){
 
-        map.set(
+      map.set(
+        key,
+        {
           key,
-          {
-            key,
-            title:
-              p.title,
-            channel_id:
-              p.channel_id,
-            tag:
-              p.tag,
-            description:
-              p.description||"",
-            title_card_url:
-              p.title_card_url||"",
-            active:
-              p.active,
-            rows:[]
-          }
-        );
-
-      }
-
-      map.get(key)
-        .rows
-        .push(p);
+          title:p.title,
+          channel_id:p.channel_id,
+          tag:p.tag,
+          rows:[]
+        }
+      );
 
     }
-  );
+
+    map.get(key)
+      .rows
+      .push(p);
+
+  });
 
   return [
     ...map.values()
-  ]
-  .sort(
+  ].sort(
     (a,b)=>
     a.title.localeCompare(
       b.title,
       undefined,
-      {
-        sensitivity:"base"
-      }
+      {sensitivity:"base"}
     )
   );
 
 }
-  /* PROGRAM SCHEDULE EDITOR */
+
+/* PROGRAM EDITOR */
 
 function scheduleEntryHTML(
   day=0,
@@ -3580,131 +3697,59 @@ function scheduleEntryHTML(
     <div class="schedule-grid">
 
       <div>
-
-        <label>
-          Day of Week
-        </label>
+        <label>Day of Week</label>
 
         <select class="scheduleDay">
-
-          <option value="0"
-            ${Number(day)===0?"selected":""}>
-            Sunday
-          </option>
-
-          <option value="1"
-            ${Number(day)===1?"selected":""}>
-            Monday
-          </option>
-
-          <option value="2"
-            ${Number(day)===2?"selected":""}>
-            Tuesday
-          </option>
-
-          <option value="3"
-            ${Number(day)===3?"selected":""}>
-            Wednesday
-          </option>
-
-          <option value="4"
-            ${Number(day)===4?"selected":""}>
-            Thursday
-          </option>
-
-          <option value="5"
-            ${Number(day)===5?"selected":""}>
-            Friday
-          </option>
-
-          <option value="6"
-            ${Number(day)===6?"selected":""}>
-            Saturday
-          </option>
-
+          ${DAYS.map(
+            (name,index)=>
+            `<option
+              value="${index}"
+              ${Number(day)===index?"selected":""}
+            >
+              ${name}
+            </option>`
+          ).join("")}
         </select>
-
       </div>
 
       <div>
-
-        <label>
-          Start Time
-        </label>
+        <label>Start Time</label>
 
         <input
           class="scheduleStart"
           type="time"
           value="${start}"
         >
-
       </div>
 
       <div>
-
-        <label>
-          Program Length
-        </label>
+        <label>Program Length</label>
 
         <select class="scheduleDuration">
 
-          <option value="15"
-            ${Number(duration)===15?"selected":""}>
-            15 Minutes
-          </option>
-
-          <option value="30"
-            ${Number(duration)===30?"selected":""}>
-            30 Minutes
-          </option>
-
-          <option value="45"
-            ${Number(duration)===45?"selected":""}>
-            45 Minutes
-          </option>
-
-          <option value="60"
-            ${Number(duration)===60?"selected":""}>
-            1 Hour
-          </option>
-
-          <option value="75"
-            ${Number(duration)===75?"selected":""}>
-            1 Hour 15 Minutes
-          </option>
-
-          <option value="90"
-            ${Number(duration)===90?"selected":""}>
-            1 Hour 30 Minutes
-          </option>
-
-          <option value="105"
-            ${Number(duration)===105?"selected":""}>
-            1 Hour 45 Minutes
-          </option>
-
-          <option value="120"
-            ${Number(duration)===120?"selected":""}>
-            2 Hours
-          </option>
-
-          <option value="150"
-            ${Number(duration)===150?"selected":""}>
-            2 Hours 30 Minutes
-          </option>
-
-          <option value="180"
-            ${Number(duration)===180?"selected":""}>
-            3 Hours
-          </option>
-
-          <option value="240"
-            ${Number(duration)===240?"selected":""}>
-            4 Hours
-          </option>
+          ${[
+            [15,"15 Minutes"],
+            [30,"30 Minutes"],
+            [45,"45 Minutes"],
+            [60,"1 Hour"],
+            [75,"1 Hour 15 Minutes"],
+            [90,"1 Hour 30 Minutes"],
+            [105,"1 Hour 45 Minutes"],
+            [120,"2 Hours"],
+            [150,"2 Hours 30 Minutes"],
+            [180,"3 Hours"],
+            [240,"4 Hours"]
+          ].map(
+            ([value,label])=>
+            `<option
+              value="${value}"
+              ${Number(duration)===value?"selected":""}
+            >
+              ${label}
+            </option>`
+          ).join("")}
 
         </select>
-
       </div>
 
       ${
@@ -3712,7 +3757,8 @@ function scheduleEntryHTML(
         ?
         `<button
           type="button"
-          class="remove-time">
+          class="remove-time"
+        >
           Remove
         </button>`
         :
@@ -3731,41 +3777,35 @@ function bindScheduleRemoveButtons(){
     .querySelectorAll(
       ".remove-time"
     )
-    .forEach(
-      btn=>{
+    .forEach(btn=>{
 
-        btn.onclick=()=>{
+      btn.onclick=()=>{
 
-          const entries=
-            document
-              .querySelectorAll(
-                ".schedule-entry"
-              );
-
-          if(
-            entries.length<=1
-          ){
-
-            alert(
-              "A program must have at least one day and time."
-            );
-
-            return;
-
-          }
-
-          btn
-            .closest(
+        if(
+          document
+            .querySelectorAll(
               ".schedule-entry"
             )
-            .remove();
+            .length<=1
+        ){
 
-          reportGuideHeight();
+          alert(
+            "A program must have at least one day and time."
+          );
 
-        };
+          return;
 
-      }
-    );
+        }
+
+        btn
+          .closest(
+            ".schedule-entry"
+          )
+          .remove();
+
+      };
+
+    });
 
 }
 
@@ -3773,27 +3813,13 @@ function resetProgramEditor(){
 
   editingGroupIds=[];
 
-  $("programId")
-    .value="";
-
-  $("programEditMode")
-    .value="new";
-
-  $("programTitle")
-    .value="";
-
-  $("programDescription")
-    .value="";
-
-  $("programTitleCard")
-    .value="";
-
-  $("programActive")
-    .checked=true;
-
-  $("programTag")
-    .value=
-    "Church Services";
+  $("programId").value="";
+  $("programEditMode").value="new";
+  $("programTitle").value="";
+  $("programDescription").value="";
+  $("programTitleCard").value="";
+  $("programActive").checked=true;
+  $("programTag").value="Church Services";
 
   $("titleCardArea")
     .classList
@@ -3816,594 +3842,7 @@ function resetProgramEditor(){
 
 }
 
-$("addProgram")
-  .onclick=
-  ()=>{
-
-    $("programEditor")
-      .style.display=
-      "block";
-
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    $("adminInvite")
-      .style.display=
-      "none";
-
-    resetProgramEditor();
-
-    reportGuideHeight();
-
-    $("programEditor")
-      .scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-
-  };
-
-$("cancelProgram")
-  .onclick=
-  ()=>{
-
-    $("programEditor")
-      .style.display=
-      "none";
-
-    editingGroupIds=[];
-
-    reportGuideHeight();
-
-  };
-
-$("toggleTitleCard")
-  .onclick=
-  ()=>{
-
-    const open=
-      $("titleCardArea")
-        .classList
-        .toggle("open");
-
-    $("toggleTitleCard")
-      .textContent=
-      open
-      ?
-      "− Hide Title Card"
-      :
-      "+ Add Title Card";
-
-    reportGuideHeight();
-
-  };
-
-$("addSchedule")
-  .onclick=
-  ()=>{
-
-    $("scheduleEntries")
-      .insertAdjacentHTML(
-        "beforeend",
-        scheduleEntryHTML(
-          0,
-          "08:00",
-          30,
-          true
-        )
-      );
-
-    bindScheduleRemoveButtons();
-
-    reportGuideHeight();
-
-  };
-
-/* READ ALL DAY/TIME ROWS */
-
-function collectScheduleRows(
-  common
-){
-
-  return [
-    ...document
-      .querySelectorAll(
-        ".schedule-entry"
-      )
-  ]
-  .map(
-    entry=>{
-
-      const start=
-        entry
-          .querySelector(
-            ".scheduleStart"
-          )
-          .value;
-
-      if(!start){
-        return null;
-      }
-
-      return {
-
-        ...common,
-
-        day_of_week:
-          Number(
-            entry
-              .querySelector(
-                ".scheduleDay"
-              )
-              .value
-          ),
-
-        start_time:
-          start+
-          ":00",
-
-        duration_minutes:
-          Number(
-            entry
-              .querySelector(
-                ".scheduleDuration"
-              )
-              .value
-          )
-
-      };
-
-    }
-  )
-  .filter(Boolean);
-
-}
-
-/* SAVE PROGRAM */
-
-$("saveProgram")
-  .onclick=
-  async()=>{
-
-    const mode=
-      $("programEditMode")
-        .value;
-
-    const id=
-      $("programId")
-        .value;
-
-    const channelId=
-      $("programChannel")
-        .value;
-
-    const title=
-      $("programTitle")
-        .value
-        .trim();
-
-    if(
-      !channelId||
-      !title
-    ){
-
-      alert(
-        "Please enter a channel and program name."
-      );
-
-      return;
-
-    }
-
-    const common={
-
-      channel_id:
-        channelId,
-
-      title,
-
-      tag:
-        $("programTag")
-          .value,
-
-      description:
-        $("programDescription")
-          .value
-          .trim(),
-
-      title_card_url:
-        $("programTitleCard")
-          .value
-          .trim()||
-        null,
-
-      active:
-        $("programActive")
-          .checked
-
-    };
-
-    const rows=
-      collectScheduleRows(
-        common
-      );
-
-    if(
-      !rows.length
-    ){
-
-      alert(
-        "Please enter at least one valid day and time."
-      );
-
-      return;
-
-    }
-
-    /* EDIT COMPLETE PROGRAM */
-
-    if(
-      mode==="group"
-    ){
-
-      const oldIds=[
-        ...editingGroupIds
-      ];
-
-      const commonCount=
-        Math.min(
-          oldIds.length,
-          rows.length
-        );
-
-      for(
-        let i=0;
-        i<commonCount;
-        i++
-      ){
-
-        const r=
-          await sb
-            .from(
-              "tv_programs"
-            )
-            .update(
-              rows[i]
-            )
-            .eq(
-              "id",
-              oldIds[i]
-            );
-
-        if(
-          r.error
-        ){
-
-          alert(
-            r.error.message
-          );
-
-          return;
-
-        }
-
-      }
-
-      if(
-        rows.length>
-        oldIds.length
-      ){
-
-        const r=
-          await sb
-            .from(
-              "tv_programs"
-            )
-            .insert(
-              rows.slice(
-                oldIds.length
-              )
-            );
-
-        if(
-          r.error
-        ){
-
-          alert(
-            r.error.message
-          );
-
-          return;
-
-        }
-
-      }
-
-      if(
-        oldIds.length>
-        rows.length
-      ){
-
-        const idsToDelete=
-          oldIds.slice(
-            rows.length
-          );
-
-        const r=
-          await sb
-            .from(
-              "tv_programs"
-            )
-            .delete()
-            .in(
-              "id",
-              idsToDelete
-            );
-
-        if(
-          r.error
-        ){
-
-          alert(
-            r.error.message
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-    /* EDIT ONE WEEKLY AIRING */
-
-    else if(
-      mode==="single" &&
-      id
-    ){
-
-      const r=
-        await sb
-          .from(
-            "tv_programs"
-          )
-          .update(
-            rows[0]
-          )
-          .eq(
-            "id",
-            id
-          );
-
-      if(
-        r.error
-      ){
-
-        alert(
-          r.error.message
-        );
-
-        return;
-
-      }
-
-      if(
-        rows.length>1
-      ){
-
-        const extra=
-          await sb
-            .from(
-              "tv_programs"
-            )
-            .insert(
-              rows.slice(1)
-            );
-
-        if(
-          extra.error
-        ){
-
-          alert(
-            extra.error.message
-          );
-
-          return;
-
-        }
-
-      }
-
-    }
-
-    /* NEW PROGRAM */
-
-    else{
-
-      const r=
-        await sb
-          .from(
-            "tv_programs"
-          )
-          .insert(rows);
-
-      if(
-        r.error
-      ){
-
-        alert(
-          r.error.message
-        );
-
-        return;
-
-      }
-
-    }
-
-    $("programEditor")
-      .style.display=
-      "none";
-
-    editingGroupIds=[];
-
-    await load();
-
-    reportGuideHeight();
-
-  };
-
-/* EDIT SINGLE WEEKLY AIRING */
-
-window.editProgram=
-  id=>{
-
-    const p=
-      programs.find(
-        x=>
-        x.id===id
-      );
-
-    if(!p)return;
-
-    editingGroupIds=[];
-
-    $("programEditor")
-      .style.display=
-      "block";
-
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    $("adminInvite")
-      .style.display=
-      "none";
-
-    $("programEditMode")
-      .value=
-      "single";
-
-    $("programId")
-      .value=
-      p.id;
-
-    $("programChannel")
-      .value=
-      p.channel_id;
-
-    $("programTitle")
-      .value=
-      p.title;
-
-    $("programTag")
-      .value=
-      p.tag;
-
-    $("programDescription")
-      .value=
-      p.description||"";
-
-    $("programActive")
-      .checked=
-      p.active;
-
-    $("programTitleCard")
-      .value=
-      p.title_card_url||"";
-
-    if(
-      p.title_card_url
-    ){
-
-      $("titleCardArea")
-        .classList
-        .add("open");
-
-      $("toggleTitleCard")
-        .textContent=
-        "− Hide Title Card";
-
-    }else{
-
-      $("titleCardArea")
-        .classList
-        .remove("open");
-
-      $("toggleTitleCard")
-        .textContent=
-        "+ Add Title Card";
-
-    }
-
-    $("scheduleEntries")
-      .innerHTML=
-      scheduleEntryHTML(
-        Number(
-          p.day_of_week
-        ),
-        p.start_time
-          .slice(0,5),
-        Number(
-          p.duration_minutes
-        ),
-        false
-      );
-
-    bindScheduleRemoveButtons();
-
-    reportGuideHeight();
-
-    $("programEditor")
-      .scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-
-  };
-
-/* EDIT COMPLETE PROGRAM */
-
-function editProgramGroup(
-  key
-){
-
-  const group=
-    getProgramGroups()
-      .find(
-        g=>
-        g.key===key
-      );
-
-  if(!group)return;
-
-  const sortedRows=[
-    ...group.rows
-  ]
-  .sort(
-    (a,b)=>
-    a.day_of_week-
-    b.day_of_week
-    ||
-    mins(
-      a.start_time
-    )-
-    mins(
-      b.start_time
-    )
-  );
-
-  editingGroupIds=
-    sortedRows
-      .map(
-        p=>
-        p.id
-      );
-
-  const first=
-    sortedRows[0];
+$("addProgram").onclick=()=>{
 
   $("programEditor")
     .style.display=
@@ -4417,93 +3856,395 @@ function editProgramGroup(
     .style.display=
     "none";
 
+  resetProgramEditor();
+
+  reportGuideHeight();
+
+};
+
+$("cancelProgram").onclick=()=>{
+
+  $("programEditor")
+    .style.display=
+    "none";
+
+  editingGroupIds=[];
+
+  reportGuideHeight();
+
+};
+
+$("toggleTitleCard").onclick=()=>{
+
+  const open=
+    $("titleCardArea")
+      .classList
+      .toggle("open");
+
+  $("toggleTitleCard")
+    .textContent=
+    open
+    ?
+    "− Hide Title Card"
+    :
+    "+ Add Title Card";
+
+};
+
+$("addSchedule").onclick=()=>{
+
+  $("scheduleEntries")
+    .insertAdjacentHTML(
+      "beforeend",
+      scheduleEntryHTML(
+        0,
+        "08:00",
+        30,
+        true
+      )
+    );
+
+  bindScheduleRemoveButtons();
+
+};
+
+function collectScheduleRows(common){
+
+  return [
+    ...document
+      .querySelectorAll(
+        ".schedule-entry"
+      )
+  ]
+  .map(entry=>{
+
+    const start=
+      entry
+        .querySelector(
+          ".scheduleStart"
+        )
+        .value;
+
+    if(!start){
+      return null;
+    }
+
+    return {
+      ...common,
+
+      day_of_week:
+        Number(
+          entry
+            .querySelector(
+              ".scheduleDay"
+            )
+            .value
+        ),
+
+      start_time:
+        start+":00",
+
+      duration_minutes:
+        Number(
+          entry
+            .querySelector(
+              ".scheduleDuration"
+            )
+            .value
+        )
+    };
+
+  })
+  .filter(Boolean);
+
+}
+
+$("saveProgram").onclick=
+  async()=>{
+
+    const channelId=
+      $("programChannel")
+        .value;
+
+    const title=
+      $("programTitle")
+        .value
+        .trim();
+
+    if(!channelId||!title){
+
+      alert(
+        "Please enter a channel and program name."
+      );
+
+      return;
+
+    }
+
+    const common={
+      channel_id:channelId,
+      title,
+      tag:$("programTag").value,
+      description:
+        $("programDescription")
+          .value
+          .trim(),
+      title_card_url:
+        $("programTitleCard")
+          .value
+          .trim()||
+        null,
+      active:
+        $("programActive")
+          .checked
+    };
+
+    const rows=
+      collectScheduleRows(
+        common
+      );
+
+    const mode=
+      $("programEditMode")
+        .value;
+
+    const id=
+      $("programId")
+        .value;
+
+    if(mode==="group"){
+
+      const oldIds=[
+        ...editingGroupIds
+      ];
+
+      const count=
+        Math.min(
+          oldIds.length,
+          rows.length
+        );
+
+      for(let i=0;i<count;i++){
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .update(
+              rows[i]
+            )
+            .eq(
+              "id",
+              oldIds[i]
+            );
+
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+      if(rows.length>oldIds.length){
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .insert(
+              rows.slice(
+                oldIds.length
+              )
+            );
+
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+      if(oldIds.length>rows.length){
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .delete()
+            .in(
+              "id",
+              oldIds.slice(
+                rows.length
+              )
+            );
+
+        if(r.error){
+          return alert(r.error.message);
+        }
+
+      }
+
+    }else if(
+      mode==="single" &&
+      id
+    ){
+
+      const r=
+        await sb
+          .from("tv_programs")
+          .update(
+            rows[0]
+          )
+          .eq(
+            "id",
+            id
+          );
+
+      if(r.error){
+        return alert(r.error.message);
+      }
+
+    }else{
+
+      const r=
+        await sb
+          .from("tv_programs")
+          .insert(rows);
+
+      if(r.error){
+        return alert(r.error.message);
+      }
+
+    }
+
+    $("programEditor")
+      .style.display=
+      "none";
+
+    editingGroupIds=[];
+
+    await load();
+
+  };
+
+window.editProgram=id=>{
+
+  const p=
+    programs.find(
+      x=>x.id===id
+    );
+
+  if(!p)return;
+
+  editingGroupIds=[];
+
+  $("programEditor")
+    .style.display=
+    "block";
+
+  $("programEditMode")
+    .value=
+    "single";
+
+  $("programId")
+    .value=
+    p.id;
+
+  $("programChannel").value=
+    p.channel_id;
+
+  $("programTitle").value=
+    p.title;
+
+  $("programTag").value=
+    p.tag;
+
+  $("programDescription").value=
+    p.description||"";
+
+  $("programTitleCard").value=
+    p.title_card_url||"";
+
+  $("programActive").checked=
+    p.active;
+
+  $("scheduleEntries")
+    .innerHTML=
+    scheduleEntryHTML(
+      p.day_of_week,
+      p.start_time.slice(0,5),
+      p.duration_minutes,
+      false
+    );
+
+};
+
+function editProgramGroup(key){
+
+  const group=
+    getProgramGroups()
+      .find(
+        g=>g.key===key
+      );
+
+  if(!group)return;
+
+  const rows=[
+    ...group.rows
+  ].sort(
+    (a,b)=>
+    a.day_of_week-b.day_of_week
+    ||
+    mins(a.start_time)-
+    mins(b.start_time)
+  );
+
+  editingGroupIds=
+    rows.map(
+      p=>p.id
+    );
+
+  const first=
+    rows[0];
+
+  $("programEditor")
+    .style.display=
+    "block";
+
   $("programEditMode")
     .value=
     "group";
 
-  $("programId")
-    .value="";
+  $("programId").value="";
 
-  $("programChannel")
-    .value=
+  $("programChannel").value=
     first.channel_id;
 
-  $("programTitle")
-    .value=
+  $("programTitle").value=
     first.title;
 
-  $("programTag")
-    .value=
+  $("programTag").value=
     first.tag;
 
-  $("programDescription")
-    .value=
+  $("programDescription").value=
     first.description||"";
 
-  $("programActive")
-    .checked=
-    first.active;
-
-  $("programTitleCard")
-    .value=
+  $("programTitleCard").value=
     first.title_card_url||"";
 
-  if(
-    first.title_card_url
-  ){
-
-    $("titleCardArea")
-      .classList
-      .add("open");
-
-    $("toggleTitleCard")
-      .textContent=
-      "− Hide Title Card";
-
-  }else{
-
-    $("titleCardArea")
-      .classList
-      .remove("open");
-
-    $("toggleTitleCard")
-      .textContent=
-      "+ Add Title Card";
-
-  }
+  $("programActive").checked=
+    first.active;
 
   $("scheduleEntries")
     .innerHTML=
-    sortedRows
-      .map(
-        (p,index)=>
-        scheduleEntryHTML(
-          Number(
-            p.day_of_week
-          ),
-          p.start_time
-            .slice(0,5),
-          Number(
-            p.duration_minutes
-          ),
-          index!==0
-        )
+    rows.map(
+      (p,index)=>
+      scheduleEntryHTML(
+        p.day_of_week,
+        p.start_time.slice(0,5),
+        p.duration_minutes,
+        index!==0
       )
-      .join("");
+    ).join("");
 
   bindScheduleRemoveButtons();
 
-  reportGuideHeight();
-
-  $("programEditor")
-    .scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
 }
-
-/* DELETE ONE WEEKLY AIRING */
 
 window.deleteProgram=
   async id=>{
@@ -4518,301 +4259,185 @@ window.deleteProgram=
 
     const r=
       await sb
-        .from(
-          "tv_programs"
-        )
+        .from("tv_programs")
         .delete()
-        .eq(
-          "id",
-          id
-        );
+        .eq("id",id);
 
-    if(
-      r.error
-    ){
-
-      alert(
-        r.error.message
-      );
-
-      return;
-
+    if(r.error){
+      alert(r.error.message);
+    }else{
+      await load();
     }
-
-    await load();
 
   };
 
-/* DELETE COMPLETE PROGRAM */
-
-async function deleteProgramGroup(
-  group
-){
-
-  const confirmed=
-    confirm(
-      `Are you sure you want to delete "${group.title}" and all of its scheduled airings?`
-    );
+async function deleteProgramGroup(group){
 
   if(
-    !confirmed
+    !confirm(
+      `Are you sure you want to delete "${group.title}" and all of its scheduled airings?`
+    )
   ){
     return;
   }
-
-  const ids=
-    group.rows
-      .map(
-        p=>
-        p.id
-      );
 
   const r=
     await sb
-      .from(
-        "tv_programs"
-      )
+      .from("tv_programs")
       .delete()
       .in(
         "id",
-        ids
+        group.rows.map(
+          p=>p.id
+        )
       );
 
-  if(
-    r.error
-  ){
-
-    alert(
-      r.error.message
-    );
-
-    return;
-
+  if(r.error){
+    alert(r.error.message);
+  }else{
+    await load();
   }
-
-  await load();
 
 }
 
-/* PROGRAM LIST */
-
 function renderProgramList(){
 
-  const table=
+  const t=
     $("programListTable");
 
-  table.innerHTML="";
+  t.innerHTML="";
 
-  const groups=
-    getProgramGroups();
+  getProgramGroups()
+    .forEach(group=>{
 
-  groups.forEach(
-    group=>{
+      const c=
+        channels.find(
+          x=>
+          x.id===
+          group.channel_id
+        );
 
       const tr=
         document.createElement(
           "tr"
         );
 
-      const channel=
-        channels.find(
-          c=>
-          c.id===
-          group.channel_id
-        );
+      tr.innerHTML=
+        `<td>${esc(group.title)}</td>
+         <td>${esc(c?.name||"")}</td>
+         <td>${esc(group.tag||"")}</td>
+         <td>${group.rows.length}</td>
+         <td></td>`;
 
-      const titleCell=
-        document.createElement(
-          "td"
-        );
+      const actions=
+        tr.lastElementChild;
 
-      titleCell.textContent=
-        group.title;
-
-      const channelCell=
-        document.createElement(
-          "td"
-        );
-
-      channelCell.textContent=
-        channel?.name||
-        "";
-
-      const categoryCell=
-        document.createElement(
-          "td"
-        );
-
-      categoryCell.textContent=
-        group.tag||
-        "";
-
-      const airingsCell=
-        document.createElement(
-          "td"
-        );
-
-      airingsCell.textContent=
-        String(
-          group.rows.length
-        );
-
-      const actionsCell=
-        document.createElement(
-          "td"
-        );
-
-      const editBtn=
+      const edit=
         document.createElement(
           "button"
         );
 
-      editBtn.className=
-        "edit-btn";
+      edit.className=
+        "edit-mini";
 
-      editBtn.textContent=
+      edit.textContent=
         "Edit";
 
-      editBtn.onclick=
+      edit.onclick=
         ()=>editProgramGroup(
           group.key
         );
 
-      const deleteBtn=
+      const del=
         document.createElement(
           "button"
         );
 
-      deleteBtn.className=
-        "delete-btn";
+      del.className=
+        "delete-mini";
 
-      deleteBtn.textContent=
+      del.textContent=
         "Delete Program";
 
-      deleteBtn.onclick=
+      del.onclick=
         ()=>deleteProgramGroup(
           group
         );
 
-      actionsCell.appendChild(
-        editBtn
+      actions.append(
+        edit,
+        del
       );
 
-      actionsCell.appendChild(
-        deleteBtn
-      );
+      t.appendChild(tr);
 
-      tr.appendChild(
-        titleCell
-      );
-
-      tr.appendChild(
-        channelCell
-      );
-
-      tr.appendChild(
-        categoryCell
-      );
-
-      tr.appendChild(
-        airingsCell
-      );
-
-      tr.appendChild(
-        actionsCell
-      );
-
-      table.appendChild(
-        tr
-      );
-
-    }
-  );
+    });
 
 }
 
-/* CHANNEL MANAGEMENT */
+/* CHANNELS */
 
-$("addChannel")
-  .onclick=
-  ()=>{
+$("addChannel").onclick=()=>{
 
-    $("channelEditor")
-      .style.display=
-      "block";
+  if(!canManageChannels()){
+    return;
+  }
 
-    $("programEditor")
-      .style.display=
-      "none";
+  $("channelEditor")
+    .style.display=
+    "block";
 
-    $("adminInvite")
-      .style.display=
-      "none";
+  $("programEditor")
+    .style.display=
+    "none";
 
-    $("channelId")
-      .value="";
+  $("adminInvite")
+    .style.display=
+    "none";
 
-    $("channelName")
-      .value="";
+  $("channelId").value="";
+  $("channelName").value="";
+  $("channelLogo").value="";
 
-    $("channelLogo")
-      .value="";
+  $("deleteChannel")
+    .style.display=
+    "none";
 
-    $("deleteChannel")
-      .style.display=
-      "none";
+};
 
-    reportGuideHeight();
+$("cancelChannel").onclick=()=>{
 
-    $("channelEditor")
-      .scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
+  $("channelEditor")
+    .style.display=
+    "none";
 
-  };
+};
 
-$("cancelChannel")
-  .onclick=
-  ()=>{
-
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    reportGuideHeight();
-
-  };
-
-$("saveChannel")
-  .onclick=
+$("saveChannel").onclick=
   async()=>{
+
+    if(!canManageChannels()){
+      return;
+    }
 
     const id=
       $("channelId")
         .value;
 
     const data={
-
       name:
         $("channelName")
           .value
           .trim(),
-
       logo_url:
         $("channelLogo")
           .value
           .trim()||
         null,
-
-      active:
-        true
-
+      active:true
     };
 
-    if(
-      !data.name
-    ){
+    if(!data.name){
 
       alert(
         "Enter a channel name."
@@ -4828,9 +4453,7 @@ $("saveChannel")
 
       r=
         await sb
-          .from(
-            "tv_channels"
-          )
+          .from("tv_channels")
           .update(data)
           .eq(
             "id",
@@ -4844,118 +4467,85 @@ $("saveChannel")
 
       r=
         await sb
-          .from(
-            "tv_channels"
-          )
+          .from("tv_channels")
           .insert(data);
 
     }
 
-    if(
-      r.error
-    ){
+    if(r.error){
+      alert(r.error.message);
+    }else{
 
-      alert(
-        r.error.message
-      );
+      $("channelEditor")
+        .style.display=
+        "none";
 
-      return;
+      await load();
 
     }
 
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    await load();
-
   };
 
-window.editChannel=
-  id=>{
+window.editChannel=id=>{
 
-    const c=
-      channels.find(
-        x=>
-        x.id===id
-      );
+  if(!canManageChannels()){
+    return;
+  }
 
-    if(!c)return;
+  const c=
+    channels.find(
+      x=>x.id===id
+    );
 
-    $("channelEditor")
-      .style.display=
-      "block";
+  if(!c)return;
 
-    $("programEditor")
-      .style.display=
-      "none";
+  $("channelEditor")
+    .style.display=
+    "block";
 
-    $("adminInvite")
-      .style.display=
-      "none";
+  $("channelId").value=
+    c.id;
 
-    $("channelId")
-      .value=
-      c.id;
+  $("channelName").value=
+    c.name;
 
-    $("channelName")
-      .value=
-      c.name;
+  $("channelLogo").value=
+    c.logo_url||"";
 
-    $("channelLogo")
-      .value=
-      c.logo_url||"";
+  $("deleteChannel")
+    .style.display=
+    "inline-block";
 
-    $("deleteChannel")
-      .style.display=
-      "inline-block";
+};
 
-    reportGuideHeight();
-
-    $("channelEditor")
-      .scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
-
-  };
-
-/* DELETE CHANNEL */
-
-$("deleteChannel")
-  .onclick=
+$("deleteChannel").onclick=
   async()=>{
+
+    if(!canManageChannels()){
+      return;
+    }
 
     const id=
       $("channelId")
         .value;
 
-    if(!id){
-      return;
-    }
-
-    const channel=
+    const c=
       channels.find(
-        c=>
-        c.id===id
+        x=>x.id===id
       );
 
-    if(!channel){
-      return;
-    }
+    if(!c)return;
 
-    const assigned=
+    const count=
       programs.filter(
         p=>
         p.channel_id===id
-      );
+      ).length;
 
-    if(
-      assigned.length
-    ){
+    if(count){
 
       alert(
-        `"${channel.name}" currently has ${assigned.length} scheduled program airing${assigned.length===1?"":"s"}. Please delete or move those programs before deleting this channel.`
+        `"${c.name}" still has ${count} scheduled program airing${count===1?"":"s"}. Move or delete them first.`
       );
 
       return;
@@ -4964,7 +4554,7 @@ $("deleteChannel")
 
     if(
       !confirm(
-        `Are you sure you want to delete the channel "${channel.name}"?`
+        `Are you sure you want to delete "${c.name}"?`
       )
     ){
       return;
@@ -4972,32 +4562,18 @@ $("deleteChannel")
 
     const r=
       await sb
-        .from(
-          "tv_channels"
-        )
+        .from("tv_channels")
         .delete()
         .eq(
           "id",
           id
         );
 
-    if(
-      r.error
-    ){
-
-      alert(
-        r.error.message
-      );
-
-      return;
-
+    if(r.error){
+      alert(r.error.message);
+    }else{
+      await load();
     }
-
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    await load();
 
   };
 
@@ -5008,75 +4584,62 @@ function renderChannelTable(){
 
   t.innerHTML="";
 
-  channels.forEach(
-    c=>{
+  channels.forEach(c=>{
 
-      const tr=
-        document.createElement(
-          "tr"
-        );
+    const logo=
+      c.logo_url||
+      CHANNEL_LOGOS[c.name];
 
-      const logo=
-        c.logo_url||
-        CHANNEL_LOGOS[c.name];
-
-      tr.innerHTML=
-
-        `<td>
-          ${
-            logo
-            ?
-            `<img
-              class="channel-preview"
-              src="${esc(logo)}"
-              alt=""
-              onerror="this.style.display='none'"
-            >`
-            :
-            "✝"
-          }
-        </td>
-
-        <td>
-          ${esc(c.name)}
-        </td>
-
-        <td>
-          <button
-            class="edit-btn"
-            onclick="editChannel('${c.id}')">
-            Edit
-          </button>
-        </td>`;
-
-      t.appendChild(
-        tr
+    const tr=
+      document.createElement(
+        "tr"
       );
 
-    }
-  );
+    tr.innerHTML=
+      `<td>
+        ${
+          logo
+          ?
+          `<img
+            class="channel-preview"
+            src="${esc(logo)}"
+            alt=""
+          >`
+          :
+          "✝"
+        }
+       </td>
+       <td>${esc(c.name)}</td>
+       <td>
+         <button
+           class="edit-mini"
+           onclick="editChannel('${c.id}')"
+         >
+           Edit
+         </button>
+       </td>`;
+
+    t.appendChild(tr);
+
+  });
 
 }
 
-/* WEEKLY SCHEDULE SORT */
+/* WEEKLY SCHEDULE */
 
-function getChannelName(
-  channelId
-){
+function getChannelName(id){
 
   return (
     channels.find(
-      c=>
-      c.id===channelId
-    )?.name||
-    ""
+      c=>c.id===id
+    )?.name||""
   );
 
 }
 
 function sortedPrograms(){
 
-  const sortBy=
+  const sort=
     $("scheduleSort")
       .value;
 
@@ -5087,10 +4650,7 @@ function sortedPrograms(){
   list.sort(
     (a,b)=>{
 
-      if(
-        sortBy===
-        "channel"
-      ){
+      if(sort==="channel"){
 
         return (
           getChannelName(
@@ -5099,78 +4659,39 @@ function sortedPrograms(){
           .localeCompare(
             getChannelName(
               b.channel_id
-            ),
-            undefined,
-            {
-              sensitivity:"base"
-            }
+            )
           )
           ||
           a.day_of_week-
           b.day_of_week
           ||
-          mins(
-            a.start_time
-          )-
-          mins(
-            b.start_time
-          )
+          mins(a.start_time)-
+          mins(b.start_time)
         );
 
       }
 
-      if(
-        sortBy===
-        "time"
-      ){
+      if(sort==="time"){
 
         return (
-          mins(
-            a.start_time
-          )-
-          mins(
-            b.start_time
-          )
+          mins(a.start_time)-
+          mins(b.start_time)
           ||
           a.day_of_week-
           b.day_of_week
-          ||
-          a.title
-            .localeCompare(
-              b.title,
-              undefined,
-              {
-                sensitivity:"base"
-              }
-            )
         );
 
       }
 
-      if(
-        sortBy===
-        "program"
-      ){
+      if(sort==="program"){
 
         return (
-          a.title
-            .localeCompare(
-              b.title,
-              undefined,
-              {
-                sensitivity:"base"
-              }
-            )
+          a.title.localeCompare(
+            b.title
+          )
           ||
           a.day_of_week-
           b.day_of_week
-          ||
-          mins(
-            a.start_time
-          )-
-          mins(
-            b.start_time
-          )
         );
 
       }
@@ -5179,21 +4700,8 @@ function sortedPrograms(){
         a.day_of_week-
         b.day_of_week
         ||
-        mins(
-          a.start_time
-        )-
-        mins(
-          b.start_time
-        )
-        ||
-        a.title
-          .localeCompare(
-            b.title,
-            undefined,
-            {
-              sensitivity:"base"
-            }
-          )
+        mins(a.start_time)-
+        mins(b.start_time)
       );
 
     }
@@ -5215,192 +4723,59 @@ function renderWeeklySchedule(){
   t.innerHTML="";
 
   sortedPrograms()
-    .forEach(
-      p=>{
+    .forEach(p=>{
 
-        const c=
-          channels.find(
-            x=>
-            x.id===
-            p.channel_id
-          );
-
-        const tr=
-          document.createElement(
-            "tr"
-          );
-
-        tr.innerHTML=
-
-          `<td>
-            ${esc(
-              c?.name||
-              ""
-            )}
-          </td>
-
-          <td>
-            ${DAYS[
-              p.day_of_week
-            ]}
-          </td>
-
-          <td>
-            ${fmt(
-              mins(
-                p.start_time
-              )
-            )}
-          </td>
-
-          <td>
-            ${esc(
-              p.title
-            )}
-          </td>
-
-          <td>
-            ${esc(
-              p.tag
-            )}
-          </td>
-
-          <td>
-            ${p.duration_minutes} min
-          </td>
-
-          <td>
-
-            <button
-              class="edit-btn"
-              onclick="editProgram('${p.id}')">
-              Edit
-            </button>
-
-            <button
-              class="delete-btn"
-              onclick="deleteProgram('${p.id}')">
-              Delete
-            </button>
-
-          </td>`;
-
-        t.appendChild(
-          tr
+      const c=
+        channels.find(
+          x=>
+          x.id===
+          p.channel_id
         );
 
-      }
-    );
+      const tr=
+        document.createElement(
+          "tr"
+        );
+
+      tr.innerHTML=
+        `<td>${esc(c?.name||"")}</td>
+         <td>${DAYS[p.day_of_week]}</td>
+         <td>${fmt(mins(p.start_time))}</td>
+         <td>${esc(p.title)}</td>
+         <td>${esc(p.tag)}</td>
+         <td>${p.duration_minutes} min</td>
+         <td>
+           <button
+             class="edit-mini"
+             onclick="editProgram('${p.id}')"
+           >
+             Edit
+           </button>
+
+           <button
+             class="delete-mini"
+             onclick="deleteProgram('${p.id}')"
+           >
+             Delete
+           </button>
+         </td>`;
+
+      t.appendChild(tr);
+
+    });
 
 }
 
-/* ADMIN INVITATION */
+/* LOGOUT */
 
-$("addAdmin")
-  .onclick=
-  ()=>{
-
-    $("adminInvite")
-      .style.display=
-      "block";
-
-    $("programEditor")
-      .style.display=
-      "none";
-
-    $("channelEditor")
-      .style.display=
-      "none";
-
-    $("inviteMessage")
-      .textContent="";
-
-    reportGuideHeight();
-
-  };
-
-$("cancelInvite")
-  .onclick=
-  ()=>{
-
-    $("adminInvite")
-      .style.display=
-      "none";
-
-    reportGuideHeight();
-
-  };
-
-$("sendInvite")
-  .onclick=
+$("logout").onclick=
   async()=>{
 
-    const email=
-      $("newAdminEmail")
-        .value
-        .trim();
-
-    if(!email){
-
-      $("inviteMessage")
-        .textContent=
-        "Enter an email address.";
-
-      return;
-
-    }
-
-    $("inviteMessage")
-      .textContent=
-      "Sending invitation...";
-
-    const r=
-      await sb.functions
-        .invoke(
-          INVITE_FUNCTION,
-          {
-            body:{
-              email
-            }
-          }
-        );
-
-    if(
-      r.error
-    ){
-
-      $("inviteMessage")
-        .textContent=
-        r.error.message;
-
-      return;
-
-    }
-
-    $("inviteMessage")
-      .textContent=
-      r.data?.message||
-      "Invitation sent.";
-
-    $("inviteMessage")
-      .className=
-      "message ok";
-
-    $("newAdminEmail")
-      .value="";
-
-  };
-
-/* SIGN OUT */
-
-$("logout")
-  .onclick=
-  async()=>{
-
-    await sb.auth
-      .signOut();
+    await sb.auth.signOut();
 
     user=null;
+    adminRecord=null;
+    administrators=[];
 
     $("loginBox")
       .style.display=
@@ -5410,27 +4785,26 @@ $("logout")
       .style.display=
       "none";
 
-    $("password")
-      .value="";
+    $("signedInCard")
+      .style.display=
+      "none";
+
+    $("password").value="";
 
     $("loginMessage")
       .textContent=
       "Signed out.";
 
-    reportGuideHeight();
-
   };
 
-$("refresh")
-  .onclick=
+$("refresh").onclick=
   load;
 
-/* REALTIME DATABASE UPDATES */
+/* REALTIME */
 
 sb.channel(
   "christian-tv-guide-live"
 )
-
 .on(
   "postgres_changes",
   {
@@ -5440,7 +4814,6 @@ sb.channel(
   },
   load
 )
-
 .on(
   "postgres_changes",
   {
@@ -5450,17 +4823,12 @@ sb.channel(
   },
   load
 )
-
 .subscribe();
-
-/* KEEP NOW LINE CURRENT */
 
 setInterval(
   ()=>render(),
   30000
 );
-
-/* WEBADOR AUTO HEIGHT */
 
 if(
   "ResizeObserver" in window
@@ -5487,18 +4855,11 @@ window.addEventListener(
   reportGuideHeight
 );
 
-/* START */
-
 load();
 
 setTimeout(
   reportGuideHeight,
   500
-);
-
-setTimeout(
-  reportGuideHeight,
-  1200
 );
 
 })();

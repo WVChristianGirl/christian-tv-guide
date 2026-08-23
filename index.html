@@ -79,7 +79,7 @@ body{
   margin-top:4px;
 }
 
-/* COLOR LEGEND */
+/* CATEGORY LEGEND */
 
 .category-legend{
   display:flex;
@@ -141,7 +141,7 @@ body{
 .legend-children{background:#c9f4f0}
 .legend-holiday{background:#f3d5ec}
 
-/* SEARCH / FILTER CONTROLS */
+/* VIEWER CONTROLS */
 
 .controls{
   padding:9px 11px;
@@ -172,12 +172,12 @@ body{
 }
 
 .nowbtn{
-  background:#17864b!important;
+  background:var(--green)!important;
   color:#fff;
-  border-color:#17864b!important;
+  border-color:var(--green)!important;
 }
 
-/* NOW PLAYING BAR */
+/* NOW PLAYING */
 
 .now-bar{
   display:flex;
@@ -599,7 +599,9 @@ body{
   margin-top:8px;
 }
 
-.ok{color:#17864b}
+.ok{
+  color:#17864b;
+}
 
 .admin-top{
   display:flex;
@@ -683,9 +685,74 @@ body{
   color:#fff;
 }
 
+/* COLLAPSIBLE ADMIN SECTIONS */
+
+.admin-section{
+  margin-top:14px;
+  border:1px solid #d8e0ea;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.section-toggle{
+  width:100%;
+  border:0;
+  background:#edf2f8;
+  color:#172033;
+  padding:12px 14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:14px;
+  font-weight:800;
+  text-align:left;
+}
+
+.section-toggle:hover{
+  background:#e3eaf3;
+}
+
+.section-arrow{
+  transition:.2s;
+}
+
+.section-toggle.open .section-arrow{
+  transform:rotate(180deg);
+}
+
+.section-body{
+  display:none;
+  padding:12px;
+}
+
+.section-body.open{
+  display:block;
+}
+
+.section-toolbar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.section-toolbar label{
+  font-size:12px;
+  font-weight:800;
+}
+
+.section-toolbar select{
+  border:1px solid #cbd3df;
+  border-radius:7px;
+  padding:7px 9px;
+  background:#fff;
+}
+
 .table-wrap{
   overflow:auto;
-  margin-top:18px;
 }
 
 .table{
@@ -710,6 +777,17 @@ body{
   border-radius:6px;
   padding:6px 8px;
   cursor:pointer;
+  margin:1px;
+}
+
+.edit-mini{
+  background:#dfeafb;
+  color:#194c87;
+}
+
+.delete-mini{
+  background:#f8dddd;
+  color:#a32222;
 }
 
 .mini-note{
@@ -802,11 +880,16 @@ body{
 <div class="app" id="app">
 
 <header class="header">
+
   <div class="brand">
+
     <div class="cross">✝</div>
 
     <div>
-      <div class="title">Christian TV Guide</div>
+
+      <div class="title">
+        Christian TV Guide
+      </div>
 
       <div class="subtitle">
         Times automatically shown in your local time • Live current-time indicator
@@ -850,8 +933,11 @@ body{
         </div>
 
       </div>
+
     </div>
+
   </div>
+
 </header>
 
 <div class="controls">
@@ -902,6 +988,7 @@ body{
 </div>
 
 <div class="popup" id="popup">
+
   <div class="popup-box">
 
     <button class="close" id="popupClose">
@@ -911,6 +998,7 @@ body{
     <div id="popupContent"></div>
 
   </div>
+
 </div>
 <div class="admin-dock">
 
@@ -926,6 +1014,7 @@ body{
       <div class="admin-top">
 
         <div>
+
           <h2 style="margin:0">
             Christian TV Guide Administration
           </h2>
@@ -933,6 +1022,7 @@ body{
           <p style="color:#6b7788">
             Manage channels and recurring weekly programming.
           </p>
+
         </div>
 
         <button id="adminClose">
@@ -1084,11 +1174,15 @@ body{
           <h3>Add / Edit Program</h3>
 
           <input id="programId" type="hidden">
+          <input id="programEditMode" type="hidden" value="new">
+          <input id="programGroupKey" type="hidden">
 
           <label>Channel</label>
+
           <select id="programChannel"></select>
 
           <label>Program Name</label>
+
           <input id="programTitle">
 
           <label>Program Category</label>
@@ -1208,6 +1302,7 @@ body{
           <input id="channelId" type="hidden">
 
           <label>Channel Name</label>
+
           <input id="channelName">
 
           <label>Channel Logo URL</label>
@@ -1238,51 +1333,157 @@ body{
               Cancel
             </button>
 
+            <button
+              class="danger"
+              id="deleteChannel"
+              style="display:none"
+            >
+              Delete Channel
+            </button>
+
           </div>
 
         </div>
 
-        <div class="table-wrap">
+        <!-- CHANNEL MANAGEMENT -->
 
-          <h3>Channel Management</h3>
+        <div class="admin-section">
 
-          <table class="table">
+          <button
+            class="section-toggle"
+            data-target="channelManagementBody"
+          >
+            <span>Channel Management</span>
+            <span class="section-arrow">▼</span>
+          </button>
 
-            <thead>
-              <tr>
-                <th>Icon</th>
-                <th>Channel</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+          <div
+            class="section-body"
+            id="channelManagementBody"
+          >
 
-            <tbody id="channelTable"></tbody>
+            <div class="table-wrap">
 
-          </table>
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Icon</th>
+                    <th>Channel</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="channelTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
 
         </div>
 
-        <div class="table-wrap">
+        <!-- PROGRAM LIST -->
 
-          <h3>Weekly Schedule</h3>
+        <div class="admin-section">
 
-          <table class="table">
+          <button
+            class="section-toggle"
+            data-target="programListBody"
+          >
+            <span>Program List</span>
+            <span class="section-arrow">▼</span>
+          </button>
 
-            <thead>
-              <tr>
-                <th>Channel</th>
-                <th>Day</th>
-                <th>Time</th>
-                <th>Program</th>
-                <th>Category</th>
-                <th>Length</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+          <div
+            class="section-body"
+            id="programListBody"
+          >
 
-            <tbody id="adminTable"></tbody>
+            <p class="mini-note">
+              Programs are listed alphabetically. Editing a program here allows you to manage all of its weekly airings together.
+            </p>
 
-          </table>
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Program</th>
+                    <th>Channel</th>
+                    <th>Category</th>
+                    <th>Airings</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="programListTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- WEEKLY SCHEDULE -->
+
+        <div class="admin-section">
+
+          <button
+            class="section-toggle"
+            data-target="weeklyScheduleBody"
+          >
+            <span>Weekly Schedule</span>
+            <span class="section-arrow">▼</span>
+          </button>
+
+          <div
+            class="section-body"
+            id="weeklyScheduleBody"
+          >
+
+            <div class="section-toolbar">
+
+              <label for="scheduleSort">
+                Sort by:
+              </label>
+
+              <select id="scheduleSort">
+                <option value="channel">Channel</option>
+                <option value="day" selected>Day</option>
+                <option value="time">Time</option>
+                <option value="program">Program</option>
+              </select>
+
+            </div>
+
+            <div class="table-wrap">
+
+              <table class="table">
+
+                <thead>
+                  <tr>
+                    <th>Channel</th>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Program</th>
+                    <th>Category</th>
+                    <th>Length</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody id="adminTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
 
         </div>
 
@@ -1346,8 +1547,9 @@ let channels=[];
 let programs=[];
 let user=null;
 let selectedDate=null;
+let editingGroupIds=[];
 
-/* WEBADOR AUTOMATIC HEIGHT */
+/* WEBADOR HEIGHT */
 
 let heightTimer=null;
 let lastReportedHeight=0;
@@ -1363,7 +1565,7 @@ function reportGuideHeight(){
     if(!app)return;
 
     const height=Math.ceil(
-      app.getBoundingClientRect().bottom + 4
+      app.getBoundingClientRect().bottom+4
     );
 
     if(
@@ -1378,7 +1580,7 @@ function reportGuideHeight(){
       window.parent.postMessage(
         {
           type:"christian-tv-guide-height",
-          height:height
+          height
         },
         "*"
       );
@@ -1443,6 +1645,7 @@ function fmt(n){
 function catClass(t){
 
   return {
+
     "Church Services":"church",
     "Bible Study":"bible",
     "Variety Christian program":"variety",
@@ -1450,16 +1653,17 @@ function catClass(t){
     "News":"news",
     "Children Programs":"children",
     "Holiday Programs":"holiday"
-  }[t] || "variety";
+
+  }[t]||"variety";
 
 }
 
-/* TIME ZONE FUNCTIONS */
+/* TIME ZONE */
 
 const VIEWER_TZ=
   Intl.DateTimeFormat()
     .resolvedOptions()
-    .timeZone || "UTC";
+    .timeZone||"UTC";
 
 function zoneParts(d,tz=VIEWER_TZ){
 
@@ -1533,7 +1737,10 @@ function zonedTimeToInstant(
 
   for(let i=0;i<4;i++){
 
-    const p=zoneParts(guess,tz);
+    const p=zoneParts(
+      guess,
+      tz
+    );
 
     const shown=
       Date.UTC(
@@ -1602,7 +1809,9 @@ function easternOccurrenceForProgram(
   eDate
 ){
 
-  const s=mins(p.start_time);
+  const s=mins(
+    p.start_time
+  );
 
   return zonedTimeToInstant(
     eDate.getFullYear(),
@@ -1631,10 +1840,13 @@ function occurrenceForLocalDate(
   for(let i=-2;i<=2;i++){
 
     const ed=
-      addDays(etBase,i);
+      addDays(
+        etBase,
+        i
+      );
 
     if(
-      ed.getDay() !==
+      ed.getDay()!==
       Number(p.day_of_week)
     ){
       continue;
@@ -1664,7 +1876,10 @@ function occurrenceForLocalDate(
         sp.day
       ).padStart(2,"0")}`;
 
-    if(occurrenceDate===target){
+    if(
+      occurrenceDate===
+      target
+    ){
 
       return {
         p,
@@ -1686,8 +1901,6 @@ function occurrenceForLocalDate(
   return null;
 
 }
-
-/* SELECTED DAY + FIRST 6 HOURS OF FOLLOWING DAY */
 
 function displayOccurrences(){
 
@@ -1774,7 +1987,9 @@ function currentOccurrences(){
       now>=o.start &&
       now<o.end
     ){
+
       out.push(o);
+
     }
 
   }
@@ -1787,13 +2002,13 @@ selectedDate=localDate();
 $("date").value=dateStr(selectedDate);
   function filtered(){
 
-  let q=
+  const q=
     $("search")
       .value
       .trim()
       .toLowerCase();
 
-  let t=
+  const t=
     $("tag").value;
 
   return displayOccurrences()
@@ -1819,19 +2034,14 @@ function isToday(){
   const n=localDate();
 
   return (
-    selectedDate.getFullYear()===
-    n.getFullYear()
+    selectedDate.getFullYear()===n.getFullYear()
     &&
-    selectedDate.getMonth()===
-    n.getMonth()
+    selectedDate.getMonth()===n.getMonth()
     &&
-    selectedDate.getDate()===
-    n.getDate()
+    selectedDate.getDate()===n.getDate()
   );
 
 }
-
-/* NOW IS POSITIONED ABOUT 25% FROM LEFT WHEN SPACE ALLOWS */
 
 function autoScrollToNow(
   smooth=true
@@ -1841,13 +2051,10 @@ function autoScrollToNow(
 
   const sc=$("guideScroll");
 
-  const minutes=
-    localMinutes();
-
   const timelineX=
     CHANNEL_WIDTH+
     (
-      minutes/60*
+      localMinutes()/60*
       HOUR_WIDTH
     );
 
@@ -1873,7 +2080,7 @@ function autoScrollToNow(
 
 }
 
-/* GUIDE */
+/* VIEWER GUIDE */
 
 function render(){
 
@@ -1895,11 +2102,13 @@ function render(){
 
   g.appendChild(head);
 
-  /* 24 HOURS + SIX HOURS INTO NEXT MORNING */
+  for(
+    let h=0;
+    h<=EXTENDED_HOURS;
+    h++
+  ){
 
-  for(let h=0;h<=EXTENDED_HOURS;h++){
-
-    let x=
+    const x=
       document.createElement(
         "div"
       );
@@ -1908,7 +2117,10 @@ function render(){
       "time-label";
 
     x.style.left=
-      (h*HOUR_WIDTH)+"px";
+      (
+        h*
+        HOUR_WIDTH
+      )+"px";
 
     if(h<24){
 
@@ -1939,27 +2151,27 @@ function render(){
 
   channels.forEach(c=>{
 
-    let row=
+    const row=
       document.createElement(
         "div"
       );
 
     row.className="row";
 
-    let ci=
+    const ci=
       document.createElement(
         "div"
       );
 
     ci.className="channel";
 
-    let logo=
-      c.logo_url ||
+    const logo=
+      c.logo_url||
       CHANNEL_LOGOS[c.name];
 
     if(logo){
 
-      let im=
+      const im=
         document.createElement(
           "img"
         );
@@ -1976,7 +2188,7 @@ function render(){
 
     }else{
 
-      let ph=
+      const ph=
         document.createElement(
           "div"
         );
@@ -1990,27 +2202,23 @@ function render(){
 
     }
 
-    const channelText=
+    const text=
       document.createElement(
         "div"
       );
 
-    channelText.innerHTML=
+    text.innerHTML=
       `<div class="channel-name">
         ${esc(c.name)}
       </div>
-
       <div class="small">
         Weekly programming
       </div>`;
 
-    ci.appendChild(
-      channelText
-    );
-
+    ci.appendChild(text);
     row.appendChild(ci);
 
-    let tr=
+    const tr=
       document.createElement(
         "div"
       );
@@ -2019,7 +2227,7 @@ function render(){
 
     if(isToday()){
 
-      let line=
+      const line=
         document.createElement(
           "div"
         );
@@ -2044,23 +2252,23 @@ function render(){
       )
       .forEach(o=>{
 
-        let p=o.p;
+        const p=o.p;
 
-        let startMin=
+        const startMin=
           Number(
             o.displayStartMinutes
           );
 
-        let duration=
+        const duration=
           Number(
             p.duration_minutes
           );
 
-        let endDisplayMin=
+        const endDisplayMin=
           startMin+
           duration;
 
-        let b=
+        const b=
           document.createElement(
             "div"
           );
@@ -2127,13 +2335,11 @@ function render(){
       });
 
     row.appendChild(tr);
-
     g.appendChild(row);
 
   });
 
   updateNow();
-
   reportGuideHeight();
 
 }
@@ -2149,7 +2355,7 @@ function updateNow(){
 
   }
 
-  let a=
+  const a=
     currentOccurrences();
 
   $("now").textContent=
@@ -2167,14 +2373,13 @@ function updateNow(){
       )+
       ": "+
       o.p.title
-    )
-    .join(" • ")
+    ).join(" • ")
     :
     "● No program is currently playing.";
 
 }
 
-/* PROGRAM INFORMATION POPUP */
+/* PROGRAM POPUP */
 
 function openPopup(
   p,
@@ -2205,7 +2410,7 @@ function openPopup(
   const nextDayNotice=
     o.isNextDay
     ?
-    " <span style=\"color:#8b5a16;font-weight:800;\">(following morning)</span>"
+    ' <span style="color:#8b5a16;font-weight:800;">(following morning)</span>'
     :
     "";
 
@@ -2243,7 +2448,7 @@ function openPopup(
 
     <p>
       ${esc(
-        p.description ||
+        p.description||
         "No description has been entered for this program."
       )}
     </p>
@@ -2284,14 +2489,14 @@ $("popup").onclick=e=>{
 
 async function load(){
 
-  let c=
+  const c=
     await sb
       .from("tv_channels")
       .select("*")
       .eq("active",true)
       .order("sort_order");
 
-  let p=
+  const p=
     await sb
       .from("tv_programs")
       .select("*")
@@ -2319,19 +2524,14 @@ async function load(){
 
   }
 
-  channels=
-    c.data||[];
-
-  programs=
-    p.data||[];
+  channels=c.data||[];
+  programs=p.data||[];
 
   render();
-
   fillChannels();
-
-  renderTable();
-
   renderChannelTable();
+  renderProgramList();
+  renderTable();
 
   setTimeout(
     ()=>autoScrollToNow(false),
@@ -2357,7 +2557,7 @@ function fillChannels(){
 
 }
 
-/* VIEWER BUTTONS */
+/* VIEWER CONTROLS */
 
 $("search").oninput=
   render;
@@ -2367,7 +2567,7 @@ $("tag").onchange=
 
 $("date").onchange=()=>{
 
-  let [y,m,d]=
+  const [y,m,d]=
     $("date")
       .value
       .split("-")
@@ -2422,7 +2622,7 @@ $("goNow").onclick=()=>{
 
 };
 
-/* LEGEND TOUCH SUPPORT */
+/* LEGEND TOUCH */
 
 document
   .querySelectorAll(
@@ -2440,25 +2640,21 @@ document
           .querySelectorAll(
             ".legend-item"
           )
-          .forEach(
-            i=>{
+          .forEach(i=>{
 
-              if(i!==item){
+            if(i!==item){
 
-                i.classList
-                  .remove(
-                    "legend-active"
-                  );
-
-              }
+              i.classList.remove(
+                "legend-active"
+              );
 
             }
-          );
 
-        item.classList
-          .toggle(
-            "legend-active"
-          );
+          });
+
+        item.classList.toggle(
+          "legend-active"
+        );
 
       }
     );
@@ -2475,16 +2671,15 @@ document.addEventListener(
       )
       .forEach(
         i=>
-        i.classList
-          .remove(
-            "legend-active"
-          )
+        i.classList.remove(
+          "legend-active"
+        )
       );
 
   }
 );
 
-/* ADMINISTRATION DROPDOWN */
+/* ADMIN MAIN DROPDOWN */
 
 function openAdmin(){
 
@@ -2552,7 +2747,7 @@ async function checkAdmin(){
 
   }
 
-  let r=
+  const r=
     await sb
       .from("tv_admins")
       .select("user_id")
@@ -2563,7 +2758,7 @@ async function checkAdmin(){
       .maybeSingle();
 
   if(
-    r.error ||
+    r.error||
     !r.data
   ){
 
@@ -2605,7 +2800,7 @@ $("login").onclick=
     $("loginMessage")
       .textContent="";
 
-    let r=
+    const r=
       await sb.auth
         .signInWithPassword({
 
@@ -2637,8 +2832,6 @@ $("login").onclick=
 
   };
 
-/* PASSWORD RESET */
-
 $("forgot").onclick=
   async()=>{
 
@@ -2661,7 +2854,7 @@ $("forgot").onclick=
       window.location.origin+
       window.location.pathname;
 
-    let r=
+    const r=
       await sb.auth
         .resetPasswordForEmail(
           email,
@@ -2809,7 +3002,102 @@ $("saveNewPassword")
     }
 
   };
-  /* PROGRAM SCHEDULE ENTRY BUILDER */
+
+/* COLLAPSIBLE ADMIN SECTIONS */
+
+document
+  .querySelectorAll(
+    ".section-toggle"
+  )
+  .forEach(button=>{
+
+    button.onclick=()=>{
+
+      const target=
+        $(
+          button.dataset.target
+        );
+
+      if(!target)return;
+
+      const open=
+        target.classList
+          .toggle("open");
+
+      button.classList
+        .toggle(
+          "open",
+          open
+        );
+
+      reportGuideHeight();
+
+    };
+
+  });
+
+/* PROGRAM GROUPING */
+
+function makeProgramGroupKey(p){
+
+  return (
+    String(p.channel_id)+
+    "|||"+
+    String(p.title)
+      .trim()
+      .toLowerCase()
+  );
+
+}
+
+function getProgramGroups(){
+
+  const map=
+    new Map();
+
+  programs.forEach(p=>{
+
+    const key=
+      makeProgramGroupKey(p);
+
+    if(!map.has(key)){
+
+      map.set(
+        key,
+        {
+          key,
+          title:p.title,
+          channel_id:p.channel_id,
+          tag:p.tag,
+          description:p.description||"",
+          title_card_url:
+            p.title_card_url||"",
+          active:p.active,
+          rows:[]
+        }
+      );
+
+    }
+
+    map.get(key)
+      .rows
+      .push(p);
+
+  });
+
+  return [
+    ...map.values()
+  ].sort(
+    (a,b)=>
+    a.title.localeCompare(
+      b.title,
+      undefined,
+      {sensitivity:"base"}
+    )
+  );
+
+}
+  /* PROGRAM SCHEDULE EDITOR */
 
 function scheduleEntryHTML(
   day=0,
@@ -3011,14 +3299,16 @@ function bindScheduleRemoveButtons(){
 
 function resetProgramEditor(){
 
+  editingGroupIds=[];
+
   $("programId").value="";
+  $("programEditMode").value="new";
+  $("programGroupKey").value="";
   $("programTitle").value="";
   $("programDescription").value="";
   $("programTitleCard").value="";
   $("programActive").checked=true;
-
-  $("programTag").value=
-    "Church Services";
+  $("programTag").value="Church Services";
 
   $("titleCardArea")
     .classList
@@ -3073,6 +3363,8 @@ $("cancelProgram").onclick=()=>{
     .style.display=
     "none";
 
+  editingGroupIds=[];
+
   reportGuideHeight();
 
 };
@@ -3120,6 +3412,9 @@ $("addSchedule").onclick=()=>{
 $("saveProgram").onclick=
   async()=>{
 
+    const mode=
+      $("programEditMode").value;
+
     const id=
       $("programId").value;
 
@@ -3132,7 +3427,7 @@ $("saveProgram").onclick=
         .trim();
 
     if(
-      !channelId ||
+      !channelId||
       !title
     ){
 
@@ -3178,9 +3473,8 @@ $("saveProgram").onclick=
       title_card_url:
         $("programTitleCard")
           .value
-          .trim()
-          ||
-          null,
+          .trim()||
+        null,
 
       active:
         $("programActive")
@@ -3191,71 +3485,85 @@ $("saveProgram").onclick=
     const rows=
       entries.map(entry=>{
 
-        const day=
-          entry.querySelector(
-            ".scheduleDay"
-          ).value;
-
         const start=
           entry.querySelector(
             ".scheduleStart"
           ).value;
 
-        const duration=
-          entry.querySelector(
-            ".scheduleDuration"
-          ).value;
+        if(!start){
+          return null;
+        }
 
         return {
 
           ...common,
 
           day_of_week:
-            Number(day),
+            Number(
+              entry.querySelector(
+                ".scheduleDay"
+              ).value
+            ),
 
           start_time:
-            start+
-            ":00",
+            start+":00",
 
           duration_minutes:
-            Number(duration)
+            Number(
+              entry.querySelector(
+                ".scheduleDuration"
+              ).value
+            )
 
         };
 
-      });
+      }).filter(Boolean);
 
-    if(id){
+    if(!rows.length){
 
-      let updateResult=
-        await sb
-          .from("tv_programs")
-          .update(rows[0])
-          .eq("id",id);
+      alert(
+        "Please enter a valid day and start time."
+      );
 
-      if(updateResult.error){
+      return;
 
-        alert(
-          updateResult.error.message
+    }
+
+    /* EDIT ALL AIRINGS FROM PROGRAM LIST */
+
+    if(mode==="group"){
+
+      const oldIds=[
+        ...editingGroupIds
+      ];
+
+      const commonCount=
+        Math.min(
+          oldIds.length,
+          rows.length
         );
 
-        return;
+      for(
+        let i=0;
+        i<commonCount;
+        i++
+      ){
 
-      }
-
-      if(rows.length>1){
-
-        let insertResult=
+        const r=
           await sb
             .from("tv_programs")
-            .insert(
-              rows.slice(1)
+            .update(
+              rows[i]
+            )
+            .eq(
+              "id",
+              oldIds[i]
             );
 
-        if(insertResult.error){
+        if(r.error){
 
           alert(
-            "The original program was updated, but the additional day/time entries could not be added: "+
-            insertResult.error.message
+            r.error.message
           );
 
           return;
@@ -3264,17 +3572,129 @@ $("saveProgram").onclick=
 
       }
 
-    }else{
+      if(
+        rows.length>
+        oldIds.length
+      ){
 
-      let result=
+        const r=
+          await sb
+            .from("tv_programs")
+            .insert(
+              rows.slice(
+                oldIds.length
+              )
+            );
+
+        if(r.error){
+
+          alert(
+            r.error.message
+          );
+
+          return;
+
+        }
+
+      }
+
+      if(
+        oldIds.length>
+        rows.length
+      ){
+
+        const idsToDelete=
+          oldIds.slice(
+            rows.length
+          );
+
+        const r=
+          await sb
+            .from("tv_programs")
+            .delete()
+            .in(
+              "id",
+              idsToDelete
+            );
+
+        if(r.error){
+
+          alert(
+            r.error.message
+          );
+
+          return;
+
+        }
+
+      }
+
+    }
+
+    /* EDIT ONE AIRING FROM WEEKLY SCHEDULE */
+
+    else if(
+      mode==="single" &&
+      id
+    ){
+
+      const r=
+        await sb
+          .from("tv_programs")
+          .update(
+            rows[0]
+          )
+          .eq(
+            "id",
+            id
+          );
+
+      if(r.error){
+
+        alert(
+          r.error.message
+        );
+
+        return;
+
+      }
+
+      if(rows.length>1){
+
+        const extra=
+          await sb
+            .from("tv_programs")
+            .insert(
+              rows.slice(1)
+            );
+
+        if(extra.error){
+
+          alert(
+            extra.error.message
+          );
+
+          return;
+
+        }
+
+      }
+
+    }
+
+    /* BRAND NEW PROGRAM */
+
+    else{
+
+      const r=
         await sb
           .from("tv_programs")
           .insert(rows);
 
-      if(result.error){
+      if(r.error){
 
         alert(
-          result.error.message
+          r.error.message
         );
 
         return;
@@ -3287,22 +3707,26 @@ $("saveProgram").onclick=
       .style.display=
       "none";
 
+    editingGroupIds=[];
+
     await load();
 
     reportGuideHeight();
 
   };
 
-/* EDIT PROGRAM */
+/* EDIT ONE WEEKLY AIRING */
 
 window.editProgram=id=>{
 
-  let p=
+  const p=
     programs.find(
       x=>x.id===id
     );
 
   if(!p)return;
+
+  editingGroupIds=[];
 
   $("programEditor")
     .style.display=
@@ -3316,8 +3740,13 @@ window.editProgram=id=>{
     .style.display=
     "none";
 
+  $("programEditMode").value=
+    "single";
+
   $("programId").value=
     p.id;
+
+  $("programGroupKey").value="";
 
   $("programChannel").value=
     p.channel_id;
@@ -3384,36 +3813,323 @@ window.editProgram=id=>{
 
 };
 
+/* EDIT COMPLETE PROGRAM FROM PROGRAM LIST */
+
+function editProgramGroup(key){
+
+  const group=
+    getProgramGroups()
+      .find(
+        g=>g.key===key
+      );
+
+  if(!group)return;
+
+  const sortedRows=[
+    ...group.rows
+  ].sort(
+    (a,b)=>
+    a.day_of_week-
+    b.day_of_week
+    ||
+    mins(a.start_time)-
+    mins(b.start_time)
+  );
+
+  editingGroupIds=
+    sortedRows.map(
+      p=>p.id
+    );
+
+  const first=
+    sortedRows[0];
+
+  $("programEditor")
+    .style.display=
+    "block";
+
+  $("channelEditor")
+    .style.display=
+    "none";
+
+  $("adminInvite")
+    .style.display=
+    "none";
+
+  $("programEditMode").value=
+    "group";
+
+  $("programId").value="";
+
+  $("programGroupKey").value=
+    key;
+
+  $("programChannel").value=
+    first.channel_id;
+
+  $("programTitle").value=
+    first.title;
+
+  $("programTag").value=
+    first.tag;
+
+  $("programDescription").value=
+    first.description||"";
+
+  $("programActive").checked=
+    first.active;
+
+  $("programTitleCard").value=
+    first.title_card_url||"";
+
+  if(first.title_card_url){
+
+    $("titleCardArea")
+      .classList
+      .add("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "− Hide Title Card";
+
+  }else{
+
+    $("titleCardArea")
+      .classList
+      .remove("open");
+
+    $("toggleTitleCard")
+      .textContent=
+      "+ Add Title Card";
+
+  }
+
+  $("scheduleEntries")
+    .innerHTML=
+    sortedRows.map(
+      (p,index)=>
+      scheduleEntryHTML(
+        Number(
+          p.day_of_week
+        ),
+        p.start_time.slice(
+          0,
+          5
+        ),
+        Number(
+          p.duration_minutes
+        ),
+        index!==0
+      )
+    ).join("");
+
+  bindScheduleRemoveButtons();
+
+  reportGuideHeight();
+
+  $("programEditor")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+/* DELETE ONE AIRING */
+
 window.deleteProgram=
   async id=>{
 
     if(
-      confirm(
-        "Delete this weekly program?"
+      !confirm(
+        "Are you sure you want to delete this scheduled airing?"
       )
     ){
+      return;
+    }
 
-      let r=
-        await sb
-          .from("tv_programs")
-          .delete()
-          .eq("id",id);
-
-      if(r.error){
-
-        alert(
-          r.error.message
+    const r=
+      await sb
+        .from("tv_programs")
+        .delete()
+        .eq(
+          "id",
+          id
         );
 
-      }else{
+    if(r.error){
 
-        await load();
+      alert(
+        r.error.message
+      );
 
-      }
+      return;
 
     }
 
+    await load();
+
   };
+
+/* DELETE COMPLETE PROGRAM */
+
+async function deleteProgramGroup(
+  group
+){
+
+  const confirmed=
+    confirm(
+      `Are you sure you want to delete "${group.title}" and all ${group.rows.length} of its scheduled airing${group.rows.length===1?"":"s"}?`
+    );
+
+  if(!confirmed){
+    return;
+  }
+
+  const ids=
+    group.rows.map(
+      p=>p.id
+    );
+
+  const r=
+    await sb
+      .from("tv_programs")
+      .delete()
+      .in(
+        "id",
+        ids
+      );
+
+  if(r.error){
+
+    alert(
+      r.error.message
+    );
+
+    return;
+
+  }
+
+  await load();
+
+}
+
+/* PROGRAM LIST */
+
+function renderProgramList(){
+
+  const table=
+    $("programListTable");
+
+  table.innerHTML="";
+
+  const groups=
+    getProgramGroups();
+
+  groups.forEach(group=>{
+
+    const tr=
+      document.createElement(
+        "tr"
+      );
+
+    const channel=
+      channels.find(
+        c=>
+        c.id===
+        group.channel_id
+      );
+
+    const titleCell=
+      document.createElement(
+        "td"
+      );
+
+    titleCell.textContent=
+      group.title;
+
+    const channelCell=
+      document.createElement(
+        "td"
+      );
+
+    channelCell.textContent=
+      channel?.name||"";
+
+    const categoryCell=
+      document.createElement(
+        "td"
+      );
+
+    categoryCell.textContent=
+      group.tag||"";
+
+    const airingsCell=
+      document.createElement(
+        "td"
+      );
+
+    airingsCell.textContent=
+      String(
+        group.rows.length
+      );
+
+    const actionsCell=
+      document.createElement(
+        "td"
+      );
+
+    const editBtn=
+      document.createElement(
+        "button"
+      );
+
+    editBtn.className=
+      "edit-mini";
+
+    editBtn.textContent=
+      "Edit";
+
+    editBtn.onclick=
+      ()=>editProgramGroup(
+        group.key
+      );
+
+    const deleteBtn=
+      document.createElement(
+        "button"
+      );
+
+    deleteBtn.className=
+      "delete-mini";
+
+    deleteBtn.textContent=
+      "Delete Program";
+
+    deleteBtn.onclick=
+      ()=>deleteProgramGroup(
+        group
+      );
+
+    actionsCell.appendChild(
+      editBtn
+    );
+
+    actionsCell.appendChild(
+      deleteBtn
+    );
+
+    tr.appendChild(titleCell);
+    tr.appendChild(channelCell);
+    tr.appendChild(categoryCell);
+    tr.appendChild(airingsCell);
+    tr.appendChild(actionsCell);
+
+    table.appendChild(tr);
+
+  });
+
+}
 
 /* CHANNEL MANAGEMENT */
 
@@ -3434,6 +4150,10 @@ $("addChannel").onclick=()=>{
   $("channelId").value="";
   $("channelName").value="";
   $("channelLogo").value="";
+
+  $("deleteChannel")
+    .style.display=
+    "none";
 
   reportGuideHeight();
 
@@ -3458,10 +4178,10 @@ $("cancelChannel").onclick=()=>{
 $("saveChannel").onclick=
   async()=>{
 
-    let id=
+    const id=
       $("channelId").value;
 
-    let data={
+    const data={
 
       name:
         $("channelName")
@@ -3471,9 +4191,8 @@ $("saveChannel").onclick=
       logo_url:
         $("channelLogo")
           .value
-          .trim()
-          ||
-          null,
+          .trim()||
+        null,
 
       active:true
 
@@ -3497,7 +4216,10 @@ $("saveChannel").onclick=
         await sb
           .from("tv_channels")
           .update(data)
-          .eq("id",id);
+          .eq(
+            "id",
+            id
+          );
 
     }else{
 
@@ -3559,6 +4281,10 @@ window.editChannel=id=>{
   $("channelLogo").value=
     c.logo_url||"";
 
+  $("deleteChannel")
+    .style.display=
+    "inline-block";
+
   reportGuideHeight();
 
   $("channelEditor")
@@ -3568,6 +4294,78 @@ window.editChannel=id=>{
     });
 
 };
+
+/* DELETE CHANNEL */
+
+$("deleteChannel").onclick=
+  async()=>{
+
+    const id=
+      $("channelId").value;
+
+    if(!id){
+      return;
+    }
+
+    const channel=
+      channels.find(
+        c=>c.id===id
+      );
+
+    if(!channel){
+      return;
+    }
+
+    const assigned=
+      programs.filter(
+        p=>
+        p.channel_id===id
+      );
+
+    if(assigned.length){
+
+      alert(
+        `"${channel.name}" currently has ${assigned.length} scheduled program airing${assigned.length===1?"":"s"}. Please delete or move those programs before deleting this channel.`
+      );
+
+      return;
+
+    }
+
+    if(
+      !confirm(
+        `Are you sure you want to delete the channel "${channel.name}"?`
+      )
+    ){
+      return;
+    }
+
+    const r=
+      await sb
+        .from("tv_channels")
+        .delete()
+        .eq(
+          "id",
+          id
+        );
+
+    if(r.error){
+
+      alert(
+        r.error.message
+      );
+
+      return;
+
+    }
+
+    $("channelEditor")
+      .style.display=
+      "none";
+
+    await load();
+
+  };
 
 function renderChannelTable(){
 
@@ -3584,7 +4382,7 @@ function renderChannelTable(){
       );
 
     const logo=
-      c.logo_url ||
+      c.logo_url||
       CHANNEL_LOGOS[c.name];
 
     tr.innerHTML=
@@ -3610,6 +4408,7 @@ function renderChannelTable(){
 
       <td>
         <button
+          class="edit-mini"
           onclick="editChannel('${c.id}')"
         >
           Edit
@@ -3622,7 +4421,202 @@ function renderChannelTable(){
 
 }
 
-/* ADMIN INVITATION */
+/* WEEKLY SCHEDULE SORTING */
+
+function getChannelName(
+  channelId
+){
+
+  return (
+    channels.find(
+      c=>c.id===channelId
+    )?.name||""
+  );
+
+}
+
+function sortedPrograms(){
+
+  const sortBy=
+    $("scheduleSort")
+      .value;
+
+  const list=[
+    ...programs
+  ];
+
+  list.sort(
+    (a,b)=>{
+
+      if(
+        sortBy===
+        "channel"
+      ){
+
+        return (
+          getChannelName(
+            a.channel_id
+          ).localeCompare(
+            getChannelName(
+              b.channel_id
+            ),
+            undefined,
+            {sensitivity:"base"}
+          )
+          ||
+          a.day_of_week-
+          b.day_of_week
+          ||
+          mins(a.start_time)-
+          mins(b.start_time)
+        );
+
+      }
+
+      if(
+        sortBy===
+        "time"
+      ){
+
+        return (
+          mins(a.start_time)-
+          mins(b.start_time)
+          ||
+          a.day_of_week-
+          b.day_of_week
+          ||
+          a.title.localeCompare(
+            b.title,
+            undefined,
+            {sensitivity:"base"}
+          )
+        );
+
+      }
+
+      if(
+        sortBy===
+        "program"
+      ){
+
+        return (
+          a.title.localeCompare(
+            b.title,
+            undefined,
+            {sensitivity:"base"}
+          )
+          ||
+          a.day_of_week-
+          b.day_of_week
+          ||
+          mins(a.start_time)-
+          mins(b.start_time)
+        );
+
+      }
+
+      return (
+        a.day_of_week-
+        b.day_of_week
+        ||
+        mins(a.start_time)-
+        mins(b.start_time)
+        ||
+        a.title.localeCompare(
+          b.title,
+          undefined,
+          {sensitivity:"base"}
+        )
+      );
+
+    }
+  );
+
+  return list;
+
+}
+
+$("scheduleSort")
+  .onchange=
+  renderTable;
+
+function renderTable(){
+
+  const t=
+    $("adminTable");
+
+  t.innerHTML="";
+
+  sortedPrograms()
+    .forEach(p=>{
+
+      const c=
+        channels.find(
+          x=>
+          x.id===
+          p.channel_id
+        );
+
+      const tr=
+        document.createElement(
+          "tr"
+        );
+
+      tr.innerHTML=
+
+        `<td>
+          ${esc(c?.name||"")}
+        </td>
+
+        <td>
+          ${DAYS[p.day_of_week]}
+        </td>
+
+        <td>
+          ${fmt(
+            mins(
+              p.start_time
+            )
+          )}
+        </td>
+
+        <td>
+          ${esc(p.title)}
+        </td>
+
+        <td>
+          ${esc(p.tag)}
+        </td>
+
+        <td>
+          ${p.duration_minutes} min
+        </td>
+
+        <td>
+
+          <button
+            class="edit-mini"
+            onclick="editProgram('${p.id}')"
+          >
+            Edit
+          </button>
+
+          <button
+            class="delete-mini"
+            onclick="deleteProgram('${p.id}')"
+          >
+            Delete
+          </button>
+
+        </td>`;
+
+      t.appendChild(tr);
+
+    });
+
+}
+
+/* ADMIN INVITE */
 
 $("addAdmin").onclick=()=>{
 
@@ -3682,9 +4676,7 @@ $("sendInvite").onclick=
         .invoke(
           INVITE_FUNCTION,
           {
-            body:{
-              email
-            }
+            body:{email}
           }
         );
 
@@ -3698,13 +4690,10 @@ $("sendInvite").onclick=
 
     }
 
-    const msg=
-      r.data?.message||
-      "Invitation sent.";
-
     $("inviteMessage")
       .textContent=
-      msg;
+      r.data?.message||
+      "Invitation sent.";
 
     $("inviteMessage")
       .className=
@@ -3715,7 +4704,7 @@ $("sendInvite").onclick=
 
   };
 
-/* SIGN OUT */
+/* LOGOUT */
 
 $("logout").onclick=
   async()=>{
@@ -3732,8 +4721,7 @@ $("logout").onclick=
       .style.display=
       "none";
 
-    $("password")
-      .value="";
+    $("password").value="";
 
     $("loginMessage")
       .textContent=
@@ -3746,91 +4734,7 @@ $("logout").onclick=
 $("refresh").onclick=
   load;
 
-/* ADMIN WEEKLY SCHEDULE TABLE */
-
-function renderTable(){
-
-  let t=
-    $("adminTable");
-
-  t.innerHTML="";
-
-  [...programs]
-    .sort(
-      (a,b)=>
-      a.day_of_week-
-      b.day_of_week
-      ||
-      mins(a.start_time)-
-      mins(b.start_time)
-    )
-    .forEach(p=>{
-
-      let c=
-        channels.find(
-          x=>
-          x.id===
-          p.channel_id
-        );
-
-      let tr=
-        document.createElement(
-          "tr"
-        );
-
-      tr.innerHTML=
-
-        `<td>
-          ${esc(c?.name||"")}
-        </td>
-
-        <td>
-          ${DAYS[p.day_of_week]}
-        </td>
-
-        <td>
-          ${fmt(
-            mins(
-              p.start_time
-            )
-          )}
-        </td>
-
-        <td>
-          ${esc(p.title)}
-        </td>
-
-        <td>
-          ${esc(p.tag)}
-        </td>
-
-        <td>
-          ${p.duration_minutes} min
-        </td>
-
-        <td>
-
-          <button
-            onclick="editProgram('${p.id}')"
-          >
-            Edit
-          </button>
-
-          <button
-            onclick="deleteProgram('${p.id}')"
-          >
-            Delete
-          </button>
-
-        </td>`;
-
-      t.appendChild(tr);
-
-    });
-
-}
-
-/* REALTIME DATABASE UPDATES */
+/* REALTIME */
 
 sb.channel(
   "christian-tv-guide-live"
@@ -3858,16 +4762,18 @@ sb.channel(
 
 .subscribe();
 
-/* KEEP NOW LINE CURRENT */
+/* REFRESH NOW LINE */
 
 setInterval(
   ()=>render(),
   30000
 );
 
-/* WEBADOR HEIGHT WATCHER */
+/* AUTOMATIC WEBADOR HEIGHT */
 
-if("ResizeObserver" in window){
+if(
+  "ResizeObserver" in window
+){
 
   const observer=
     new ResizeObserver(
@@ -3890,7 +4796,7 @@ window.addEventListener(
   reportGuideHeight
 );
 
-/* INITIAL START */
+/* START */
 
 load();
 

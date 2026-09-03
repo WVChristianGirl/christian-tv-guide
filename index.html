@@ -1475,7 +1475,7 @@ button,input,select,textarea{
           </h4>
 
           <div class="mini-note">
-            Add as many weekly airings as needed before saving.
+            Choose a day, or choose Daily to schedule the same time Sunday through Saturday. Add more airings as needed before saving.
           </div>
 
           <div id="scheduleEntries"></div>
@@ -3908,11 +3908,18 @@ function scheduleEntryHTML(
             (name,index)=>
             `<option
               value="${index}"
-              ${Number(day)===index?"selected":""}
+              ${String(day)===String(index)?"selected":""}
             >
               ${name}
             </option>`
           ).join("")}
+
+          <option
+            value="daily"
+            ${String(day)==="daily"?"selected":""}
+          >
+            Daily
+          </option>
         </select>
       </div>
 
@@ -4120,7 +4127,7 @@ function collectScheduleRows(common){
         ".schedule-entry"
       )
   ]
-  .map(entry=>{
+  .flatMap(entry=>{
 
     const start=
       entry
@@ -4130,36 +4137,61 @@ function collectScheduleRows(common){
         .value;
 
     if(!start){
-      return null;
+      return [];
     }
 
-    return {
-      ...common,
-
-      day_of_week:
-        Number(
-          entry
-            .querySelector(
-              ".scheduleDay"
-            )
-            .value
-        ),
-
-      start_time:
-        start+":00",
-
-      duration_minutes:
-        Number(
-          entry
-            .querySelector(
-              ".scheduleDuration"
-            )
-            .value
+    const dayValue=
+      entry
+        .querySelector(
+          ".scheduleDay"
         )
-    };
+        .value;
 
-  })
-  .filter(Boolean);
+    const duration=
+      Number(
+        entry
+          .querySelector(
+            ".scheduleDuration"
+          )
+          .value
+      );
+
+    const makeRow=
+      day=>({
+        ...common,
+
+        day_of_week:
+          Number(day),
+
+        start_time:
+          start+":00",
+
+        duration_minutes:
+          duration
+      });
+
+    /*
+      DAILY:
+      One Daily schedule choice is stored as seven
+      normal weekly airings: Sunday through Saturday.
+      This keeps the existing tv_programs database
+      structure unchanged.
+    */
+
+    if(dayValue==="daily"){
+
+      return DAYS.map(
+        (_,dayIndex)=>
+        makeRow(dayIndex)
+      );
+
+    }
+
+    return [
+      makeRow(dayValue)
+    ];
+
+  });
 
 }
 
@@ -4505,17 +4537,72 @@ function editProgramGroup(key){
 
   }
 
-  $("scheduleEntries")
-    .innerHTML=
-    rows.map(
-      (p,index)=>
-      scheduleEntryHTML(
-        p.day_of_week,
-        p.start_time.slice(0,5),
-        p.duration_minutes,
-        index!==0
+  /*
+    If this program has one matching airing on all
+    seven days at the same time and duration, show it
+    as one Daily entry when editing.
+  */
+
+  const daySet=
+    new Set(
+      rows.map(
+        p=>Number(p.day_of_week)
       )
-    ).join("");
+    );
+
+  const sameTime=
+    rows.every(
+      p=>
+      p.start_time.slice(0,5)===
+      first.start_time.slice(0,5)
+    );
+
+  const sameDuration=
+    rows.every(
+      p=>
+      Number(p.duration_minutes)===
+      Number(first.duration_minutes)
+    );
+
+  const isDailyGroup=
+    rows.length===7
+    &&
+    daySet.size===7
+    &&
+    [0,1,2,3,4,5,6].every(
+      day=>daySet.has(day)
+    )
+    &&
+    sameTime
+    &&
+    sameDuration;
+
+  if(isDailyGroup){
+
+    $("scheduleEntries")
+      .innerHTML=
+      scheduleEntryHTML(
+        "daily",
+        first.start_time.slice(0,5),
+        first.duration_minutes,
+        false
+      );
+
+  }else{
+
+    $("scheduleEntries")
+      .innerHTML=
+      rows.map(
+        (p,index)=>
+        scheduleEntryHTML(
+          p.day_of_week,
+          p.start_time.slice(0,5),
+          p.duration_minutes,
+          index!==0
+        )
+      ).join("");
+
+  }
 
   bindScheduleRemoveButtons();
 

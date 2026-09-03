@@ -1475,7 +1475,7 @@ button,input,select,textarea{
           </h4>
 
           <div class="mini-note">
-            Choose a day, or choose Daily to schedule the same time Sunday through Saturday. Add more airings as needed before saving.
+            Choose a day, or choose Daily to schedule the same Start Time and Stop Time Sunday through Saturday. Start and Stop times may be selected by the minute, including programs that end after midnight.
           </div>
 
           <div id="scheduleEntries"></div>
@@ -3888,6 +3888,34 @@ function getProgramGroups(){
 
 /* PROGRAM EDITOR */
 
+/*
+  STOP TIME:
+  The database continues to store duration_minutes.
+  The editor now lets you choose an exact Stop Time
+  by the minute, and calculates duration automatically.
+*/
+function stopTimeFromStartAndDuration(
+  start="08:00",
+  duration=30
+){
+
+  const startMinutes=
+    mins(start);
+
+  const stopMinutes=
+    (
+      startMinutes+
+      Number(duration||0)
+    )%1440;
+
+  return `${String(
+    Math.floor(stopMinutes/60)
+  ).padStart(2,"0")}:${String(
+    stopMinutes%60
+  ).padStart(2,"0")}`;
+
+}
+
 function scheduleEntryHTML(
   day=0,
   start="08:00",
@@ -3934,33 +3962,17 @@ function scheduleEntryHTML(
       </div>
 
       <div>
-        <label>Program Length</label>
+        <label>Stop Time</label>
 
-        <select class="scheduleDuration">
-
-          ${[
-            [15,"15 Minutes"],
-            [30,"30 Minutes"],
-            [45,"45 Minutes"],
-            [60,"1 Hour"],
-            [75,"1 Hour 15 Minutes"],
-            [90,"1 Hour 30 Minutes"],
-            [105,"1 Hour 45 Minutes"],
-            [120,"2 Hours"],
-            [150,"2 Hours 30 Minutes"],
-            [180,"3 Hours"],
-            [240,"4 Hours"]
-          ].map(
-            ([value,label])=>
-            `<option
-              value="${value}"
-              ${Number(duration)===value?"selected":""}
-            >
-              ${label}
-            </option>`
-          ).join("")}
-
-        </select>
+        <input
+          class="scheduleStop"
+          type="time"
+          step="60"
+          value="${stopTimeFromStartAndDuration(
+            start,
+            duration
+          )}"
+        >
       </div>
 
       ${
@@ -4121,7 +4133,9 @@ $("addSchedule").onclick=()=>{
 
 function collectScheduleRows(common){
 
-  return [
+  let invalidSchedule=false;
+
+  const rows=[
     ...document
       .querySelectorAll(
         ".schedule-entry"
@@ -4136,8 +4150,19 @@ function collectScheduleRows(common){
         )
         .value;
 
-    if(!start){
+    const stop=
+      entry
+        .querySelector(
+          ".scheduleStop"
+        )
+        .value;
+
+    if(!start||!stop){
+
+      invalidSchedule=true;
+
       return [];
+
     }
 
     const dayValue=
@@ -4147,14 +4172,35 @@ function collectScheduleRows(common){
         )
         .value;
 
+    const startMinutes=
+      mins(start);
+
+    let stopMinutes=
+      mins(stop);
+
+    /*
+      A Stop Time earlier than the Start Time means
+      the program ends after midnight on the next day.
+      Example: 11:30 PM to 12:07 AM = 37 minutes.
+    */
+
+    if(stopMinutes<startMinutes){
+
+      stopMinutes+=1440;
+
+    }
+
+    if(stopMinutes===startMinutes){
+
+      invalidSchedule=true;
+
+      return [];
+
+    }
+
     const duration=
-      Number(
-        entry
-          .querySelector(
-            ".scheduleDuration"
-          )
-          .value
-      );
+      stopMinutes-
+      startMinutes;
 
     const makeRow=
       day=>({
@@ -4192,6 +4238,18 @@ function collectScheduleRows(common){
     ];
 
   });
+
+  if(invalidSchedule){
+
+    alert(
+      "Please enter both a Start Time and Stop Time. The Stop Time may be after midnight, but it cannot be exactly the same as the Start Time."
+    );
+
+    return null;
+
+  }
+
+  return rows;
 
 }
 
@@ -4239,6 +4297,10 @@ $("saveProgram").onclick=
       collectScheduleRows(
         common
       );
+
+    if(!rows){
+      return;
+    }
 
     if(!rows.length){
 

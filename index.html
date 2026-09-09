@@ -3970,10 +3970,10 @@ function scheduleEntryHTML(
 
     <div class="schedule-grid">
 
-      <div>
-        <label>Schedule Type</label>
+      <div class="scheduleDayWrap">
+        <label>Schedule</label>
 
-        <select class="scheduleRecurrence">
+        <select class="scheduleDay">
           <option
             value="daily"
             ${recurrence==="daily"?"selected":""}
@@ -3982,35 +3982,23 @@ function scheduleEntryHTML(
           </option>
 
           <option
-            value="weekly"
-            ${recurrence==="weekly"?"selected":""}
-          >
-            Repeat Weekly
-          </option>
-
-          <option
             value="once"
             ${recurrence==="once"?"selected":""}
           >
             One Time Only
           </option>
-        </select>
-      </div>
 
-      <div class="scheduleDayWrap">
-        <label>Day of Week</label>
-
-        <select class="scheduleDay">
+          <optgroup label="Repeat Weekly">
           ${DAYS.map(
             (name,index)=>
             `<option
               value="${index}"
-              ${String(day)===String(index)?"selected":""}
+              ${recurrence==="weekly"&&String(day)===String(index)?"selected":""}
             >
               ${name}
             </option>`
           ).join("")}
-
+          </optgroup>
         </select>
       </div>
 
@@ -4109,20 +4097,12 @@ function bindScheduleRemoveButtons(){
     )
     .forEach(entry=>{
 
-      const type=
-        entry.querySelector(
-          ".scheduleRecurrence"
-        );
-
       const updateVisibility=()=>{
 
-        const isWeekly=type.value==="weekly";
-        const isOnce=type.value==="once";
-
-        entry
-          .querySelector(".scheduleDayWrap")
-          .style.display=
-          isWeekly?"block":"none";
+        const isOnce=
+          entry
+            .querySelector(".scheduleDay")
+            .value==="once";
 
         entry
           .querySelector(".scheduleDateWrap")
@@ -4131,7 +4111,9 @@ function bindScheduleRemoveButtons(){
 
       };
 
-      type.onchange=updateVisibility;
+      entry
+        .querySelector(".scheduleDay")
+        .onchange=updateVisibility;
       updateVisibility();
 
     });
@@ -4279,11 +4261,15 @@ function collectScheduleRows(common){
         .value;
 
     const recurrence=
-      entry
-        .querySelector(
-          ".scheduleRecurrence"
-        )
-        .value;
+      dayValue==="daily"
+      ?
+      "daily"
+      :
+      dayValue==="once"
+      ?
+      "once"
+      :
+      "weekly";
 
     const airDate=
       entry

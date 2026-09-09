@@ -1475,7 +1475,7 @@ button,input,select,textarea{
           </h4>
 
           <div class="mini-note">
-            Choose a day, or choose Daily to schedule the same Start Time and Stop Time Sunday through Saturday. Start and Stop times may be selected by the minute, including programs that end after midnight.
+            Choose Daily, Repeat Weekly, or One Time Only. Daily uses the same Start Time and Stop Time Sunday through Saturday; One Time Only uses the exact date you choose. Start and Stop times may be selected by the minute, including programs that end after midnight.
           </div>
 
           <div id="scheduleEntries"></div>
@@ -1824,6 +1824,7 @@ let user=null;
 let adminRecord=null;
 let selectedDate=null;
 let editingGroupIds=[];
+let programEditorChannelId="";
 
 function roleName(role){
   return ROLE_NAMES[role]||role||"";
@@ -2149,6 +2150,15 @@ function occurrenceForLocalDate(
         etBase,
         i
       );
+
+    if(
+      p.air_date
+      &&
+      dateStr(ed)!==p.air_date
+    ){
+      continue;
+
+    }
 
     if(
       ed.getDay()!==
@@ -2895,7 +2905,18 @@ async function load(){
 
 function fillChannels(){
 
-  $("programChannel")
+  const select=$("programChannel");
+
+  /*
+    Refreshing data rebuilds the channel list. Keep the
+    channel that is already selected in an open editor so
+    a background refresh cannot silently switch it to WOTG.
+  */
+  const selected=
+    select.value||
+    programEditorChannelId;
+
+  select
     .innerHTML=
     channels
       .map(
@@ -2906,7 +2927,26 @@ function fillChannels(){
       )
       .join("");
 
+  if(
+    selected
+    &&
+    channels.some(c=>c.id===selected)
+  ){
+
+    select.value=selected;
+
+  }
+
+  programEditorChannelId=select.value||"";
+
 }
+
+$("programChannel").onchange=()=>{
+
+  programEditorChannelId=
+    $("programChannel").value||"";
+
+};
 
 /* VIEWER CONTROLS */
 
@@ -3920,7 +3960,9 @@ function scheduleEntryHTML(
   day=0,
   start="08:00",
   duration=30,
-  removable=true
+  removable=true,
+  recurrence="weekly",
+  airDate=""
 ){
 
   return `
@@ -3929,6 +3971,33 @@ function scheduleEntryHTML(
     <div class="schedule-grid">
 
       <div>
+        <label>Schedule Type</label>
+
+        <select class="scheduleRecurrence">
+          <option
+            value="daily"
+            ${recurrence==="daily"?"selected":""}
+          >
+            Daily
+          </option>
+
+          <option
+            value="weekly"
+            ${recurrence==="weekly"?"selected":""}
+          >
+            Repeat Weekly
+          </option>
+
+          <option
+            value="once"
+            ${recurrence==="once"?"selected":""}
+          >
+            One Time Only
+          </option>
+        </select>
+      </div>
+
+      <div class="scheduleDayWrap">
         <label>Day of Week</label>
 
         <select class="scheduleDay">
@@ -3942,13 +4011,17 @@ function scheduleEntryHTML(
             </option>`
           ).join("")}
 
-          <option
-            value="daily"
-            ${String(day)==="daily"?"selected":""}
-          >
-            Daily
-          </option>
         </select>
+      </div>
+
+      <div class="scheduleDateWrap">
+        <label>Air Date</label>
+
+        <input
+          class="scheduleDate"
+          type="date"
+          value="${airDate||""}"
+        >
       </div>
 
       <div>
@@ -4027,6 +4100,39 @@ function bindScheduleRemoveButtons(){
           .remove();
 
       };
+
+    });
+
+  document
+    .querySelectorAll(
+      ".schedule-entry"
+    )
+    .forEach(entry=>{
+
+      const type=
+        entry.querySelector(
+          ".scheduleRecurrence"
+        );
+
+      const updateVisibility=()=>{
+
+        const isWeekly=type.value==="weekly";
+        const isOnce=type.value==="once";
+
+        entry
+          .querySelector(".scheduleDayWrap")
+          .style.display=
+          isWeekly?"block":"none";
+
+        entry
+          .querySelector(".scheduleDateWrap")
+          .style.display=
+          isOnce?"block":"none";
+
+      };
+
+      type.onchange=updateVisibility;
+      updateVisibility();
 
     });
 
@@ -4172,6 +4278,20 @@ function collectScheduleRows(common){
         )
         .value;
 
+    const recurrence=
+      entry
+        .querySelector(
+          ".scheduleRecurrence"
+        )
+        .value;
+
+    const airDate=
+      entry
+        .querySelector(
+          ".scheduleDate"
+        )
+        .value;
+
     const startMinutes=
       mins(start);
 
@@ -4203,11 +4323,14 @@ function collectScheduleRows(common){
       startMinutes;
 
     const makeRow=
-      day=>({
+      (day,oneTimeDate=null)=>({
         ...common,
 
         day_of_week:
           Number(day),
+
+        air_date:
+          oneTimeDate,
 
         start_time:
           start+":00",
@@ -4224,12 +4347,36 @@ function collectScheduleRows(common){
       structure unchanged.
     */
 
-    if(dayValue==="daily"){
+    if(recurrence==="daily"){
 
       return DAYS.map(
         (_,dayIndex)=>
         makeRow(dayIndex)
       );
+
+    }
+
+    if(recurrence==="once"){
+
+      if(!airDate){
+
+        invalidSchedule=true;
+
+        return [];
+
+      }
+
+      const [year,month,date]=
+        airDate
+          .split("-")
+          .map(Number);
+
+      return [
+        makeRow(
+          new Date(year,month-1,date).getDay(),
+          airDate
+        )
+      ];
 
     }
 
@@ -4242,7 +4389,7 @@ function collectScheduleRows(common){
   if(invalidSchedule){
 
     alert(
-      "Please enter both a Start Time and Stop Time. The Stop Time may be after midnight, but it cannot be exactly the same as the Start Time."
+      "Please enter both a Start Time and Stop Time, and choose an Air Date for every One Time Only schedule. The Stop Time may be after midnight, but it cannot be exactly the same as the Start Time."
     );
 
     return null;
@@ -4471,6 +4618,8 @@ window.editProgram=id=>{
   $("programChannel").value=
     p.channel_id;
 
+  programEditorChannelId=p.channel_id;
+
   $("programTitle").value=
     p.title;
 
@@ -4514,7 +4663,9 @@ window.editProgram=id=>{
       p.day_of_week,
       p.start_time.slice(0,5),
       p.duration_minutes,
-      false
+      false,
+      p.air_date?"once":"weekly",
+      p.air_date||""
     );
 
   bindScheduleRemoveButtons();
@@ -4561,6 +4712,8 @@ function editProgramGroup(key){
 
   $("programChannel").value=
     first.channel_id;
+
+  programEditorChannelId=first.channel_id;
 
   $("programTitle").value=
     first.title;
@@ -4647,7 +4800,8 @@ function editProgramGroup(key){
         "daily",
         first.start_time.slice(0,5),
         first.duration_minutes,
-        false
+        false,
+        "daily"
       );
 
   }else{
@@ -4660,7 +4814,9 @@ function editProgramGroup(key){
           p.day_of_week,
           p.start_time.slice(0,5),
           p.duration_minutes,
-          index!==0
+          index!==0,
+          p.air_date?"once":"weekly",
+          p.air_date||""
         )
       ).join("");
 
@@ -5181,7 +5337,13 @@ function renderWeeklySchedule(){
 
       tr.innerHTML=
         `<td>${esc(c?.name||"")}</td>
-         <td>${DAYS[p.day_of_week]}</td>
+         <td>${
+           p.air_date
+           ?
+           `One time: ${esc(p.air_date)}`
+           :
+           DAYS[p.day_of_week]
+         }</td>
          <td>${fmt(mins(p.start_time))}</td>
          <td>${esc(p.title)}</td>
          <td>${esc(p.tag)}</td>

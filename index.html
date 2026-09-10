@@ -873,6 +873,15 @@ button,input,select,textarea{
   background:#fff;
 }
 
+.section-toolbar input{
+  min-width:220px;
+  padding:7px 9px;
+  border:1px solid #cbd3df;
+  border-radius:7px;
+  font:inherit;
+  background:#fff;
+}
+
 .program-list-search{
   width:100%;
   margin:0 0 10px;
@@ -1751,6 +1760,14 @@ button,input,select,textarea{
                 <option value="time">Time</option>
                 <option value="program">Program</option>
               </select>
+
+              <input
+                id="weeklyScheduleSearch"
+                type="search"
+                placeholder="Search weekly schedule..."
+                aria-label="Search weekly schedule"
+                autocomplete="off"
+              >
 
             </div>
 
@@ -5372,14 +5389,60 @@ $("scheduleSort")
   .onchange=
   renderWeeklySchedule;
 
+$("weeklyScheduleSearch")
+  .addEventListener(
+    "input",
+    renderWeeklySchedule
+  );
+
+$("weeklyScheduleSearch")
+  .addEventListener(
+    "search",
+    renderWeeklySchedule
+  );
+
 function renderWeeklySchedule(){
 
   const t=
     $("adminTable");
 
+  const query=
+    $("weeklyScheduleSearch")
+      ?.value
+      .trim()
+      .toLowerCase()||"";
+
   t.innerHTML="";
 
   sortedPrograms()
+    .filter(p=>{
+
+      if(!query) return true;
+
+      const channel=
+        channels.find(
+          x=>x.id===p.channel_id
+        );
+
+      const day=
+        p.air_date
+        ? `One time: ${p.air_date}`
+        : DAYS[p.day_of_week];
+
+      return [
+        channel?.name,
+        day,
+        fmt(mins(p.start_time)),
+        p.title,
+        p.tag,
+        `${p.duration_minutes} min`
+      ].some(value=>
+        String(value||"")
+          .toLowerCase()
+          .includes(query)
+      );
+
+    })
     .forEach(p=>{
 
       const c=

@@ -1140,7 +1140,7 @@ button,input,select,textarea{
 
         <div class="legend-item legend-movies">
           Movies
-          <span class="legend-pop">Christian Movies</span>
+          <span class="legend-pop">Movies</span>
         </div>
 
         <div class="legend-item legend-specials">
@@ -1177,7 +1177,7 @@ button,input,select,textarea{
     <option>News</option>
     <option>Children Programs</option>
     <option>Holiday Programs</option>
-    <option>Christian Movies</option>
+    <option>Movies</option>
     <option>Specials</option>
   </select>
 
@@ -1449,7 +1449,7 @@ button,input,select,textarea{
             <option>News</option>
             <option>Children Programs</option>
             <option>Holiday Programs</option>
-            <option>Christian Movies</option>
+            <option>Movies</option>
             <option>Specials</option>
           </select>
 
@@ -1697,6 +1697,7 @@ button,input,select,textarea{
               type="search"
               placeholder="Search saved programs..."
               aria-label="Search saved programs"
+              autocomplete="off"
             >
 
             <div class="table-wrap">
@@ -1986,7 +1987,7 @@ function catClass(t){
     "News":"news",
     "Children Programs":"children",
     "Holiday Programs":"holiday",
-    "Christian Movies":"movies",
+    "Movies":"movies",
     "Specials":"specials"
   }[t]||"variety";
 
@@ -5012,6 +5013,12 @@ function renderProgramList(){
 $("programListSearch")
   .addEventListener(
     "input",
+    renderProgramList
+  );
+
+$("programListSearch")
+  .addEventListener(
+    "search",
     renderProgramList
   );
 

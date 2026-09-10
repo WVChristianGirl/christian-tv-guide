@@ -145,6 +145,7 @@ button,input,select,textarea{
 .legend-news{background:#ffdcdc}
 .legend-children{background:#c9f4f0}
 .legend-holiday{background:#f3d5ec}
+.legend-movies{background:#ddd6fe}
 
 /* NEW SPECIALS COLOR */
 
@@ -402,6 +403,11 @@ button,input,select,textarea{
 .holiday{
   background:#f3d5ec;
   border-left:5px solid #b6498f;
+}
+
+.movies{
+  background:#ddd6fe;
+  border-left:5px solid #7c3aed;
 }
 
 /* NEW SPECIALS PROGRAM COLOR */
@@ -1121,6 +1127,11 @@ button,input,select,textarea{
           <span class="legend-pop">Holiday Programs</span>
         </div>
 
+        <div class="legend-item legend-movies">
+          Movies
+          <span class="legend-pop">Christian Movies</span>
+        </div>
+
         <div class="legend-item legend-specials">
           Specials
           <span class="legend-pop">Special Programs & Events</span>
@@ -1155,6 +1166,7 @@ button,input,select,textarea{
     <option>News</option>
     <option>Children Programs</option>
     <option>Holiday Programs</option>
+    <option>Christian Movies</option>
     <option>Specials</option>
   </select>
 
@@ -1426,6 +1438,7 @@ button,input,select,textarea{
             <option>News</option>
             <option>Children Programs</option>
             <option>Holiday Programs</option>
+            <option>Christian Movies</option>
             <option>Specials</option>
           </select>
 
@@ -1954,6 +1967,7 @@ function catClass(t){
     "News":"news",
     "Children Programs":"children",
     "Holiday Programs":"holiday",
+    "Christian Movies":"movies",
     "Specials":"specials"
   }[t]||"variety";
 

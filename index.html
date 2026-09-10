@@ -873,6 +873,17 @@ button,input,select,textarea{
   background:#fff;
 }
 
+.program-list-search{
+  width:100%;
+  margin:0 0 10px;
+  padding:9px 11px;
+  border:1px solid #cbd3df;
+  border-radius:7px;
+  font:inherit;
+  color:#172033;
+  box-sizing:border-box;
+}
+
 .table-wrap{
   overflow:auto;
 }
@@ -1679,6 +1690,14 @@ button,input,select,textarea{
             class="section-body"
             id="programListBody"
           >
+
+            <input
+              id="programListSearch"
+              class="program-list-search"
+              type="search"
+              placeholder="Search saved programs..."
+              aria-label="Search saved programs"
+            >
 
             <div class="table-wrap">
 
@@ -4893,9 +4912,36 @@ function renderProgramList(){
   const t=
     $("programListTable");
 
+  const query=
+    $("programListSearch")
+      ?.value
+      .trim()
+      .toLowerCase()||"";
+
   t.innerHTML="";
 
   getProgramGroups()
+    .filter(group=>{
+
+      if(!query) return true;
+
+      const channel=
+        channels.find(
+          x=>x.id===group.channel_id
+        );
+
+      return [
+        group.title,
+        group.tag,
+        channel?.name,
+        ...group.rows.map(p=>p.description)
+      ].some(value=>
+        String(value||"")
+          .toLowerCase()
+          .includes(query)
+      );
+
+    })
     .forEach(group=>{
 
       const c=
@@ -4962,6 +5008,12 @@ function renderProgramList(){
     });
 
 }
+
+$("programListSearch")
+  .addEventListener(
+    "input",
+    renderProgramList
+  );
 
 /* CHANNELS */
 

@@ -948,7 +948,7 @@ button,input,select,textarea{
 
 .schedule-grid{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr auto;
+  grid-template-columns:1fr 1fr 92px 92px 1fr auto;
   gap:8px;
   align-items:end;
 }
@@ -1508,7 +1508,7 @@ button,input,select,textarea{
           </h4>
 
           <div class="mini-note">
-            Choose Daily, Repeat Weekly, or One Time Only. Daily uses the same Start Time and Stop Time Sunday through Saturday; One Time Only uses the exact date you choose. Start and Stop times may be selected by the minute, including programs that end after midnight.
+            Choose Daily, Repeat Weekly, or One Time Only. Enter a Start Time and program Duration in Hours and Minutes; the Program End Time fills in automatically, including programs that end after midnight. Daily uses the same time on Sunday through Saturday, while One Time Only uses the exact date you choose.
           </div>
 
           <div id="scheduleEntries"></div>
@@ -3980,10 +3980,9 @@ function getProgramGroups(){
 /* PROGRAM EDITOR */
 
 /*
-  STOP TIME:
-  The database continues to store duration_minutes.
-  The editor now lets you choose an exact Stop Time
-  by the minute, and calculates duration automatically.
+  PROGRAM DURATION:
+  The database continues to store duration_minutes. The editor accepts
+  Hours and Minutes, then calculates the Program End Time automatically.
 */
 function stopTimeFromStartAndDuration(
   start="08:00",
@@ -4074,12 +4073,41 @@ function scheduleEntryHTML(
       </div>
 
       <div>
-        <label>Stop Time</label>
+        <label>Hours</label>
+
+        <input
+          class="scheduleDurationHours"
+          type="number"
+          min="0"
+          max="48"
+          step="1"
+          value="${Math.floor(Number(duration||0)/60)}"
+          aria-label="Program duration hours"
+        >
+      </div>
+
+      <div>
+        <label>Minutes</label>
+
+        <input
+          class="scheduleDurationMinutes"
+          type="number"
+          min="0"
+          max="59"
+          step="1"
+          value="${Number(duration||0)%60}"
+          aria-label="Program duration minutes"
+        >
+      </div>
+
+      <div>
+        <label>Program End Time</label>
 
         <input
           class="scheduleStop"
           type="time"
           step="60"
+          readonly
           value="${stopTimeFromStartAndDuration(
             start,
             duration
@@ -4103,6 +4131,51 @@ function scheduleEntryHTML(
     </div>
 
   </div>`;
+
+}
+
+function updateScheduleEndTime(entry){
+
+  const start=
+    entry
+      .querySelector(".scheduleStart")
+      .value;
+
+  const hours=
+    entry
+      .querySelector(".scheduleDurationHours")
+      .value;
+
+  const minutes=
+    entry
+      .querySelector(".scheduleDurationMinutes")
+      .value;
+
+  const duration=
+    Number(hours)*60+
+    Number(minutes);
+
+  if(
+    start&&
+    hours!==""&&
+    Number.isInteger(Number(hours))&&
+    Number(hours)>=0&&
+    minutes!==""&&
+    Number.isInteger(Number(minutes))&&
+    Number(minutes)>=0&&
+    Number(minutes)<60&&
+    duration>0
+  ){
+
+    entry
+      .querySelector(".scheduleStop")
+      .value=
+      stopTimeFromStartAndDuration(
+        start,
+        duration
+      );
+
+  }
 
 }
 
@@ -4166,6 +4239,17 @@ function bindScheduleRemoveButtons(){
         .querySelector(".scheduleDay")
         .onchange=updateVisibility;
       updateVisibility();
+
+      entry
+        .querySelectorAll(
+          ".scheduleStart, .scheduleDurationHours, .scheduleDurationMinutes"
+        )
+        .forEach(input=>{
+          input.oninput=()=>updateScheduleEndTime(entry);
+          input.onchange=()=>updateScheduleEndTime(entry);
+        });
+
+      updateScheduleEndTime(entry);
 
     });
 
@@ -4289,14 +4373,41 @@ function collectScheduleRows(common){
         )
         .value;
 
-    const stop=
+    const durationHoursText=
       entry
         .querySelector(
-          ".scheduleStop"
+          ".scheduleDurationHours"
         )
         .value;
 
-    if(!start||!stop){
+    const durationMinutesText=
+      entry
+        .querySelector(
+          ".scheduleDurationMinutes"
+        )
+        .value;
+
+    const durationHours=
+      Number(durationHoursText);
+
+    const durationMinutes=
+      Number(durationMinutesText);
+
+    const duration=
+      durationHours*60+
+      durationMinutes;
+
+    if(
+      !start||
+      durationHoursText===""||
+      !Number.isInteger(durationHours)||
+      durationHours<0||
+      durationMinutesText===""||
+      !Number.isInteger(durationMinutes)||
+      durationMinutes<0||
+      durationMinutes>59||
+      duration<=0
+    ){
 
       invalidSchedule=true;
 
@@ -4328,36 +4439,6 @@ function collectScheduleRows(common){
           ".scheduleDate"
         )
         .value;
-
-    const startMinutes=
-      mins(start);
-
-    let stopMinutes=
-      mins(stop);
-
-    /*
-      A Stop Time earlier than the Start Time means
-      the program ends after midnight on the next day.
-      Example: 11:30 PM to 12:07 AM = 37 minutes.
-    */
-
-    if(stopMinutes<startMinutes){
-
-      stopMinutes+=1440;
-
-    }
-
-    if(stopMinutes===startMinutes){
-
-      invalidSchedule=true;
-
-      return [];
-
-    }
-
-    const duration=
-      stopMinutes-
-      startMinutes;
 
     const makeRow=
       (day,oneTimeDate=null)=>({
@@ -4426,7 +4507,7 @@ function collectScheduleRows(common){
   if(invalidSchedule){
 
     alert(
-      "Please enter both a Start Time and Stop Time, and choose an Air Date for every One Time Only schedule. The Stop Time may be after midnight, but it cannot be exactly the same as the Start Time."
+      "Please enter a Start Time, a valid program Duration in Hours and Minutes, and an Air Date for every One Time Only schedule. Duration must be longer than zero minutes."
     );
 
     return null;

@@ -2286,6 +2286,52 @@ function displayOccurrences(){
 
   const out=[];
 
+  /*
+    A program that started yesterday may still be airing after midnight.
+    Show its Friday portion at the beginning of Friday's guide instead of
+    leaving the new day blank.
+  */
+  const selectedEasternDate=
+    easternDateFromLocalDate(
+      selectedDate
+    );
+
+  const selectedStart=
+    zonedTimeToInstant(
+      selectedEasternDate.getFullYear(),
+      selectedEasternDate.getMonth()+1,
+      selectedEasternDate.getDate(),
+      0,
+      0,
+      "America/New_York"
+    );
+
+  const previousDate=
+    addDays(
+      selectedDate,
+      -1
+    );
+
+  for(const p of programs){
+
+    const o=
+      occurrenceForLocalDate(
+        p,
+        previousDate
+      );
+
+    if(!o||o.end<=selectedStart) continue;
+
+    o.displayStartMinutes=0;
+    o.displayDurationMinutes=
+      (o.end-selectedStart)/60000;
+    o.isCarryOver=true;
+    o.isNextDay=false;
+
+    out.push(o);
+
+  }
+
   for(const p of programs){
 
     const o=
@@ -2302,6 +2348,8 @@ function displayOccurrences(){
         o.startParts.second/60;
 
       o.isNextDay=false;
+      o.displayDurationMinutes=
+        Number(p.duration_minutes);
 
       out.push(o);
 
@@ -2337,6 +2385,8 @@ function displayOccurrences(){
         nextMinutes;
 
       o.isNextDay=true;
+      o.displayDurationMinutes=
+        Number(p.duration_minutes);
 
       out.push(o);
 
@@ -2685,6 +2735,7 @@ function render(){
 
         const duration=
           Number(
+            o.displayDurationMinutes??
             p.duration_minutes
           );
 

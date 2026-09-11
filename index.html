@@ -1718,6 +1718,7 @@ button,input,select,textarea{
                     <th>Program</th>
                     <th>Channel</th>
                     <th>Category</th>
+                    <th>Duration</th>
                     <th>Airings</th>
                     <th>Actions</th>
                   </tr>
@@ -5006,6 +5007,37 @@ async function deleteProgramGroup(group){
 
 }
 
+function formatProgramDuration(minutes){
+
+  const total=
+    Math.max(
+      0,
+      Number(minutes)||0
+    );
+
+  const hours=
+    Math.floor(total/60);
+
+  const remainingMinutes=
+    total%60;
+
+  return [
+    hours
+    ?
+    `${hours} ${hours===1?"hr":"hrs"}`
+    :
+    "",
+    remainingMinutes
+    ?
+    `${remainingMinutes} min`
+    :
+    ""
+  ]
+  .filter(Boolean)
+  .join(" ")||"0 min";
+
+}
+
 function renderProgramList(){
 
   const t=
@@ -5029,10 +5061,22 @@ function renderProgramList(){
           x=>x.id===group.channel_id
         );
 
+      const durations=
+        [
+          ...new Set(
+            group.rows.map(p=>
+              formatProgramDuration(
+                p.duration_minutes
+              )
+            )
+          )
+        ];
+
       return [
         group.title,
         group.tag,
         channel?.name,
+        ...durations,
         ...group.rows.map(p=>p.description)
       ].some(value=>
         String(value||"")
@@ -5050,6 +5094,17 @@ function renderProgramList(){
           group.channel_id
         );
 
+      const durations=
+        [
+          ...new Set(
+            group.rows.map(p=>
+              formatProgramDuration(
+                p.duration_minutes
+              )
+            )
+          )
+        ].join(" · ");
+
       const tr=
         document.createElement(
           "tr"
@@ -5059,6 +5114,7 @@ function renderProgramList(){
         `<td>${esc(group.title)}</td>
          <td>${esc(c?.name||"")}</td>
          <td>${esc(group.tag||"")}</td>
+         <td>${esc(durations)}</td>
          <td>${group.rows.length}</td>
          <td></td>`;
 

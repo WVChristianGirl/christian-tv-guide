@@ -4004,7 +4004,8 @@ function getProgramGroups(){
 /*
   PROGRAM DURATION:
   The database continues to store duration_minutes. The editor accepts
-  Hours and Minutes, then calculates the Program End Time automatically.
+  Hours and Minutes or an exact Program End Time. Either choice updates
+  the other values automatically.
 */
 function stopTimeFromStartAndDuration(
   start="08:00",
@@ -4129,7 +4130,6 @@ function scheduleEntryHTML(
           class="scheduleStop"
           type="time"
           step="60"
-          readonly
           value="${stopTimeFromStartAndDuration(
             start,
             duration
@@ -4201,6 +4201,27 @@ function updateScheduleEndTime(entry){
 
 }
 
+function updateScheduleDuration(entry){
+
+  const start=
+    entry.querySelector(".scheduleStart").value;
+
+  const stop=
+    entry.querySelector(".scheduleStop").value;
+
+  if(!start||!stop) return;
+
+  const duration=
+    (mins(stop)-mins(start)+1440)%1440;
+
+  entry.querySelector(".scheduleDurationHours").value=
+    Math.floor(duration/60);
+
+  entry.querySelector(".scheduleDurationMinutes").value=
+    duration%60;
+
+}
+
 function bindScheduleRemoveButtons(){
 
   document
@@ -4262,14 +4283,20 @@ function bindScheduleRemoveButtons(){
         .onchange=updateVisibility;
       updateVisibility();
 
+      entry.querySelector(".scheduleStart").onchange=
+        ()=>updateScheduleEndTime(entry);
+
       entry
         .querySelectorAll(
-          ".scheduleStart, .scheduleDurationHours, .scheduleDurationMinutes"
+          ".scheduleDurationHours, .scheduleDurationMinutes"
         )
         .forEach(input=>{
           input.oninput=()=>updateScheduleEndTime(entry);
           input.onchange=()=>updateScheduleEndTime(entry);
         });
+
+      entry.querySelector(".scheduleStop").onchange=
+        ()=>updateScheduleDuration(entry);
 
       updateScheduleEndTime(entry);
 

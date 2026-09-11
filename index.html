@@ -1449,6 +1449,7 @@ button,input,select,textarea{
 
           <input id="programId" type="hidden">
           <input id="programEditMode" type="hidden" value="new">
+          <input id="programCopySourceChannel" type="hidden">
 
           <label>Channel</label>
           <select id="programChannel"></select>
@@ -1553,6 +1554,14 @@ button,input,select,textarea{
               id="saveProgram"
             >
               Save Program
+            </button>
+
+            <button
+              class="secondary"
+              id="copyProgramToChannel"
+              type="button"
+            >
+              Save to Another Channel
             </button>
 
             <button
@@ -4361,6 +4370,8 @@ function resetProgramEditor(){
 
   $("programId").value="";
   $("programEditMode").value="new";
+  $("programCopySourceChannel").value="";
+  $("saveProgram").textContent="Save Program";
   $("programTitle").value="";
   $("programSubtitle").value="";
   $("programDescription").value="";
@@ -4418,6 +4429,30 @@ $("cancelProgram").onclick=()=>{
   editingGroupIds=[];
 
   reportGuideHeight();
+
+};
+
+$("copyProgramToChannel").onclick=()=>{
+
+  const sourceChannel=
+    $("programChannel").value;
+
+  if(!sourceChannel){
+    return alert("Please choose the program's current channel first.");
+  }
+
+  /* Keep every program detail and schedule entry, but make the next
+     save an insert for a different channel instead of an edit. */
+  $("programId").value="";
+  $("programEditMode").value="new";
+  $("programCopySourceChannel").value=sourceChannel;
+  editingGroupIds=[];
+
+  $("saveProgram").textContent="Save to New Channel";
+
+  alert(
+    "All program information has been kept. Choose the other channel, then click Save to New Channel."
+  );
 
 };
 
@@ -4691,6 +4726,14 @@ $("saveProgram").onclick=
       $("programId")
         .value;
 
+    if(
+      mode==="new"&&
+      $("programCopySourceChannel").value===channelId
+    ){
+      alert("Please choose a different channel before saving this copy.");
+      return;
+    }
+
     if(mode==="group"){
 
       const oldIds=[
@@ -4831,6 +4874,9 @@ window.editProgram=id=>{
     .style.display=
     "block";
 
+  $("programCopySourceChannel").value="";
+  $("saveProgram").textContent="Update Program";
+
   $("programEditMode")
     .value=
     "single";
@@ -4930,6 +4976,9 @@ function editProgramGroup(key){
   $("programEditor")
     .style.display=
     "block";
+
+  $("programCopySourceChannel").value="";
+  $("saveProgram").textContent="Update Program";
 
   $("programEditMode")
     .value=
